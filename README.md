@@ -1,8 +1,8 @@
 # CptS 322 Term Project
-### Project Title: 
-### Team Name :  <enter your team name here> 
+### Project Title: Academic Research Hub 
+### Team Name: `mowthelawn` 
 ### Team Members 
-* member 1
-* member 2
-* member 3
-* member 4
+* Calell Figuerres (Team Liason)
+* Gabe Hartz
+* Alex Larsen
+* Erick Pairault
