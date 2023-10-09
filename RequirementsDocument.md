@@ -42,40 +42,38 @@ Prepared by:
 | Name | Date | Changes | Version |
 | ------ | ------ | --------- | --------- |
 |Revision 1 |2023-10-05 |Initial draft | 1.0        |
-|      |      |         |         |
+|Revision 2|      |         |         |
 |      |      |         |         |
 
 ----
 # 1. Introduction
 
-This section should provide an overview of the entire document
+This is an application where students can find job positionings demanding a certain set of skills that are posted by professors. To create such application, we will used Flask as our base functionality, SQL alchemy for our database, HTML for templates, CSS for styling, and maybe Bootstrap for more styling. 
 
 ## 1.1 Document Purpose
 
-Describe the purpose of the Software Requirement Specification (SRS) document and its intended audience.
+The purpose of this document is to create a foundation of ideas of our project to make sure all group members are on the same page.
 
 ## 1.2 Product Scope
 
-Identify the product whose software requirements are specified in this document. Explain what the product that is covered by this SRS will do. Provide a short description of the software being specified and its purpose, including relevant benefits, objectives, and goals.
+The purpose of our application is to create a convient and easy connection between professors creating research opportunities and students for looking those oppotunities. Both parties should be able to have a secured account with login. Professors will be able to post opportunities and view student applications. Students will be able to browse posted opportunities and apply. 
 
 ## 1.3 Document Overview
 
-Describe what the rest of the document contains and how it is organized.
+The rest of the document will go indepth on both functional and nonfunctional requirements. Going over what the end goal is for each user, we will create a list of use cases that will then shape the functionality of our system.
 
 ----
 # 2. Requirements Specification
-
 This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those requirements.
 
 ## 2.1 Customer, Users, and Stakeholders
 
-A brief description of the customer, stakeholders, and users of your software.
-
+The main users of this application will be students and professors. The customer and stakeholer in this scenario will be the instituion that makes use of this software.
 
 ----
 ## 2.2 Use Cases
 
-This section will include the specification for your project in the form of use cases. The section should start with a short description of the actors involved (e.g., regular user, administrator, etc.) and then follow with a list of the use cases.
+This section will go over all use case for all iterations of the project. Each use case will be either from the perspective of the professor or student.
 
 For each use case you should have the following:
 
@@ -91,6 +89,18 @@ For each use case you should have the following:
 Each use case should also have a field called "Iteration" where you specify in which iteration you plan to implement this feature.
 
 You may use the following table template for your use cases. Copy-paste this table for each use case you will include in your document.
+
+| Use case # 1      |As a student, I want to be able to register an account|
+| ------------------ |--|
+| Name              | Add registration  |
+| Users             | Student  |
+| Rationale         | A student needs to be able to create an account  |
+| Triggers          | A student clicks on the sign in page or create account  |
+| Preconditions     | Account cannot already exist when registering.   |
+| Actions           | 1. A student clicks on the "Sign in" page <br>2. They click 'register' for account <br>3. They input they information like username, password, and email. <br>4. System will check validation of submission (character limitations and required fields) <br>5. If passed validation, a new user account will be created for the student and their information stored in the system |
+| Postconditions    |Student account is now in the database  |
+| Acceptance tests  |Add a student either in python or through the app and query the database manually  |
+| Iteration         |Iteration 2  |
 
 | Use case # 1      |   |
 | ------------------ |--|
