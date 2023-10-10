@@ -95,26 +95,99 @@ You may use the following table template for your use cases. Copy-paste this tab
 | Name              | Add registration  |
 | Users             | Student  |
 | Rationale         | A student needs to be able to create an account  |
-| Triggers          | A student clicks on the sign in page or create account  |
+| Triggers          | A student navigates to registration  |
 | Preconditions     | Account cannot already exist when registering.   |
 | Actions           | 1. A student clicks on the "Sign in" page <br>2. They click 'register' for account <br>3. They input they information like username, password, and email. <br>4. System will check validation of submission (character limitations and required fields) <br>5. If passed validation, a new user account will be created for the student and their information stored in the system |
+|Alternative Path | If the account already exists, then the user will just be redirected to the same page upon submission.
 | Postconditions    |Student account is now in the database  |
 | Acceptance tests  |Add a student either in python or through the app and query the database manually  |
 | Iteration         |Iteration 2  |
 
-| Use case # 1      |   |
+| Use case # 2      |  As a user, I want to be able to log into my account |
 | ------------------ |--|
-| Name              | "enter your reponse here"  |
-| Users             | "enter your reponse here"  |
-| Rationale         | "enter your reponse here"  |
-| Triggers          | "enter your reponse here"  |
-| Preconditions     | "enter your reponse here"  |
-| Actions           | "enter your reponse here"  |
-| Alternative paths | "enter your reponse here"  |
-| Postconditions    | "enter your reponse here"  |
-| Acceptance tests  | "enter your reponse here"  |
-| Iteration         | "enter your reponse here"  |
+| Name              | Add Login  |
+| Users             | Student  |
+| Rationale         | Accounts have all your information and are how studnets apply. They must be able to login |
+| Triggers          |  Student navigates to login page |
+| Preconditions     | Page is already loaded and student is not already signed in |
+| Actions           |  1. Student enters into the signin page <br> 2. Student enters their username and password <br> 3. System will check validation of fields and query the database for a match <br> 4. If succesfull, Student is navigated to the home page with their account |
+| Alternative paths | Submission is invalid and student is navigated to the same login page with errors  |
+| Postconditions    | Student user is now in their account  |
+| Acceptance tests  | Test via creating a user and logging in  |
+| Iteration         | Iteration 2  |
 
+| Use case # 2      ||
+| ------------------ |--|
+| Name              | |
+| Users             | |
+| Rationale         | |
+| Triggers          | |
+| Preconditions     | |
+| Actions           | |
+| Postconditions    | |
+| Acceptance tests  | |
+| Iteration         | |
+
+| Use case # 2      ||
+| ------------------ |--|
+| Name              | |
+| Users             | |
+| Rationale         | |
+| Triggers          | |
+| Preconditions     | |
+| Actions           | |
+| Postconditions    | |
+| Acceptance tests  | |
+| Iteration         | |
+
+| Use case # 2      ||
+| ------------------ |--|
+| Name              | |
+| Users             | |
+| Rationale         | |
+| Triggers          | |
+| Preconditions     | |
+| Actions           | |
+| Postconditions    | |
+| Acceptance tests  | |
+| Iteration         | |
+
+| Use case # 2      ||
+| ------------------ |--|
+| Name              | |
+| Users             | |
+| Rationale         | |
+| Triggers          | |
+| Preconditions     | |
+| Actions           | |
+| Postconditions    | |
+| Acceptance tests  | |
+| Iteration         | |
+
+| Use case # 2      ||
+| ------------------ |--|
+| Name              | |
+| Users             | |
+| Rationale         | |
+| Triggers          | |
+| Preconditions     | |
+| Actions           | |
+| Postconditions    | |
+| Acceptance tests  | |
+| Iteration         | |
+
+| Use case # 14      | As a teacher I want to be able to approve a student for an Interview  |
+| ------------------ |--|
+| Name              | "Approve for Interview"  |
+| Users             | " Faculty Users "  |
+| Rationale         | "A faculty user after having reviewed a student’s profile should be able to have the ability to approve the or decline a student for an interview. This is also relevant for the student who should be able to check their application later to see if they were accepted or not for an interview."  |
+| Triggers          | "The faculty selects the “Approve/Decline for interview” option."  |
+| Preconditions     | "There are student applications for the research position the faculty has posted/ is looking at."  |
+| Actions           | "1. The user selects a research position they have posted.<br>2. The software displays the list of students who have applied for the position.<br>3. The faculty selects “Approve/Decline for interview” for the application(s) they desire.<br>4. The software asks for confirmation from the user.<br>5. The user selects their choice.<br>6. The software updates the application(s) according to the choice."  |
+| Alternative paths | "1. In step 3, the user can select multiple applications to Approve or Decline for interview at a time. In the case they ch"  |
+| Postconditions    | "Student Applications for the research position will have “Approved/Rejected for interview” updated on their application."  |
+| Acceptance tests  | "Make sure that all applications the user accepted or rejected have been appropriately displayed on their profile."  |
+| Iteration         | "Iteration-3"  |
 ----
 ## 2.3 Non-Functional Requirements
 
