@@ -176,18 +176,59 @@ You may use the following table template for your use cases. Copy-paste this tab
 | Acceptance tests  | |
 | Iteration         | |
 
-| Use case # 14      | As a teacher I want to be able to approve a student for an Interview  |
+| Use case # 13      |   |
 | ------------------ |--|
-| Name              | "Approve for Interview"  |
-| Users             | " Faculty Users "  |
-| Rationale         | "A faculty user after having reviewed a student’s profile should be able to have the ability to approve the or decline a student for an interview. This is also relevant for the student who should be able to check their application later to see if they were accepted or not for an interview."  |
-| Triggers          | "The faculty selects the “Approve/Decline for interview” option."  |
-| Preconditions     | "There are student applications for the research position the faculty has posted/ is looking at."  |
-| Actions           | "1. The user selects a research position they have posted.<br>2. The software displays the list of students who have applied for the position.<br>3. The faculty selects “Approve/Decline for interview” for the application(s) they desire.<br>4. The software asks for confirmation from the user.<br>5. The user selects their choice.<br>6. The software updates the application(s) according to the choice."  |
-| Alternative paths | "1. In step 3, the user can select multiple applications to Approve or Decline for interview at a time. In the case they ch"  |
-| Postconditions    | "Student Applications for the research position will have “Approved/Rejected for interview” updated on their application."  |
-| Acceptance tests  | "Make sure that all applications the user accepted or rejected have been appropriately displayed on their profile."  |
-| Iteration         | "Iteration-3"  |
+| Name              | View Student Qualifications  |
+| Users             | Faculty Users  |
+| Rationale         | A faculty user should be able to view the qualifications of a student to make an informed decision as to whether or not they should proceed with approving them for an interview.  |
+| Triggers          | The faculty selects “View Student Qualifications”.  |
+| Preconditions     | Student(s) have applied for the research position, and the student(s) have all the appropriate criteria filled out.  |
+| Actions           | 1. The user selects “View Student Qualifications”.<br>2. The software displays the student’s GPA, technical elective courses they have taken, research topics they are interested in, programming languages they have experience with, and prior research experience.  |
+| Alternative paths | 1. After step 2, the user may choose to close the page that displays the student’s qualifications.  |
+| Postconditions    | The student’s information is displayed to the faulty user.  |
+| Acceptance tests  | Make sure that the student’s information that is displayed correctly contains their GPA, technical elective courses, research topics, programming language, and prior research experience.  |
+| Iteration         | Iteration 2  |
+
+| Use case # 14      |   |
+| ------------------ |--|
+| Name              | Approve for Interview  |
+| Users             | Faculty Users  |
+| Rationale         | A faculty user after having reviewed a student’s profile, should be able to have the ability to approve or decline the student for an interview. This is also relevant for the student who should be able to check their application later to see if they were accepted or not for an interview.  |
+| Triggers          | The faculty selects the “Approve/Decline for interview” option.  |
+| Preconditions     | There are student applications for the research position the faculty has posted/ is looking at.  |
+| Actions           | 1. The user selects a research position they have posted.<br>2. The software displays the list of students who have applied for the position.<br>3. The faculty selects “Approve/Decline for interview” for the application(s) they desire.<br>4. The software asks for confirmation from the user.<br>5. The user selects their choice.<br>6. The software updates the application(s) according to the choice.  |
+| Alternative paths | 1. In step 3, the user can select multiple applications to Approve or Decline for interview at a time. In the case they choose multiple, the software will specify all the applications that have been selected for Approval/Rejection for confirmation.<br>2. In step 5, the user can select to not confirm their selection the software will return to the list of students that have applied for the position.  |
+| Postconditions    | Student Applications for the research position will have “Approved/Rejected for interview” updated on their application.  |
+| Acceptance tests  | Make sure that all applications the user accepted or rejected have been appropriately displayed on their profile.  |
+| Iteration         | Iteration 3  |
+
+
+| Use case # 15      |   |
+| ------------------ |--|
+| Name              | Update Status of Application  |
+| Users             | Faculty Users  |
+| Rationale         | A faculty user after having interviewed a student, should be able to have the ability to hire or reject a student for the position. This is also relevant for the student who should be able to check their application later to see if they were accepted or not for the research position.  |
+| Triggers          | The faculty selects the “Hire/Decline” option. |
+| Preconditions     | There are student applications for the research position the faculty has posted, and the application the user is looking at has already been “Approved for Interview”. |
+| Actions           | 1. The user selects a research position they have posted.<br>2. The software displays the list of students who have applied for the position.<br>3. The user selects a student application that has already been “Approved for Interview”.<br>4. The software displays the student application.<br>5. The user selects “Update Status of Application”.<br>6. The software asks “Hire/Decline”.<br>7. The user selects their choice.<br>8. The software asks for confirmation from the user.<br>9. The user selects their choice.<br>10. The software updates the application according to the choice.  |
+| Alternative paths | 1. In step 3, the user may select an application that has not been “Approved for Interview” and in this case when the user selects “Update Status of Application” the software will not display the options to “Hire/Decline”.<br>2. In step 9, if the user chooses to not confirm their choice the software will return to the student application.  |
+| Postconditions    | Student Applications for the research position will have “Hired/Declined” updated on their application.  |
+| Acceptance tests  | Make sure that all applications the user hired or declined have been appropriately displayed on their profile.  |
+| Iteration         | Iteration 3  |
+
+
+| Use case # 16      |   |
+| ------------------ |--|
+| Name              | Delete Research Position  |
+| Users             | Faculty Users  |
+| Rationale         | A faculty user may need to delete a research position because all the slots are filled, there wasn’t enough funding, or because an error that requires the position to be removed.  |
+| Triggers          | The faculty selects “Delete Research Position”.  |
+| Preconditions     | The research position already exists.  |
+| Actions           | 1. The user selects “Delete Research Position”.<br>2. The software asks for confirmation from the user.<br>3. The user selects “yes”.<br>4. The software removes the research position and updates all the applications for the position. |
+| Alternative paths | 1. In step 3, the user may select no, and the software returns to the research position page.  |
+| Postconditions    | The research position doesn’t exist and application for the position show “Position is not available”.  |
+| Acceptance tests  | Make sure that the research position no longer appears and that on the status of all applications it is stated “Position is not available”.  |
+| Iteration         | Iteration 3  |
 ----
 ## 2.3 Non-Functional Requirements
 
