@@ -107,7 +107,7 @@ You may use the following table template for your use cases. Copy-paste this tab
 | ------------------ |--|
 | Name              | Add Login  |
 | Users             | Student  |
-| Rationale         | Accounts have all your information and are how studnets apply. They must be able to login |
+| Rationale         | Accounts have all your information and are how students apply to positions. They must be able to login to access these features |
 | Triggers          |  Student navigates to login page |
 | Preconditions     | Page is already loaded and student is not already signed in |
 | Actions           |  1. Student enters into the signin page <br> 2. Student enters their username and password <br> 3. System will check validation of fields and query the database for a match <br> 4. If succesfull, Student is navigated to the home page with their account |
@@ -116,67 +116,126 @@ You may use the following table template for your use cases. Copy-paste this tab
 | Acceptance tests  | Test via creating a user and logging in  |
 | Iteration         | Iteration 2  |
 
-| Use case # 2      ||
+| Use case # 3      | As a student, I want to review the open positions|
 | ------------------ |--|
-| Name              | |
-| Users             | |
-| Rationale         | |
-| Triggers          | |
-| Preconditions     | |
-| Actions           | |
-| Postconditions    | |
-| Acceptance tests  | |
-| Iteration         | |
+| Name              | Add position review|
+| Users             | Student |
+| Rationale         | Students must be able to search and see applications to apply to them|
+| Triggers          | Students navigate to the applications page |
+| Preconditions     | Student is signed in and the page is loaded correctly|
+| Actions           |1. Student navigates to the applications page <br> 2. Applications are openly displayed <br> 3. Student can choose their interests that will then reorganize to be in the order of the student interests |
+| Alternative paths | Student is not signed in and is redirected to the login page when trying to enter the applications page|
+| Postconditions    | Student can view the applications they want |
+| Acceptance tests  |Go into the website with a student user with applications already created by faculty, and see if applications display correctly and if they can be ordered to preference.|
+| Iteration         | Iteration 1|
 
-| Use case # 2      ||
+| Use case # 4      | As a student, I want to read an applications details and descriptions|
 | ------------------ |--|
-| Name              | |
-| Users             | |
-| Rationale         | |
-| Triggers          | |
-| Preconditions     | |
-| Actions           | |
-| Postconditions    | |
-| Acceptance tests  | |
-| Iteration         | |
+| Name              | Add application details |
+| Users             | Student |
+| Rationale         | When looking for positions, a student needs to be able to see the qualifications and details of each position|
+| Triggers          | Student navigates to the applications page |
+| Preconditions     | Student is signed in, page is already loaded, and the student may click on the application for more details |
+| Actions           | 1. Student navigated to the applications page <br> 2. Applications are displayed with some information and may be ordered to preference <br> 3. Student opens an application where all details of the position are viewable|
+| Alternative paths | Student is not signed in and is sent to the login page when trying to navigate into the applications page|
+| Postconditions    | Student knows about the application |
+| Acceptance tests  | Go into the website and check if the student can see basic application information on the applciations page. Then, enter a specific application and see if the application details are all viewable and correct.|
+| Iteration         |Iteration 1 |
 
-| Use case # 2      ||
+| Use case # 5      | As a student, I want to be able to apply to research positions  |
 | ------------------ |--|
-| Name              | |
-| Users             | |
-| Rationale         | |
-| Triggers          | |
-| Preconditions     | |
-| Actions           | |
-| Postconditions    | |
-| Acceptance tests  | |
-| Iteration         | |
+| Name              | "Apply for research positions."  |
+| Users             | "Students."  |
+| Rationale         | "A student needs to be able to apply for a research position."  |
+| Triggers          | "A student chooses to apply for a research position."  |
+| Preconditions     | "The student has not yet applied to the position."  |
+| Actions           | "1. The student selects a research position that is posted.<br>2. The software displays the position information and the option for the student to apply.<br>3. The student selects “Apply for postion” for the positions they desire.<br>4. The software updates the user's current list of applied positions, the software updates the current list of users that applied for the postion.<br>5. The student is alerted that they are now sucessfully applied for the position."  |
+| Alternative paths | "1. In Step 3 the student does not apply for the position and comesback to the home page.<br> 2. In step 5 the application coudn't handle the student's request and alerts that the application was not sucessful."  |
+| Postconditions    | "The software updates the user's current list of applied positions, and the current list of users that applied for the postion."  |
+| Acceptance tests  | "1. Search in the database model for the student if they are applied for the desired position.<br> 2. Search in the database model for research position if the student is listed in the applicants."  |
+| Iteration         | "Iteration 4."  |
 
-| Use case # 2      ||
+| Use case # 6      | As a student, I want to be able to see the status of my applied applications |
 | ------------------ |--|
-| Name              | |
-| Users             | |
-| Rationale         | |
-| Triggers          | |
-| Preconditions     | |
-| Actions           | |
-| Postconditions    | |
-| Acceptance tests  | |
-| Iteration         | |
+| Name              | "Check current state of applied positions."  |
+| Users             | "Students."  |
+| Rationale         | "A student needs to be able to view the research positions they already applied to and check the statuses of their applications."  |
+| Triggers          | "A student chooses to see the current positions they applied for."  |
+| Preconditions     | "The page containing the current positions applied for a student is already loaded."  |
+| Actions           | "1. The student selects the option to view their current applied positions.<br>2. The software imports the list of positions from the database that matches the one from the current student.<br>3. The software displays the list of positions applied and the status of each of the positions which include: Pending, Approved for Interview, Hired, and Not Hired.|
+| Alternative paths | "1. In Step 2 the application could not handle the student's request and alerts the student that the data could not be retrived."  |
+| Postconditions    | "The software displays the list of positions applied and the status of each of the positions."  |
+| Acceptance tests  | "1. Check the status of the response to the request made by the student to the server."  |
+| Iteration         | "Iteration 5"  |
 
-| Use case # 2      ||
+| Use case # 7      | As a student, I want to be to able to pull out of an application I applied to |
 | ------------------ |--|
-| Name              | |
-| Users             | |
-| Rationale         | |
-| Triggers          | |
-| Preconditions     | |
-| Actions           | |
-| Postconditions    | |
-| Acceptance tests  | |
-| Iteration         | |
+| Name              | "Withdraw from current applicaitions."  |
+| Users             | "Students."  |
+| Rationale         | "If the student is no longer interested in a research position, they can withdraw their application."  |
+| Triggers          | "A student chooses to withdrawn from a position that they applied for in the past."  |
+| Preconditions     | "The student is currently applied for a position."  |
+| Actions           | "1. The student selects the option to view their current applied positions.<br>2. The software imports the list of positions from the database that matches the one from the current student.<br>3. The software displays the list of positions applied and the status of each of the positions which include and the option for the student to withdraw from the position.<br>4. The student selects the option to withdraw from the desired position.<br>5. The application updates the database with the new status for the current student applications and the target position applicants.<br>6. The application reloads the page with the updated list of positions applied for the student.|
+| Alternative paths | "1. In Step 6 the application could not handle the student's request and alerts the student that they could not withdraw sucessfully from the desired applicaition."  |
+| Postconditions    | "The software displays the updated list of positions applied."  |
+| Acceptance tests  | "1. Check the status of the response to the request made by the student to the server."  |
+| Iteration         | "Iteration 5"  |
 
-| Use case # 13      |   |
+| Use case # 9      | As a faculty member, I want to be able to create an account |
+| ------------------ |--|
+| Name              | "Create a faculty account and enter profile information."  |
+| Users             | "Faculty."  |
+| Rationale         | "Set a faculty account with username and password, name, last name, WSU ID, email, and phone."  |
+| Triggers          | "A member of faculty that does not have an account chooses to create one."  |
+| Preconditions     | "The faculty member does not have an account registered in the system."  |
+| Actions           | "1. The user enters the website and is prompted to log in or register.<br>2. The user chooses the register option and is redirected to the register page.<br>3. A form is displayed for the user to input their information.<br>4. The form is validated and its information is uploaded to the database, the user is considered to be registered in the system.<br>5. The user is redirected to the login page and alerted that the they were sucessfully registered.
+| Alternative paths | "1. In Step 4 the form could not be validated and the user is flashed with the errors returned by the flask-form."<br>2. The user is redirected to the register page.  |
+| Postconditions    | "The user is now registered in the system, with the updated database carrying their data."  |
+| Acceptance tests  | "1. Check the status of the response to the request made by the user to the server."  |
+| Iteration         | "Iteration 3"  |
+
+| Use case # 10      | As a faculty member, I can register an account |
+| ------------------ |--|
+| Name               | Add faculty registration |
+| Users              | Faculty members |
+| Rationale          | Faculty members need to be able to register accounts |
+| Triggers           | Faculty member chooses registration option |
+| Preconditions      | Registration page is already loaded |
+| Actions            | 1. Faculty member enters registration page <br> 2. Faculty member gives name, email, password, etc. <br> 3. Backend validates input values <br> 4. If validation passes, a new faculty account is created and stored |
+| Alternative Path   | A faculty member attempts to sign in using unknown credentials, they'll be prompted if they want to register |
+| Postconditions     | Faculty account is now in database |
+| Acceptance tests   | Added faculty member in Python or through app and query database |
+| Iteration          | Iteration 2 |
+
+
+| Use case # 11      | As a faculty member, I want to be able to login to my account |
+| ------------------ |--|
+| Name               | Add login |
+| Users              | Faculty members |
+| Rationale          | Accounts have all user information and how faculty create applications; therefore, they must be able to login |
+| Triggers           | Faculty member navigates to login page |
+| Preconditions      | Page is loaded and they're not already signed in |
+| Actions            | 1. Faculty member navigates to sign in page <br> 2. They enter their username and password <br> 3. Backend validates input and queries database for matching identity <br> 4. If successful, faculty member is navigated to home page and logged in |
+| Alternative Path   | Validation fails and they're redirected to the same page with errors shown |
+| Postconditions     | Faculty member is now logged in |
+| Acceptance tests   | Create a user and attempt to log in |
+| Iteration          | Iteration 2 |
+
+
+| Use case # 12      | As a faculty member, I want to create undergraduate research positions |
+| ------------------ |--|
+| Name               | Add research position creation |
+| Users              | Faculty members |
+| Rationale          | Faculty members want to be able to create UG research positions of undergrads to apply for |
+| Triggers           | Faculty member navigates to undergrad research position creation page |
+| Preconditions      | The page is loaded; the signed-in user is a faculty member |
+| Actions            | 1. Faculty member navigates to research position creation page <br> 2. Member provides application info (title, description, start/end date, etc.) <br> 3. Backend validates member's inputs <br> 4. If successful, the application is added to the database |
+| Alternative Path   | Validation fails and they're redirected to the same page with errors shown |
+| Postconditions     | A new research position application is created |
+| Acceptance tests   | Create a research position application |
+| Iteration          | Iteration 1 |
+
+| Use case # 13      | As a faculty member, I want to be able to view a students qualifications to see if they fit the position |
 | ------------------ |--|
 | Name              | View Student Qualifications  |
 | Users             | Faculty Users  |
@@ -189,7 +248,7 @@ You may use the following table template for your use cases. Copy-paste this tab
 | Acceptance tests  | Make sure that the student’s information that is displayed correctly contains their GPA, technical elective courses, research topics, programming language, and prior research experience.  |
 | Iteration         | Iteration 2  |
 
-| Use case # 14      |   |
+| Use case # 14      | As a faculty member, I want to be able to approve or reject a student's application  |
 | ------------------ |--|
 | Name              | Approve for Interview  |
 | Users             | Faculty Users  |
@@ -203,7 +262,7 @@ You may use the following table template for your use cases. Copy-paste this tab
 | Iteration         | Iteration 3  |
 
 
-| Use case # 15      |   |
+| Use case # 15      | As a faculty member, I want to be able to I want to be able to change the status of an application.  |
 | ------------------ |--|
 | Name              | Update Status of Application  |
 | Users             | Faculty Users  |
@@ -217,7 +276,7 @@ You may use the following table template for your use cases. Copy-paste this tab
 | Iteration         | Iteration 3  |
 
 
-| Use case # 16      |   |
+| Use case # 16      | As a faculty member, I want to be able to take down positions I posted |
 | ------------------ |--|
 | Name              | Delete Research Position  |
 | Users             | Faculty Users  |
