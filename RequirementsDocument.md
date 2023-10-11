@@ -91,17 +91,19 @@ Each use case should also have a field called "Iteration" where you specify in w
 You may use the following table template for your use cases. Copy-paste this table for each use case you will include in your document.
 
 | Use case # 1      |As a student, I want to be able to register an account|
-| ------------------ |--|
+| ----------------- |--|
 | Name              | Add registration  |
 | Users             | Student  |
 | Rationale         | A student needs to be able to create an account  |
 | Triggers          | A student navigates to registration  |
 | Preconditions     | Account cannot already exist when registering.   |
-| Actions           | 1. A student clicks on the "Sign in" page <br>2. They click 'register' for account <br>3. They input they information like username, password, and email. <br>4. System will check validation of submission (character limitations and required fields) <br>5. If passed validation, a new user account will be created for the student and their information stored in the system |
-|Alternative Path | If the account already exists, then the user will just be redirected to the same page upon submission.
-| Postconditions    |Student account is now in the database  |
-| Acceptance tests  |Add a student either in python or through the app and query the database manually  |
-| Iteration         |Iteration 2  |
+| Actions           | 1. A student chooses on the "Sign in" option <br> 2. System displays login page <br> 3. User selects register option <br> 4. System displays register form <br> 5. User inputs information like username, password, and email. <br> 6. System will check validation of submission (character limitations and required fields) <br> 7. If passed validation, a new user account will be created for the student and their information stored in the system <br> 8. System will notify the user that their account has been created |
+| Alternative Path  | If the account already exists, then the user will just be redirected to the same page upon submission. |
+| Postconditions    | Student account is now in the database  |
+| Acceptance tests  | Add a student either in python or through the app and query the database manually  |
+| Iteration         | Iteration 2  |
+
+<!-- todo: revise 2-16; use #1 as template -->
 
 | Use case # 2      |  As a user, I want to be able to log into my account |
 | ------------------ |--|
@@ -136,9 +138,9 @@ You may use the following table template for your use cases. Copy-paste this tab
 | Rationale         | When looking for positions, a student needs to be able to see the qualifications and details of each position|
 | Triggers          | Student navigates to the applications page |
 | Preconditions     | Student is signed in, page is already loaded, and the student may click on the application for more details |
-| Actions           | 1. Student navigated to the applications page <br> 2. Applications are displayed with some information and may be ordered to preference <br> 3. Student opens an application where all details of the position are viewable|
+| Actions           | 1. Student navigated to the applications page <br> 2. Applications are displayed with some information and may be ordered to preference <br> 3. Student chooses an application to view <br> 4. System displays all application details |
 | Alternative paths | Student is not signed in and is sent to the login page when trying to navigate into the applications page|
-| Postconditions    | Student knows about the application |
+| Postconditions    | Application details shown on page |
 | Acceptance tests  | Go into the website and check if the student can see basic application information on the applciations page. Then, enter a specific application and see if the application details are all viewable and correct.|
 | Iteration         |Iteration 1 |
 
