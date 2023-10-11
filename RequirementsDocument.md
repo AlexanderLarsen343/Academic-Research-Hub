@@ -305,16 +305,12 @@ Here you should include the sketches or mockups for the main parts of the interf
 ----
 # 4. Product Backlog
 
-Here you should include a link to your GitHub repo issues page, i.e., your product backlog. Make sure to create an issue for each use case. You should also create issues for the initial development tasks that you plan to work on during iteration1. 
+Link to Git Repo Issues: https://github.com/WSU-CptS-322-Fall-2023/termproject-mowthelawn/issues
 
 ----
 # 4. References
 
-Cite your references here.
-
-For the papers you cite give the authors, the title of the article, the journal name, journal volume number, date of publication and inclusive page numbers. Giving only the URL for the journal is not appropriate.
-
-For the websites, give the title, author (if applicable) and the website URL.
+No references yet
 
 ----
 ----
