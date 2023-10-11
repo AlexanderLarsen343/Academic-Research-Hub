@@ -301,6 +301,10 @@ You may use the following template for non-functional requirements.
 # 3. User Interface
 
 Here you should include the sketches or mockups for the main parts of the interface.
+![](/Requirements%20Document%20Images/1.jpg "1.jpg")
+![](/Requirements%20Document%20Images/2.jpg "2.jpg")
+![](/Requirements%20Document%20Images/3.jpg "3.jpg")
+![](/Requirements%20Document%20Images/4.jpg "4.jpg")
 
 ----
 # 4. Product Backlog
