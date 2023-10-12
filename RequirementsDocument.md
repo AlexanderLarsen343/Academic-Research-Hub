@@ -112,7 +112,7 @@ You may use the following table template for your use cases. Copy-paste this tab
 | Rationale         | Accounts have all your information and are how students apply to positions. They must be able to login to access these features |
 | Triggers          |  Student navigates to login page |
 | Preconditions     | Page is already loaded and student is not already signed in |
-| Actions           |  1. Student enters into the signin page <br> 2. Student enters their username and password <br> 3. System will check validation of fields and query the database for a match <br> 4. If succesfull, Student is navigated to the home page with their account |
+| Actions           |  1. Student enters into the signin page <br> 2. System displays login page <br> 3. Student enters their username and password in appropiate fields <br> 3.  System will check validation of submission (character limitations and required fields)<br> 4. If succesfull, Student is redirected to the homepage and issued a flash message of their account sign in|
 | Alternative paths | Submission is invalid and student is navigated to the same login page with errors  |
 | Postconditions    | Student user is now in their account  |
 | Acceptance tests  | Test via creating a user and logging in  |
@@ -125,7 +125,7 @@ You may use the following table template for your use cases. Copy-paste this tab
 | Rationale         | Students must be able to search and see applications to apply to them|
 | Triggers          | Students navigate to the applications page |
 | Preconditions     | Student is signed in and the page is loaded correctly|
-| Actions           |1. Student navigates to the applications page <br> 2. Applications are openly displayed <br> 3. Student can choose their interests that will then reorganize to be in the order of the student interests |
+| Actions           |1. Student navigates to the applications page <br> 2. System displays applications page<br> 3. Student can choose their interests of what they are looking for <br> 4. System will reorder applications to preferences |
 | Alternative paths | Student is not signed in and is redirected to the login page when trying to enter the applications page|
 | Postconditions    | Student can view the applications they want |
 | Acceptance tests  |Go into the website with a student user with applications already created by faculty, and see if applications display correctly and if they can be ordered to preference.|
@@ -138,7 +138,7 @@ You may use the following table template for your use cases. Copy-paste this tab
 | Rationale         | When looking for positions, a student needs to be able to see the qualifications and details of each position|
 | Triggers          | Student navigates to the applications page |
 | Preconditions     | Student is signed in, page is already loaded, and the student may click on the application for more details |
-| Actions           | 1. Student navigated to the applications page <br> 2. Applications are displayed with some information and may be ordered to preference <br> 3. Student chooses an application to view <br> 4. System displays all application details |
+| Actions           | 1. Student navigated to the applications page <br> 2. System displays applications page <br> 3. Student chooses an application to view <br> 4. System displays all application details |
 | Alternative paths | Student is not signed in and is sent to the login page when trying to navigate into the applications page|
 | Postconditions    | Application details shown on page |
 | Acceptance tests  | Go into the website and check if the student can see basic application information on the applciations page. Then, enter a specific application and see if the application details are all viewable and correct.|
