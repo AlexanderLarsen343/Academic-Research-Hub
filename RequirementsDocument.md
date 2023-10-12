@@ -4,10 +4,10 @@
 --------
 Prepared by:
 
-* `Alexander Larsen`, `Voiland College`
-* `Erick Pairault`, `Voiland College`
-* `Gabriel Muccillo Hartz`, `Voiland College`
-* `Calell Figuerres`, `Voiland College`
+* Alexander Larsen, Voiland College of Engineering and Architecture
+* Erick Pairault, Voiland College of Engineering and Architecture
+* Gabriel Muccillo Hartz, Voiland College of Engineering and Architecture
+* Calell Figuerres, Voiland College of Engineering and Architecture
 
 ---
 
@@ -39,9 +39,10 @@ Prepared by:
 
 ## Document Revision History
 
-| Name       | Date       | Changes       | Version    |
-| ---------- | ---------- | ------------- | ---------  |
-| Revision 1 | 2023-10-05 | Initial draft | 1.0        |
+| Name       | Date       | Changes                                   | Version    |
+| ---------- | ---------- | ----------------------------------------- | ---------  |
+| Revision 1 | 2023-10-05 | Initial draft                             | 1.0        |
+| Revision 2 | 2023-10-11 | Added background, use cases, requirements | 2.0        |
 
 ----
 # 1. Introduction
@@ -72,21 +73,6 @@ The main users of this application will be students and professors. The customer
 ## 2.2 Use Cases
 
 This section will go over all use case for all iterations of the project. Each use case will be either from the perspective of the professor or student.
-
-For each use case you should have the following:
-
-* Name,
-* Actors,
-* Triggers (what initiates the use case),
-* Preconditions (in what system state is this use case applicable),
-* Actions (what actions will the code take to implement the use case),
-* Alternative paths
-* Postconditions (what is the system state after the use case is done),
-* Acceptance tests (list one or more acceptance tests with concrete values for the parameters, and concrete assertions that you will make to verify the postconditions).
-
-Each use case should also have a field called "Iteration" where you specify in which iteration you plan to implement this feature.
-
-You may use the following table template for your use cases. Copy-paste this table for each use case you will include in your document.
 
 | Use case # 1      |As a student, I want to be able to register an account|
 | ----------------- |--|
@@ -293,7 +279,9 @@ List the non-functional requirements in this section.
 
 You may use the following template for non-functional requirements.
 
-1. [Enter a Concise Requirement Name]:  [provide a concise description, in clear and easily understandable language to specify the requirement]
+1. Reliability: The application is ran locally through a flask server. Thus, when the server is up and the app is running, consistent results should be produced until the server is closed. 
+2. Security: The application should not be able to be victimized by malicious attacks. Inputs should be sanitized and security of the server must be maintained. 
+3. Response Time:  Performance of the application should not be unreasonable and unconvenient for users. As a minimum, pages should load within 2-3 seconds with them ideally loading within one second.
 
 ----
 # 3. User Interface
