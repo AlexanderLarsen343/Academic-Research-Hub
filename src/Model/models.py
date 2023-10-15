@@ -27,3 +27,6 @@ class Student(UserMixin, db.Model):
 
     def get_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+class Professor(UserMixin, db.Model):
+    pass
