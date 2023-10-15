@@ -12,7 +12,7 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators = [DataRequired()])
     password2 = PasswordField('Password', validators = [DataRequired(), EqualTo('password')])
     graduation = StringField('Graduation Date', valdiators = [DataRequired(), Length(1, 15)])
-    #submit = SubmitField('Register')
+    submit = SubmitField('Register')
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
