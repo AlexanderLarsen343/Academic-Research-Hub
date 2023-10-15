@@ -29,4 +29,4 @@ class Student(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
     
 class Professor(UserMixin, db.Model):
-    pass
+    id = db.Column(db.Integer, primary_key=True)
