@@ -12,11 +12,11 @@
 </head>
 <body>
     {% include "_navbar.html" %}
-    <div class = "image-container" style="">
+    <div class = "image-container" style="display: inline-block; position: relative;">
         <img src="{{ url_for('static', filename='wsu-hero-1.jpg') }}" class="img-fluid" alt="bootsrap">
         <!-- Overlay text for homepage -->
-        <div class = "overlay-text" style="top: 100%; left: 100%" >
-            GET EM
+        <div class = "overlay-text" style="position: absolute; top: 18rem; left: 2rem" >
+            <p class = "">Welcome Bro</p>
         </div>
     </div>
 </body>
