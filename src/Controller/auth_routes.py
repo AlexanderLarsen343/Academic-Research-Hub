@@ -1,1 +1,7 @@
-# TODO: Implement auth routes
+from flask import Blueprint
+
+auth = Blueprint("auth", __name__)
+
+@auth.route("/login")
+def login():
+    pass
