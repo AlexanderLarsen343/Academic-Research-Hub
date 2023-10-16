@@ -6,8 +6,9 @@ from wtforms_sqlalchemy.fields import QuerySelectMultipleField
 from wtforms.widgets import CheckboxInput, ListWidget
 from flask_login import current_user
 
-class RegistrationForm(FlaskForm):
+class StudentRegistrationForm(FlaskForm):
     email = StringField('Email', validators = [DataRequired(), Email(), Length(1, 120)])
+    username = StringField('Email', valdiators = [DataRequired(), Email(), Length(1, 120)])
     firstname = StringField('Firstname', validators = [DataRequired(), Length(1, 20)])
     lastname = StringField('Lastname', validators = [DataRequired(), Length(1, 20)])
     wsu_id = StringField('wsu ID', validators = [DataRequired(), Length(1,15)])
