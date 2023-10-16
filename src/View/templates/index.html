@@ -12,19 +12,11 @@
 </head>
 <body>
     {% include "_navbar.html" %}
-    <div>
-        <h1>Hello world!</h1>
-        <button type="button" class="btn btn-primary">A FUCKING BUTTON</button>
-        <!-- <button hx-get="/clicked" hx-target="this" hx-swap="afterend">
-            Click Me!
-        </button> -->
-        <img src="{{ url_for('static', filename='wsu.jpg') }}" class="img-fluid" alt="...">
-        <div class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white" 
-        style="background-image: url({{ url_for('static', filename='wsu-hero-1.jpg') }})">
-            <h1 class="mb-3 h2">Jumbotron</h1>
- 
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus praesentium labore accusamus sequi, voluptate debitis tenetur in deleniti possimus modi voluptatum neque maiores dolorem unde? Aut dolorum quod excepturi fugit.</p>
-    
+    <div class = "image-container" style="">
+        <img src="{{ url_for('static', filename='wsu-hero-1.jpg') }}" class="img-fluid" alt="bootsrap">
+        <!-- Overlay text for homepage -->
+        <div class = "overlay-text" style="top: 100%; left: 100%" >
+            GET EM
         </div>
     </div>
 </body>
