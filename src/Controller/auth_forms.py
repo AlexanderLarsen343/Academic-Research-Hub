@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import  ValidationError, DataRequired, EqualTo, Length, Email
 from Model.models import User
 
-class RegistrationForm(FlaskForm):
+class ProfessorRegistrationForm(FlaskForm):
     #this should be a wsu email, it will be used as the username. not sure if there is a way to check that it sis a wsu email
     email = StringField('Email', validators = [DataRequired(), Email(), Length(1, 120)])
     firstname = StringField('Firstname', validators = [DataRequired(), Length(1, 20)])
