@@ -24,3 +24,9 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('The email already exists! Please use a different email address.')
         
+class LoginForm(FlaskForm):
+    username = StringField("Username", validators=[DataRequired(), Length(1, 50)])
+    password = PasswordField("Password", validators=[DataRequired()])
+    remember_me = BooleanField("Remember Me")
+    is_faculty = BooleanField("Login as Faculty?")
+    submit = SubmitField("Login")
