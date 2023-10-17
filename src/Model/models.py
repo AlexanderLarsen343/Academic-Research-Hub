@@ -32,7 +32,7 @@ class User(UserMixin, db.Model):
 #Student Model with all information
 #Note: languages and interests will be from a multiple select field
 class Student(User, db.Model):
-    __tablename__='Student'
+    __tablename__='student'
     id = db.Column(db.ForeignKey("user.id"), primary_key = True)
     wsu_id = db.Column(db.String(15), unique = True)
     major = db.Column(db.String(50))
@@ -48,6 +48,7 @@ class Student(User, db.Model):
     }
     
 class Professor(User, db.Model):
+    __tablename__ = 'professor'
     id = db.Column(db.ForeignKey("user.id"), primary_key=True)
     title = db.Column(db.String(50))
 
