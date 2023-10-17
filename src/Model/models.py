@@ -47,7 +47,7 @@ class Student(User, db.Model):
     graduation = db.Column(db.String(15))
     gpa = db.Column(db.Integer(4))
     languages = db.Column(db.String(50))
-    interests = db.Column(db.String(150))
+    #interests = db.Column(db.String(150))
     experience = db.Column(db.String(500))
     
     interests = db.relationship('Interest',
