@@ -58,16 +58,16 @@ class Student(User, db.Model):
     interests = db.relationship('Interest',
                                 secondary=studentInterests,
                                 primaryjoin=(studentInterests.c.student_id == id),
-                                backref=db.backref('studentInterests', lazy='dynamic'),
-                                lazy='dynamic')
+                                lazy='dynamic',
+                                overlaps='studentInterests')
     # Establishes a many-to-many relationship between students and languages
     # The relationship will store the associations between student profiles and the languages associated with them.
     # Note: A student can have multiple languages associated with them, and a language can be associated with many students.
     languages = db.relationship('Language',
                                 secondary=studentLanguages,
                                 primaryjoin=(studentLanguages.c.student_id == id),
-                                backref=db.backref('studentLanguages', lazy='dynamic'),
-                                lazy='dynamic')
+                                lazy='dynamic',
+                                overlaps='studentLanguages')
     def get_interests(self):
         return self.interests
     
@@ -82,12 +82,26 @@ class Student(User, db.Model):
 # Students will be able to associate interests to their user profile.
 class Interest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(12))
+    name = db.Column(db.String(100))
+    studentInterests = db.relationship(
+        'Student',
+        secondary=studentInterests,
+        primaryjoin=(studentInterests.c.language_id == id),
+        lazy='dynamic',
+        overlaps='interests'
+    )
 
 # Students will be able to associate languages to their user profile.
 class Language(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(12))
+    studentLanguages = db.relationship(
+        'Student',
+        secondary=studentLanguages,
+        primaryjoin=(studentLanguages.c.language_id == id),
+        lazy='dynamic',
+        overlaps='languages'
+    )
     
 class Professor(User, db.Model):
     __tablename__ = 'professor'
