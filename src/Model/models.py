@@ -53,7 +53,7 @@ class Student(User, db.Model):
     interests = db.relationship('Interest',
                                 secondary=studentInterests,
                                 primaryjoin=(studentInterests.c.student_id == id),
-                                backref=db.backref('studentInrests', lazy='dynamic'),
+                                backref=db.backref('studentInterests', lazy='dynamic'),
                                 lazy='dynamic')
     languages = db.relationship('Language',
                                 secondary=studentLanguages,
