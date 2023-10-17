@@ -1,4 +1,4 @@
-from app import db
+from src import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -37,7 +37,7 @@ class Student(User, db.Model):
     wsu_id = db.Column(db.String(15), unique = True)
     major = db.Column(db.String(50))
     graduation = db.Column(db.String(15))
-    gpa = db.Column(db.Integer(4))
+    gpa = db.Column(db.Integer())
     languages = db.Column(db.String(50))
     interests = db.Column(db.String(150))
     experience = db.Column(db.String(500))

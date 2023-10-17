@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import  ValidationError, DataRequired, EqualTo, Length, Email
-from Model.models import User
+from src.Model.models import User
 from wtforms_sqlalchemy.fields import QuerySelectMultipleField
 from wtforms.widgets import CheckboxInput, ListWidget
 from flask_login import current_user
