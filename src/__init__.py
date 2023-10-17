@@ -1,8 +1,12 @@
 from flask import Flask
+from flask_login import LoginManager
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+
+login = LoginManager()
+login.login_view = 'auth.login'
 
 def create_app(config=Config):
     app = Flask(__name__)
@@ -12,10 +16,7 @@ def create_app(config=Config):
 
     db.init_app(app)
 
-    @app.before_request
-    def initBD(*args, **kwargs):
-        if app.got_first_request:
-            db.create_all()
+    login.init_app(app)
 
     # Register Blueprints
 
