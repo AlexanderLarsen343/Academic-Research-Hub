@@ -1,7 +1,11 @@
-from src import db
+from src import db, login
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 # Establishes the table for the relationship between Student model and Interest model
 studentInterests = db.Table('studentInterests',
@@ -14,7 +18,8 @@ studentLanguages = db.Table('studentLanguages',
                 db.Column('language_id', db.Integer, db.ForeignKey('language.id')))
 
 #Parent class for both Student and Professor
-class User(UserMixin, db.Model):
+class User(db.Model, UserMixin):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique = True, index = True)
     password_hash = db.Column(db.String(128))
@@ -84,7 +89,7 @@ class Interest(db.Model):
     studentInterests = db.relationship(
         'Student',
         secondary=studentInterests,
-        primaryjoin=(studentInterests.c.language_id == id),
+        primaryjoin=(studentInterests.c.interest_id == id),
         lazy='dynamic',
         overlaps='interests'
     )
@@ -107,7 +112,7 @@ class Professor(User, db.Model):
     title = db.Column(db.String(50))
 
 
-    #Designates the identity of user_type
-    __mapper__args__ = {
-        'polymorphic_identity': 'Professor',
+    # Designates the identity of user_type
+    __mapper_args__ = {
+        'polymorphic_identity': 'Professor'
     }
