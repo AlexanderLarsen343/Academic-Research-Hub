@@ -52,7 +52,7 @@ class Student(User, db.Model):
     #interests = db.Column(db.String(150))
     experience = db.Column(db.String(500))
     
-    # Establishes the many-to-many relationship between students and interests
+    # Establishes a many-to-many relationship between students and interests
     # The relationship will store the associations between student profiles and the interests associated with them.
     # Note: A student can have multiple interests associated with them, and a interest can be associated with many students.
     interests = db.relationship('Interest',
@@ -60,7 +60,7 @@ class Student(User, db.Model):
                                 primaryjoin=(studentInterests.c.student_id == id),
                                 backref=db.backref('studentInterests', lazy='dynamic'),
                                 lazy='dynamic')
-    # Establishes the many-to-many relationship between students and languages
+    # Establishes a many-to-many relationship between students and languages
     # The relationship will store the associations between student profiles and the languages associated with them.
     # Note: A student can have multiple languages associated with them, and a language can be associated with many students.
     languages = db.relationship('Language',
