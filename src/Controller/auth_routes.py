@@ -6,7 +6,7 @@ from src.Model.models import User, Student, Professor
 
 auth = Blueprint("auth", __name__)
 
-@auth.route("/login")
+@auth.route("/login", methods = ["GET", "POST"])
 def login():
     if current_user.is_authenticated:
         if current_user.user_type == "Student":
