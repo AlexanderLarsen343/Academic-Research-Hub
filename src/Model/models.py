@@ -12,7 +12,7 @@ studentInterests = db.Table('studentInterests',
 studentLanguages = db.Table('studentLanguages',
                 db.Column('student_id', db.Integer, db.ForeignKey('student.id')),
                 db.Column('language_id', db.Integer, db.ForeignKey('language.id')))
-
+    
 #Parent class for both Student and Professor
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -105,9 +105,23 @@ class Professor(User, db.Model):
     __tablename__ = 'professor'
     id = db.Column(db.ForeignKey("user.id"), primary_key=True)
     title = db.Column(db.String(50))
+    posts = db.relationship('Post', backref='professor') # Establishes one-to-many relationship between Professor and Post.
 
-
-    #Designates the identity of user_type
+    # Designates the identity of user_type
     __mapper__args__ = {
         'polymorphic_identity': 'Professor',
     }
+    
+# Defines the model for a research position post made by a faculty user.
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(32), unique=True)
+    description = db.Column(db.String(256))
+    start_date = db.Column(db.DateTime(timezone=True))
+    end_date = db.Column(db.DateTime(timezone=True))
+    work_load = db.Column(db.Integer) # Time commitment.
+    research_field = db.Column(db.String(32))
+    languages = db.Column(db.String(64)) # Defines the languages required by the position.
+    requirements = db.Column(db.String(256))
+    candidates = db.Column(db.Integer) # Stores the ID's of the current candidates for the position.
+    professor_id = db.Column(db.Integer, db.ForeignKey('professor.id')) # Every post has one professor associated to it.
