@@ -5,41 +5,43 @@
     <h1>Hello from login page!</h1>
 </div>
 
-<div>
+<div class="position-absolute top-50 start-50 translate-middle">
+    {% if form %}
 
+    <form class = "" action = "" method = "POST">
+        <div class = "form-control bg-dark text-light">
+        {{ form.hidden_tag() }}
+    
+            <div>
+                <p> {{ form.username.label(class = "text-center inputbox", style = "font-size: 40px;")}} </p>
+            </div>
+    
+            <p> {{ form.username(class ="form-control inputbox", style = "width: 300px;")}}</p>
+    
+            {% for error in form.username.errors %}
+            <span class = "form-control" style = "color: red"> [{{ error }}]</span>
+            {% endfor %}
+    
+            <p> {{form.password.label }}</p>
+            <p> {{form.password(class = 'textinput form-control') }}</p>
+    
+            {% for error in form.password.errors %}
+            <span style = "color: red"> [{{ error }}]</span>
+            {% endfor %}
+    
+            <p> {{form.remember_me()}} {{form.remember_me.label}}</p>
+    
+        <!-- Where in the hell does it know to say "login" -->
+        <div class="text-center">
+            <p>{{ form.submit(class='btn btn-primary') }}</p>
+        </div>
+    
+        <p>New User? <a href="#">Click to Register!</a></p>
+        </div>
+    </form>
+    
+    {% endif %}
 </div>
 
-{% if form %}
 
-<form class = "position-absolute top-50 start-50 translate-middle" action = "" method = "POST">
-    <div class = "form-control bg-dark text-light">
-    {{ form.hidden_tag() }}
-
-        <div>
-            <p> {{ form.username.label(class = "text-center inputbox", style = "font-size = 40px;")}} </p>
-        </div>
-
-        <p> {{ form.username(class ="form-control inputbox", style = "width: 300px;")}}</p>
-
-        {% for error in form.username.errors %}
-        <span class = "form-control" style = "color: red"> [{{ error }}]</span>
-        {% endfor %}
-
-        <p> {{form.password.label }}</p>
-        <p> {{form.password(class = 'textinput form-control') }}</p>
-
-        {% for error in form.password.errors %}
-        <span style = "color: red"> [{{ error }}]</span>
-        {% endfor %}
-
-        <p> {{form.remember_me()}} {{form.remember_me.label}}</p>
-
-    <!-- Where in the hell does it know to say "login" -->
-    <p>{{ form.submit(class='btn btn-primary ') }}</p>
-
-    <p>New User? <a href="#">Click to Register!</a></p>
-    </div>
-</form>
-
-{% endif %}
 {% endblock %}
