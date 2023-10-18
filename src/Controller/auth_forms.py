@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, BooleanField
-from wtforms.validators import  ValidationError, DataRequired, EqualTo, Length, Email
+from wtforms import StringField, SubmitField, PasswordField, BooleanField, FloatField
+from wtforms.validators import  ValidationError, DataRequired, EqualTo, Length, Email, NumberRange
 from src.Model.models import User, Language, Interest
 from wtforms_sqlalchemy.fields import QuerySelectMultipleField
 from wtforms.widgets import CheckboxInput, ListWidget
@@ -17,7 +17,8 @@ class StudentRegistrationForm(FlaskForm):
     username = StringField('Email', valdiators = [DataRequired(), Email(), Length(1, 120)])
     firstname = StringField('Firstname', validators = [DataRequired(), Length(1, 20)])
     lastname = StringField('Lastname', validators = [DataRequired(), Length(1, 20)])
-    wsu_id = StringField('wsu ID', validators = [DataRequired(), Length(1,15)])
+    wsu_id = StringField('WSU ID', validators = [DataRequired(), Length(1,15)])
+    gpa = FloatField("GPA", validators=[DataRequired(), NumberRange(0.0, 4.0)])
     password = PasswordField('Password', validators = [DataRequired()])
     password2 = PasswordField('Password', validators = [DataRequired(), EqualTo('password')])
     # will want to edit graduation in the future to select Term (Sping, Summer, Fall, Winter) and year
