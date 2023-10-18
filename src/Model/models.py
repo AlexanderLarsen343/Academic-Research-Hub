@@ -66,6 +66,8 @@ class Student(User, db.Model):
                                 primaryjoin=(studentLanguages.c.student_id == id),
                                 lazy='dynamic',
                                 overlaps='studentLanguages')
+    
+    
     def get_interests(self):
         return self.interests
     
@@ -105,7 +107,7 @@ class Professor(User, db.Model):
     __tablename__ = 'professor'
     id = db.Column(db.ForeignKey("user.id"), primary_key=True)
     title = db.Column(db.String(50))
-    posts = db.relationship('Post', backref='professor') # Establishes one-to-many relationship between Professor and Post.
+    posts = db.relationship('Position', backref='professor') # Establishes one-to-many relationship between Professor and Position.
 
     # Designates the identity of user_type
     __mapper__args__ = {
@@ -113,7 +115,8 @@ class Professor(User, db.Model):
     }
     
 # Defines the model for a research position post made by a faculty user.
-class Post(db.Model):
+# Position -> form -> application
+class Position(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(32), unique=True)
     description = db.Column(db.String(256))
@@ -124,4 +127,11 @@ class Post(db.Model):
     languages = db.Column(db.String(64)) # Defines the languages required by the position.
     requirements = db.Column(db.String(256))
     candidates = db.Column(db.Integer) # Stores the ID's of the current candidates for the position.
-    professor_id = db.Column(db.Integer, db.ForeignKey('professor.id')) # Every post has one professor associated to it.
+    applications = db.relationship('Application', backref='position')
+    professor_id = db.Column(db.Integer, db.ForeignKey('professor.id')) # Every position has one professor associated to it.
+    
+    
+class Application(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    position_id = db.Column(db.Integer, db.ForeignKey('professor.id')) # Every application has one position associated to it.
+    students = db.relationship('Student', backref='application')
