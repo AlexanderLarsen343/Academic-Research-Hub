@@ -129,11 +129,13 @@ class Position(db.Model):
     languages = db.Column(db.String(64)) # Defines the languages required by the position.
     requirements = db.Column(db.String(256))
     candidates = db.Column(db.Integer) # Stores the ID's of the current candidates for the position.
-    applications = db.relationship('Application', backref='position')
+    applications = db.relationship('Application', backref='position') # A position has multiple applications associated to it.
     professor_id = db.Column(db.Integer, db.ForeignKey('professor.id')) # Every position has one professor associated to it.
     
     
 class Application(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime(timezone=True))
+    status = db.Column(db.String(16))
     position_id = db.Column(db.Integer, db.ForeignKey('position.id')) # Every application has one position associated to it.
     student_id = db.Column(db.Integer, db.ForeignKey('student.id')) # Every application has one student associated to it.
