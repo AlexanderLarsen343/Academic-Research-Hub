@@ -135,7 +135,7 @@ class Position(db.Model):
     
 class Application(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime(timezone=True))
+    date = db.Column(db.DateTime, default=datetime.utcnow)
     status = db.Column(db.String(16))
     position_id = db.Column(db.Integer, db.ForeignKey('position.id')) # Every application has one position associated to it.
     student_id = db.Column(db.Integer, db.ForeignKey('student.id')) # Every application has one student associated to it.
