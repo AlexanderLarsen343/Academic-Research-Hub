@@ -49,6 +49,8 @@ class Student(User, db.Model):
     graduation = db.Column(db.String(15))
     gpa = db.Column(db.Integer())
     experience = db.Column(db.String(500))
+    applications = db.relationship('Application', backref='position')
+    
     
     # Establishes a many-to-many relationship between students and interests
     # The relationship will store the associations between student profiles and the interests associated with them.
