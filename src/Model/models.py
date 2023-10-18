@@ -49,7 +49,7 @@ class Student(User, db.Model):
     graduation = db.Column(db.String(15))
     gpa = db.Column(db.Integer())
     experience = db.Column(db.String(500))
-    applications = db.relationship('Application', backref='position')
+    applications = db.relationship('Application', backref='applicant')
     
     
     # Establishes a many-to-many relationship between students and interests
@@ -109,7 +109,7 @@ class Professor(User, db.Model):
     __tablename__ = 'professor'
     id = db.Column(db.ForeignKey("user.id"), primary_key=True)
     title = db.Column(db.String(50))
-    posts = db.relationship('Position', backref='professor') # Establishes one-to-many relationship between Professor and Position.
+    positions = db.relationship('Position', backref='professor') # Establishes one-to-many relationship between Professor and Position.
 
     # Designates the identity of user_type
     __mapper__args__ = {
