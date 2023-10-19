@@ -87,7 +87,7 @@ class Interest(db.Model):
     studentInterests = db.relationship(
         'Student',
         secondary=studentInterests,
-        primaryjoin=(studentInterests.c.language_id == id),
+        primaryjoin=(studentInterests.c.interest_id == id),
         lazy='dynamic',
         overlaps='interests'
     )
