@@ -1,7 +1,11 @@
-from src import db
+from src import db, login
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 # Establishes the table for the relationship between Student model and Interest model
 studentInterests = db.Table('studentInterests',
@@ -14,7 +18,8 @@ studentLanguages = db.Table('studentLanguages',
                 db.Column('language_id', db.Integer, db.ForeignKey('language.id')))
     
 #Parent class for both Student and Professor
-class User(UserMixin, db.Model):
+class User(db.Model, UserMixin):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     password_hash = db.Column(db.String(128))
     firstname = db.Column(db.String(100))
@@ -111,8 +116,8 @@ class Professor(User, db.Model):
     positions = db.relationship('Position', backref='professor') # Establishes one-to-many relationship between Professor and Position.
 
     # Designates the identity of user_type
-    __mapper__args__ = {
-        'polymorphic_identity': 'Professor',
+    __mapper_args__ = {
+        'polymorphic_identity': 'Professor'
     }
     
 # Defines the model for a research position post made by a faculty user.

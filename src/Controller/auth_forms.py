@@ -1,10 +1,16 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import  ValidationError, DataRequired, EqualTo, Length, Email
-from src.Model.models import User
+from src.Model.models import User, Language, Interest
 from wtforms_sqlalchemy.fields import QuerySelectMultipleField
 from wtforms.widgets import CheckboxInput, ListWidget
 from flask_login import current_user
+
+def languages():
+    return Language.query.all()
+
+def interests():
+    return Interest.query.all()
 
 class StudentRegistrationForm(FlaskForm):
     email = StringField('Email', validators = [DataRequired(), Email(), Length(1, 120)])
@@ -17,8 +23,8 @@ class StudentRegistrationForm(FlaskForm):
     # will want to edit graduation in the future to select Term (Sping, Summer, Fall, Winter) and year
     graduationDate = StringField('Graduation Date', valdiators = [DataRequired(), Length(1, 15)])
     # these will both be many to many (because many students can have many interest and many interests can belong to many students)
-    interests = QuerySelectMultipleField('Interests', query_factory=get_interests_label, widget=ListWidget(prefix_label=False), option_widget=CheckboxInput() )
-    programming_langs = QuerySelectMultipleField('ProgrammingLangs', query_factory=get_programming_langs_label, widget=ListWidget(prefix_label=False), option_widget=CheckboxInput() )
+    interests = QuerySelectMultipleField('Interests', query_factory = interests, widget=ListWidget(prefix_label=False), option_widget=CheckboxInput() )
+    programming_langs = QuerySelectMultipleField('ProgrammingLangs', query_factory = languages, widget=ListWidget(prefix_label=False), option_widget=CheckboxInput() )
     submit = SubmitField('Register')
     
     def validate_email(self, email):
