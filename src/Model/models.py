@@ -16,7 +16,6 @@ studentLanguages = db.Table('studentLanguages',
 #Parent class for both Student and Professor
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique = True, index = True)
     password_hash = db.Column(db.String(128))
     firstname = db.Column(db.String(100))
     lastname = db.Column(db.String(100))
