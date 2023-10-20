@@ -110,6 +110,13 @@ class Interest(db.Model):
         lazy='dynamic',
         overlaps='interests'
     )
+    positionInterests = db.relationship(
+        'Position',
+        secondary = positionInterests,
+        primaryjoin = (positionInterests.c.interest_id == id),
+        lazy = 'dynamic',
+        overlaps = 'interests'
+    )
 
 # Students will be able to associate languages to their user profile.
 class Language(db.Model):
@@ -120,6 +127,13 @@ class Language(db.Model):
         secondary=studentLanguages,
         primaryjoin=(studentLanguages.c.language_id == id),
         lazy='dynamic',
+        overlaps='languages'
+    )
+    positionLanguages = db.relationship(
+        'Position',
+        secondary = positionLanguages,
+        primaryjoin = (positionLanguages.c.language_id == id),
+        lazy = 'dynamic',
         overlaps='languages'
     )
     
@@ -143,12 +157,18 @@ class Position(db.Model):
     start_date = db.Column(db.DateTime(timezone=True))
     end_date = db.Column(db.DateTime(timezone=True))
     work_load = db.Column(db.Integer) # Time commitment.
-    languages = db.Column(db.String(64)) # Defines the languages required by the position.
+    languages = db.relationship(
+        'Language',
+        secondary = positionLanguages,
+        primaryjoin = (positionLanguages.c.position_id == id),
+        lazy='dynamic',
+        overlaps='languages'
+    )
     # TODO: Finish relationships
     research_fields = db.relationship(
-        'Interests',
-        secondary=studentInterests,
-        primaryjoin=(studentInterests.c.interest_id == id),
+        'Interest',
+        secondary=positionInterests,
+        primaryjoin=(positionInterests.c.position_id == id),
         lazy='dynamic',
         overlaps='interests'
     )

@@ -21,6 +21,7 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('auth.login'))
         login_user(user, remember = lform.remember_me.data)
+        flash(f"Welcome, {current_user.firstname}!")
         if current_user.user_type == "Student":
             return redirect(url_for('routes.index')) # TODO: Change to actual student homepage
         elif current_user.user_type == "Professor":
@@ -31,6 +32,7 @@ def login():
 def logout():
     if current_user.is_authenticated:
         logout_user()
+        flash("Successfully logged out.")
     return redirect(url_for("routes.index"))
 
 @auth.route("/register")
@@ -66,6 +68,7 @@ def register_student():
         student.set_password(rform.password.data)
         db.session.add(student)
         db.session.commit()
+        flash("Registration successful!")
         return redirect(url_for("auth.login"))
     return render_template("register/register_student.html", form=rform)
 
@@ -93,5 +96,6 @@ def register_professor():
         professor.set_password(rform.password.data)
         db.session.add(professor)
         db.session.commit()
+        flash("Registration successful!")
         return redirect(url_for("auth.login"))
     return render_template("register/register_professor.html", form=rform)

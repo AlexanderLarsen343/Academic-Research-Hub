@@ -29,7 +29,7 @@ class StudentRegistrationForm(FlaskForm):
     graduationDate = StringField('Graduation Date', validators = [DataRequired(), Length(1, 15)])
     # these will both be many to many (because many students can have many interest and many interests can belong to many students)
     interests = QuerySelectMultipleField('Interests', query_factory = interests, get_label=get_interest_label, widget=ListWidget(prefix_label=False), option_widget=CheckboxInput() )
-    programming_langs = QuerySelectMultipleField('ProgrammingLangs', query_factory = languages, get_label=get_language_label, widget=ListWidget(prefix_label=False), option_widget=CheckboxInput() )
+    programming_langs = QuerySelectMultipleField('Programming Languages', query_factory = languages, get_label=get_language_label, widget=ListWidget(prefix_label=False), option_widget=CheckboxInput() )
     experience = StringField('Experience', validators = [DataRequired(), Length(1, 500)])
     phone = StringField('Phone Number', validators= [DataRequired(), Length(1, 10)])
 
