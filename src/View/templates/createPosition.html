@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Post New Research Position</h1>
+
+    {% if form %}
+
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <div>
+                <div class = "formtitle">{{ form.title.label }}<br>{{ form.title(class="formtitle") }}<br></div>
+                {% for error in form.title.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+                <div class = "formdescription"></div>{{ form.description.label }}<br>{{ form.description(class="formdescription") }}<br></div>
+                {% for error in form.description.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+                <div class = "formrequirements"></div>{{ form.requirements.label }}<br>{{ form.requirements(class="formrequirements") }}<br></div>
+                {% for error in form.requirements.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+            </div>
+            
+           <div class = "formselect">
+                {{ form.start_date(class="form_start_date") }}
+                {{ form.end_date(class="form_end_date") }}
+                {{ form.research_field(class="form_research_field") }}
+                {{ form.languages(class="forlanguages") }}
+                {{ form.submit(class="button") }}
+            </div>
+        </form>
+    {% endif %}
+
+
+  {% endblock %}
