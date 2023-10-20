@@ -16,6 +16,20 @@ studentInterests = db.Table('studentInterests',
 studentLanguages = db.Table('studentLanguages',
                 db.Column('student_id', db.Integer, db.ForeignKey('student.id')),
                 db.Column('language_id', db.Integer, db.ForeignKey('language.id')))
+
+# Establishes table for relationship between Position model and Interest model
+positionInterests = db.Table(
+    "positionInterests",
+    db.Column("position_id", db.Integer, db.ForeignKey("position.id")),
+    db.Column("interest_id", db.Integer, db.ForeignKey("interest.id"))    
+)
+
+# Establishes table for relationship between Position model and Language model
+positionLanguages = db.Table(
+    "positionLanguages",
+    db.Column("position_id", db.Integer, db.ForeignKey("position.id")),
+    db.Column("language_id", db.Integer, db.ForeignKey("language.id"))  
+)
     
 #Parent class for both Student and Professor
 class User(db.Model, UserMixin):
@@ -129,9 +143,15 @@ class Position(db.Model):
     start_date = db.Column(db.DateTime(timezone=True))
     end_date = db.Column(db.DateTime(timezone=True))
     work_load = db.Column(db.Integer) # Time commitment.
-    research_field = db.Column(db.String(32))
     languages = db.Column(db.String(64)) # Defines the languages required by the position.
-    requirements = db.Column(db.String(256))
+    # TODO: Finish relationships
+    research_fields = db.relationship(
+        'Interests',
+        secondary=studentInterests,
+        primaryjoin=(studentInterests.c.interest_id == id),
+        lazy='dynamic',
+        overlaps='interests'
+    )
     candidates = db.Column(db.Integer) # Stores the ID's of the current candidates for the position.
     applications = db.relationship('Application', backref='position') # A position has multiple applications associated to it.
     professor_id = db.Column(db.Integer, db.ForeignKey('professor.id')) # Every position has one professor associated to it.

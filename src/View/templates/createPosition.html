@@ -27,17 +27,33 @@
 				{% endfor %}
             
                 <!-- Position Start Date -->
+                <p>{{ form.start_date.label }}</p>
+                <p>{{ form.start_date(class="formdescription") }}</p>
+                
+                {% for error in form.start_date.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
 
                 <!-- Position End Date -->
+                <p>{{ form.end_date.label }}</p>
+                <p>{{ form.end_date(class="formdescription") }}</p>
+                
+                {% for error in form.end_date.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
 
                 <!-- Position Workload -->
-
-                <!-- Position Research Field -->
+                {{ form.workload.label }}
+                {{ form.workload(class="formselect") }}  
 
                 <!-- Position Languages -->
+                {{ form.languages.label }}
+                {{ form.languages }}
 
                 <!-- Position Requirements -->
-            
+                {{ form.requirements.label }}
+                {{ form.requirements }}    
+                
             </div>
             
             {{ form.submit(class="button") }}
