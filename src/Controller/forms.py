@@ -6,6 +6,11 @@ from wtforms_sqlalchemy.fields import QuerySelectMultipleField
 from wtforms.widgets import CheckboxInput, ListWidget
 from flask_login import current_user
 
+# from src.Model.models import Language
+
+# def get_tags():
+# 	return 
+
 class PositionForm(FlaskForm):
 	title = StringField('Title', validators=[DataRequired(), Length(max=32)]) # not sure if max is right here
 	description = TextAreaField('Description', validators=[DataRequired(),Length(max=1500)])

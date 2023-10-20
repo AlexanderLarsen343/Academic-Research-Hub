@@ -11,9 +11,9 @@ auth = Blueprint("auth", __name__)
 def login():
     if current_user.is_authenticated:
         if current_user.user_type == "Student":
-            return redirect(url_for('routes.student_homepage')) # TODO: Change to actual student homepage
+            return redirect(url_for('routes.index')) # TODO: Change to actual student homepage
         elif current_user.user_type == "Professor":
-            return redirect(url_for('routes.professor_homepage')) # TODO: Change to actual prof. homepage
+            return redirect(url_for('routes.index')) # TODO: Change to actual prof. homepage
     lform = LoginForm()
     if lform.validate_on_submit():
         user = User.query.filter_by(email = lform.username.data).first()
@@ -24,7 +24,7 @@ def login():
         if current_user.user_type == "Student":
             return redirect(url_for('routes.index')) # TODO: Change to actual student homepage
         elif current_user.user_type == "Professor":
-            return redirect(url_for('routes.professor_homepage')) # TODO: Change to actual prof. homepage
+            return redirect(url_for('routes.index')) # TODO: Change to actual prof. homepage
     return render_template('login.html', form=lform)
 
 @auth.route("/logout")
