@@ -54,6 +54,10 @@
         <span style = "color: red"> [{{ error }}]</span>
         {% endfor %}
 
+        <!-- GPA Field -->
+        <p> {{ form.gpa.label }}</p>
+        <p> {{ form.gpa(class='textinput') }} </p>
+
         <!-- Phone Number -->
         <p> {{form.phone.label }}</p>
         <p> {{form.phone(class = 'textinput') }}</p>
@@ -81,8 +85,16 @@
         {{ form.programming_langs.label }}
         {{ form.programming_langs }}
 
+        {% for error in form.programming_langs.errors %}
+        <span style = "color: red"> [{{ error }}]</span>
+        {% endfor %}
+
         {{ form.interests.label }}
         {{ form.interests }}
+
+        {% for error in form.interests.errors %}
+        <span style = "color: red"> [{{ error }}]</span>
+        {% endfor %}
 
     <p>{{ form.submit(class='button') }}</p>
 </form>

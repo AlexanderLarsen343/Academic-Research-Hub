@@ -11,7 +11,6 @@ routes = Blueprint("routes", __name__)
 
 @routes.route("/")
 def index():
-    flash("asdlfkj")
     return render_template("index.html")
 
 @routes.route('/postposition/', methods = ['GET', 'POST'])
