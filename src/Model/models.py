@@ -153,8 +153,10 @@ class Position(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(32), unique=True)
     description = db.Column(db.String(256))
-    start_date = db.Column(db.DateTime(timezone=True))
-    end_date = db.Column(db.DateTime(timezone=True))
+    # start_date = db.Column(db.DateTime(timezone=True))
+    # end_date = db.Column(db.DateTime(timezone=True))
+    start_date = db.Column(db.String(256))
+    end_date = db.Column(db.String(256))
     work_load = db.Column(db.Integer) # Time commitment.
     languages = db.relationship(
         'Language',

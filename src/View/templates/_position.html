@@ -1,0 +1,42 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Work Load</th>
+            <th>Languages</th>
+            <th>Research Fields</th>
+            <th>Candidates</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for position in positions %}
+            <tr>
+                <td>{{ position.id }}</td>
+                <td>{{ position.title }}</td>
+                <td>{{ position.description }}</td>
+                <td>{{ position.start_date }}</td>
+                <td>{{ position.end_date }}</td>
+                <td>{{ position.work_load }}</td>
+                <td>
+                    <ul>
+                        {% for language in position.languages %}
+                            <li>{{ language.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        {% for interest in position.research_fields %}
+                            <li>{{ interest.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ position.candidates }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
