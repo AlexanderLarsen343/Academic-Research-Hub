@@ -11,7 +11,6 @@ routes = Blueprint("routes", __name__)
 
 @routes.route("/")
 def index():
-    flash("asdlfkj")
     return render_template("index.html")
 
 @routes.route('/postposition/', methods = ['GET', 'POST'])
@@ -33,3 +32,8 @@ def create_position():
         flash('New Post: "' + newPostition.title + '" has been created.')
         return redirect(url_for('routes.index'))
     return render_template('createPosition.html', form = pform)
+
+# @routes.route('/display_profile', methods = ['GET'])
+# @login_required
+# def display_profile():
+#     return render_template('display_profile.html', title='Display Profile', student = current_user)

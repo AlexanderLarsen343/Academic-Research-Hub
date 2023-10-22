@@ -1,44 +1,37 @@
-<nav class="navbar navbar-expand-lg bg-dark">
-    <div class="container-fluid">
-        <img src="{{ url_for('static', filename='wsu-logo.png') }}" alt="WSU Cougarhead" style= "width:40px; height:40px">
-        <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a href="{{ url_for('routes.index') }}" class="nav-link fs-4 text-light" style = "margin-left: 10px; " aria-current="page">
-                        Home
-                    </a>
-                </li>
-                {% if current_user.user_type == "Professor" %}
-                <li class="nav-item">
-                    <a href="{{ url_for('routes.create_position') }}" class="nav-link fs-4 text-light" style = "margin-left: 10px; " aria-current="page">
-                        Create New Position
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-            <div class="d-flex">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% if not current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a href="{{ url_for('auth.login') }}" class="nav-link fs-4 text-light">Login</a>
-                        </li>
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('routes.index') }}" style="display: flex; align-items: center;">
+                    <img src="{{ url_for('static', filename='wsu-logo.png') }}" alt="WSU Cougarhead" style="width: 40px; height: 40px">
+                    <span style="margin-left: 15px;">WSU Research Portal</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('routes.index') }}"> Home </a></li>
+                    {% if current_user.user_type == "Student" %}
+                    <li><a href="{{ url_for('routes.index') }}"> View Positions </a></li>
+                    {% endif %}
+                    {% if current_user.user_type == "Professor" %}
+                    <li><a href="{{ url_for('routes.create_position') }}"> Create Positions </a></li>
+                    {% endif %}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_anonymous %}
+                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                     {% else %}
-                        <!-- Include actual user dropdown -->
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle fs-4 text-light" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ current_user.firstname }}
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <!-- TODO: Change link, text -->
-                                <li><a href="{{ url_for('auth.logout') }}" class="dropdown-item">Logout</a></li>
-                            </ul>
-                        </li>
+                    <li><a href="{{ url_for('routes.index') }}">Profile</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                     {% endif %}
                 </ul>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
+{% endblock %}

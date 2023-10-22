@@ -57,13 +57,16 @@ def register_student():
         if user is not None:
             flash("That email is already taken.")
             return redirect(url_for("auth.register_student"))
-        # I think StudentRegForm is missing some fields
         # TODO: complete this stuff
         student = Student(
             email=rform.email.data,
             firstname=rform.firstname.data,
             lastname=rform.lastname.data,
             wsu_id=rform.wsu_id.data,
+            major=rform.major.data,
+            gpa=rform.gpa.data,
+            graduationDate=rform.graduationDate.data,
+            experience=rform.experience.data
         )
         student.set_password(rform.password.data)
         db.session.add(student)

@@ -1,91 +1,133 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container mt-4">
+    <h1>Register Student</h1>
 
-<h1>Student Register</h1>
+    {% if form %}
+    <form method="post" action="{{ url_for('auth.register_student') }}">
+        {{ form.hidden_tag() }}
 
-{% if form %}
-<form action = "" method = "POST">
-    {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control") }}
+            {% for error in form.email.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 
-        <!-- Email Field -->
-        <p> {{form.email.label }}</p>
-        <p> {{form.email(class = 'textinput') }}</p>
+        <div class="form-group">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control") }}
+            {% for error in form.password.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 
-        {% for error in form.email.errors %}
-        <span style = "color: red"> [{{ error }}]</span>
-        {% endfor %}
+        <div class="form-group">
+            {{ form.password2.label(class="form-label") }}
+            {{ form.password2(class="form-control") }}
+            {% for error in form.password2.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 
-        <!--Password fields -->
-        <p> {{form.password.label }}</p>
-        <p> {{form.password(class = 'textinput') }}</p>
+        <div class="form-group">
+            {{ form.firstname.label(class="form-label") }}
+            {{ form.firstname(class="form-control") }}
+            {% for error in form.firstname.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 
-        {% for error in form.password.errors %}
-        <span style = "color: red"> [{{ error }}]</span>
-        {% endfor %}
+        <div class="form-group">
+            {{ form.lastname.label(class="form-label") }}
+            {{ form.lastname(class="form-control") }}
+            {% for error in form.lastname.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 
-        <p> {{form.password2.label }}</p>
-        <p> {{form.password2(class = 'textinput') }}</p>
+        <div class="form-group">
+            {{ form.wsu_id.label(class="form-label") }}
+            {{ form.wsu_id(class="form-control") }}
+            {% for error in form.wsu_id.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 
-        {% for error in form.password2.errors %}
-        <span style = "color: red"> [{{ error }}]</span>
-        {% endfor %}
+        <div class="form-group">
+            {{ form.major.label(class="form-label") }}
+            {{ form.major(class="form-control") }}
+            {% for error in form.major.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 
-        <!-- Firstname and Lastname -->
-        <p> {{form.firstname.label }}</p>
-        <p> {{form.firstname(class = 'textinput') }}</p>
+        <div class="form-group">
+            {{ form.gpa.label(class="form-label") }}
+            {{ form.gpa(class="form-control") }}
+            {% for error in form.gpa.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 
-        {% for error in form.firstname.errors %}
-        <span style = "color: red"> [{{ error }}]</span>
-        {% endfor %}
+        <div class="form-group">
+            {{ form.phone.label(class="form-label") }}
+            {{ form.phone(class="form-control") }}
+            {% for error in form.phone.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 
-        <p> {{form.lastname.label }}</p>
-        <p> {{form.lastname(class = 'textinput') }}</p>
+        <div class="form-group">
+            {{ form.graduationDate.label(class="form-label") }}
+            {{ form.graduationDate(class="form-control") }}
+            {% for error in form.graduationDate.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 
-        {% for error in form.lastname.errors %}
-        <span style = "color: red"> [{{ error }}]</span>
-        {% endfor %}
+        <div class="form-group">
+            {{ form.experience.label(class="form-label") }}
+            {{ form.experience(class="form-control") }}
+            {% for error in form.experience.errors %}
+            <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
 
-        <!-- Wsu ID Field -->
-        <p> {{form.wsu_id.label }}</p>
-        <p> {{form.wsu_id(class = 'textinput') }}</p>
+        <div class="row"> <!-- Create a new row for side-by-side fields -->
+            <div class="col-md-6"> <!-- Half the width for languages -->
+                <div class="form-group">
+                    <strong>{{ form.programming_langs.label }}</strong>
+                    <ul class="list-unstyled">
+                    {% for subfield in form.programming_langs %}
+                        <li>
+                            {{ subfield }} {{ subfield.label }}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-md-6"> <!-- Half the width for research_fields -->
+                <div class="form-group">
+                    <strong>{{ form.interests.label }}</strong>
+                    <ul class="list-unstyled">
+                    {% for subfield in form.interests %}
+                        <li>
+                            {{ subfield }} {{ subfield.label }}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-        {% for error in form.wsu_id.errors %}
-        <span style = "color: red"> [{{ error }}]</span>
-        {% endfor %}
-
-        <!-- Phone Number -->
-        <p> {{form.phone.label }}</p>
-        <p> {{form.phone(class = 'textinput') }}</p>
-
-        {% for error in form.phone.errors %}
-        <span style = "color: red"> [{{ error }}]</span>
-        {% endfor %}
-
-        <!-- Graduation Field -->
-        <p> {{form.graduationDate.label }}</p>
-        <p> {{form.graduationDate(class = 'textinput') }}</p>
-
-        {% for error in form.graduationDate.errors %}
-        <span style = "color: red"> [{{ error }}]</span>
-        {% endfor %}
-
-        <!-- Experience Field -->
-        <p> {{form.experience.label }}</p>
-        <p> {{form.experience(class = 'textinput') }}</p>
-
-        {% for error in form.experience.errors %}
-        <span style = "color: red"> [{{ error }}]</span>
-        {% endfor %}
-
-        {{ form.programming_langs.label }}
-        {{ form.programming_langs }}
-
-        {{ form.interests.label }}
-        {{ form.interests }}
-
-    <p>{{ form.submit(class='button') }}</p>
-</form>
-{% endif %}
-
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+    {% endif %}
+</div>
 {% endblock %}
