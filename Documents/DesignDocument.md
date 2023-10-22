@@ -96,14 +96,18 @@ You can use the following table template to list your route specifications.
 
 (***in iteration-2***) Revise your route specifications, add the missing routes to your list, and update the routes you modified. Make sure to provide sufficient detail for each route. In iteration-2, you will be deducted points if you don’t include all major routes needed for implementing the required use-cases or if you haven’t described them in detail.
 
-|   | Methods           | URL Path   | Description  |
-|:--|:------------------|:-----------|:-------------|
-|1. |                   |            |              |
-|2. |                   |            |              |
-|3. |                   |            |              |
-|4. |                   |            |              |
-|5. |                   |            |              |
-|6. |                   |            |              |
+Iteration 1
+
+|    | Methods           | URL Path              | Description        |
+|:--:|:-----------------:|:---------------------:|:------------------:|
+| 1. | `GET`, `POST`     | `/`                   | Shows the homepage |
+| 2. | `GET`             | `/register`           | Shows a screen to pick between a student and professor account |
+| 3. | `GET`, `POST`     | `/register/student`   | Shows a form to register as a student, and also accepts the submission of that form and processes it 
+| 4. | `GET`, `POST`     | `/register/professor` | Shows a form to register as a professor, and also accepts the submission of that form and processes it |
+| 5. | `GET`, `POST`     | `/postposition`       | Available only to professors, it shows a form to create a research position in addition to accepting and processing it |
+| 6. | `GET`, `POST`     | `/login`              | Shows a form to log in to the application |
+
+Iteration 2
 
 
 ### 2.2.3 View and User Interface Design 
@@ -119,7 +123,11 @@ Provide a list of the page templates you plan to create (or you already created)
 
 # 3. Progress Report
 
-Write a short paragraph summarizing your progress in iteration1 / iteration2.
+With iteration completed, in terms of use cases, we have finished with student registration, professor registration, login/logout for both types of users, and our app can create a position through the professor user. With these done we are currently on track. However, we have done much more work in the backend of our app that is not implemented yet including creating the model for application and setting up the neccesary database relationships (i.e. professor to position, languages to student and to position, interests to student and to position, and vice versa). We've also successfully created a polymorphic user that student and professor both inherit from. 
+
+Our UI, previously using various libary tools from the latest bootstrap will now use, will now use a specific flask-bootstrap libary. This will make UI design quicker and better.
+
+Looking forward to iteration two, we plan to implement the display of applications
 
 # 4. Testing Plan
 
