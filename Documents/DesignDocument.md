@@ -57,13 +57,11 @@ At the end of the introduction, provide an overview of the document outline.
 # 2.	Architectural and Component-level Design
 ## 2.1 System Structure
 
-This section should describe the high-level architecture of your software:  i.e., the major subsystems and how they fit together. 
-If you adopted the application structure we used in the Smile App, your application would have the Model-View-Controller (MVC) pattern. If you adopted a different architectural pattern, mention the pattern you adopted in your software and briefly discuss the rationale for using the proposed architecture (i.e., why that pattern fits well for your system).
+![](./images/UML%20Component.png)
 
-In this section:
- * Provide a UML component diagram that illustrates the architecture of your software.
- * Briefly mention the role of each subsystem in your architectural design. 
- * Discuss the rationale for the proposed decomposition in terms of  coupling and re-use.
+Our app uses the Model-View-Controller architecture. The Model contains the table definitions (tables and the columns within that those tables). The View contains the markup that the user sees; the user interface. The Controller handles user interactions received from the View, processes the received data, and updates the Model (and tells the view to refresh, accordingly).
+
+The MVC architecture handles decomposition for us, as each system is separate from the others and (theoretically) could be replaced with an equivalent and the app would still work correct. Moreover, each subsystem (the separate model, view, and controller) utilizes, in some way, the other, but does not strictly depend on the *way* one or both of its siblings works in order to function properly.
 
 ## 2.2 Subsystem Design 
 
@@ -81,22 +79,15 @@ Briefly explain the role of the model.
 
 ### 2.2.2 Controller
 
-Briefly explain the role of the controller. If your controller is decomposed into smaller subsystems (similar to the Smile App design we discussed in class), list each of those subsystems as subsections. 
+The main role of the Controller is to form the connection between the users input in the applciation to the database where it can be stored and remember. It's other main role is to navigate the user through the application. Within our Controller, we have auth_forms, auth_routes (both contain the input fields and navigation for authenticaion), forms, and routes.
 
-For each subsystem:
- * Explain the role of the subsystem (component) and its responsibilities.
- * 	Provide a detailed description of the subsystem interface, i.e., 
-    * which other subsystems does it interact with?  
-    * what are the interdependencies between them? 
+The role of the routes files is to send the user to the correct navigation page with the correct form loaded when needed. Upon a Post request after a users input is valdiated, the routes should input the valdiated fields into the database. 
 
-**Note:** Some of your subsystems will interact with the Web clients (browsers). Make sure to include a detailed description of the routes your application will implement. For each route specify its “methods”, “URL path”, and “a description of the operation it implements”.  
-You can use the following table template to list your route specifications. 
+The role of the forms files is to create the input fields and sanitze the users input to make sure it isn't malicious. These input fields are stored in a form the routes can access and use.
 
-(***in iteration-1***) Brainstorm with your team members and identify all routes you need to implement for the completed application and explain each route briefly. If you included most of the major routes but you missed only a few, it maybe still acceptable. 
+Furthermore on our forms, all the fields included in these files are identical to the attributes found in the models section above. Any attribute that has a DataRequired validator will be found in the form for the users input, and the other fields not required will be added later on. For example, in the next iteration, professor will have a positions attribute that will be dedicated to holding all the positions the professor has created. However, this attribute will not be added upon registration because it is not required. 
 
-(***in iteration-2***) Revise your route specifications, add the missing routes to your list, and update the routes you modified. Make sure to provide sufficient detail for each route. In iteration-2, you will be deducted points if you don’t include all major routes needed for implementing the required use-cases or if you haven’t described them in detail.
-
-Iteration 1
+#### Iteration 1 Routes
 
 |    | Methods           | URL Path              | Description        |
 |:--:|:-----------------:|:---------------------:|:------------------:|
@@ -107,8 +98,16 @@ Iteration 1
 | 5. | `GET`, `POST`     | `/postposition`       | Available only to professors, it shows a form to create a research position in addition to accepting and processing it |
 | 6. | `GET`, `POST`     | `/login`              | Shows a form to log in to the application |
 
-Iteration 2
+#### Iteration 2 Routes
 
+|    | Methods           | URL Path              | Description        |
+|:--:|:-----------------:|:---------------------:|:------------------:|
+| 1. | `GET`, `POST`     | `/createapplication `                   | Available only to students, it shows a form to create a application for a position the student navigated to |
+| 2. | `GET`           | `/displaypositions`           | Page where students can navigate to view all positions posted |
+| 3. | `GET`, `POST`     | `/position`   | Page where students navigate to view the details of a specific position 
+| 4. | `GET`     | `/viewallstudents` | For professors when they navigate to see who applied for their positions|
+| 5. | `GET`     | `/viewstudent`       | For professors who picks an individual student to view from viewallstudents|
+| 6. | `GET`     | `/mypositions`              | For professors to see all the positions they have created |
 
 ### 2.2.3 View and User Interface Design 
 
@@ -127,7 +126,7 @@ With iteration completed, in terms of use cases, we have finished with student r
 
 Our UI, previously using various libary tools from the latest bootstrap will now use, will now use a specific flask-bootstrap libary. This will make UI design quicker and better.
 
-Looking forward to iteration two, we plan to implement the display of applications
+Looking forward to iteration two, we plan to shift our focus to positions and the applications created for them. This will include professors being able to view their posted positions, allowing students to view a positions details, allowing students to create an application for a position, allowing professors to view which students applied to each postion, and allowing professors to view each individual student application. 
 
 # 4. Testing Plan
 
@@ -140,38 +139,8 @@ In this section , provide a brief description of how you plan to test the system
   * *Functional Testing*: How will you test your system to verify that the use cases are implemented correctly? 
   * *UI Testing*: How do you plan to test the user interface?  (Manual tests are OK)
 
+  For testing, we plan to test differently for each section of work. When changing the database and seeing if we can create certain objects, we will be doing query statements in python and creating the object manually. In the last iteration, most of our testing was done through the app itself where multiple functionality pieces were tested. For example, when seeing if the forms, routes, and UI worked correctly for a use case like student registration, we would merge all the work out team did into our UI branch and through trial and errors we would polish up the code to get a working version on the app. 
+
 # 5. References
 
-Cite your references here.
-
-For the papers you cite give the authors, the title of the article, the journal name, journal volume number, date of publication and inclusive page numbers. Giving only the URL for the journal is not appropriate.
-
-For the websites, give the title, author (if applicable) and the website URL.
-
-
-----
-# Appendix: Grading Rubric
-(Please remove this part in your final submission)
-
-These is the grading rubric that we will use to evaluate your document. 
-
-
-|**MaxPoints**| **Design** |
-|:---------:|:-------------------------------------------------------------------------|
-|           | Are all parts of the document in agreement with the product requirements? |
-| 10        | Is the architecture of the system described well, with the major components and their interfaces?  Is the rationale for the proposed decomposition in terms of cohesion and coupling explained well? |
-| 15        | Is the document making good use of semi-formal notation (i.e., UML diagrams)? Does the document provide a clear and complete UML component diagram illustrating the architecture of the system? |
-| 15        | Is the model (i.e., “database model”) explained well with sufficient detail? | 
-| 10        | Is the controller explained in sufficient detail?  |
-| 22        | Are all major interfaces (i.e., the routes) listed? Are the routes explained in sufficient detail? |
-| 10        | Is the view and the user interfaces explained well? Did the team provide the screenshots of the interfaces they built so far.   |
-| 5         | Is there sufficient detail in the design to start Iteration 2?   |
-| 5         | Progress report  |
-|           |   |
-|           | **Clarity** |
-|           | Is the solution at a fairly consistent and appropriate level of detail? Is the solution clear enough to be turned over to an independent group for implementation and still be understood? |
-| 5         | Is the document carefully written, without typos and grammatical errors?  |
-| 3         | Is the document well formatted? (Make sure to check your document on GitHub. You will loose points if there are formatting issues in your document.  )  |
-|           |  |
-|           | **Total** |
-|           |  |
+None
