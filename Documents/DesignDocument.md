@@ -71,11 +71,21 @@ The MVC architecture handles decomposition for us, as each system is separate fr
 
 ### 2.2.1 Model
 
-Briefly explain the role of the model. 
+The role of the model is to create the organization of tables within our database to hold all of our data for the system and users. 
 
-(***in iteration-1***) Include a list of the tables (models) in your database and explain the role of each table. Provide the attributes of the tables (including relationships). 
+Our model, when it comes to users, has an parent User class that Student and professor models inherit from. This way, we can still use UserMixin correctly with one User object.
 
-(***in iteration -2***) Revise the database model. Provide a UML diagram of your database model showing the associations and relationships among tables. Your UML diagram should also show the methods of your models.
+Our model also has some many-to-many and one-many relationships within their tables. For example, interests has a many-to-one relationship with Student, Professor, and Position thus far. 
+
+|    | Models            | Description           | Fields             |
+|:--:|:-----------------:|:---------------------:|:------------------:|
+| 1. | User              | Parent class for Student and Professor, this model represents the website user and accordingly contains the basic information of for all types of users in the website.| `id`<br> `password_hash` <br> `firstname` <br> `lastname` <br> `email` <br> `phone` <br> `user_type` |
+| 2. | Student           | Child class of User, this model represents the website student type of user. | `id` -> `Id` associated to the `User` parent class `id`. <br> `wsu_id` <br> `major` <br> `graduation` <br> `gpa` <br> `experience` <br> `applications` -> Establishes one-to-many relationship between a student and research position applications that are associated to them. <br> `interests` -> Establishes a many-to-many relationship between students and interests. <br> `languages` -> Establishes a many-to-many relationship between students and languages.|
+| 3. | Interest          | Interests that student user type can associate to their profile/ Interests that can be associated to a position. | `id` <br> `name` <br> `studentInterests` -> Establishes many-to-many relationship between interests and students. <br>  `positionLanguages` -> Establishes many-to-many relationship between interests and positions.|
+| 4. | Language          | Languages that student user type can associate to their profile/ Languages that can be associated to a position. | `id` <br> `name` <br> `studentInterests` -> Establishes many-to-many relationship between languages and students.<br> `positionLanguages` -> Establishes many-to-many relationship between languages and positions.|
+| 5. | Professor         | Child class of User, this model represents the website professor type of user. | `id` -> Id associated to the `User` parent class id. <br> `title` <br> `positions` -> Establishes one-to-many relationship between a professor and the positions that are associated to them.|
+| 6. | Position          |Represents a research position created by a professor that students can apply for. | `id` <br> `title` <br> `description` <br> `start_date` <br> `end_date` <br> `work_load` <br> `languages` -> Establishes many-to-many relationship between positions and the languages. <br> `research_fields` -> Establishes one-to-many relationship between a position and the research_fields associated to it. <br> `candidates` <br> `applications` -> Establishes one-to-many relationship between a position and the applications associated to it. <br> `professor_id` -> Every position has one professor associated to it.|
+| 7. | Application       | Represents the application made by a student for a position posted by a professor. | `id` <br> `date` <br> `status` <br> `position_id` -> Every application has one position associated to it. <br> `professor_id` -> Every application as one professor associated to it. |
 
 ### 2.2.2 Controller
 
@@ -111,13 +121,41 @@ Furthermore on our forms, all the fields included in these files are identical t
 
 ### 2.2.3 View and User Interface Design 
 
-Briefly explain the role of the view. Explain how you plan to build the user interfaces and mention the frameworks/libraries you plan to use (e.g., Bootstrap).  
+The role of the view is to be the connection with what is displayed for the user and how it gets sent to the forms in Controller. Everything involving the UI of the app including templates, styling, and images can be found here.
 
-Provide a list of the page templates you plan to create (or you already created). Briefly describe the information that will be displayed on those pages and the forms that will be rendered (i.e., explain the input and output for each page). Make sure to mention which use-cases in your “Requirements Specification” document will utilize these interfaces for user interaction. You can supplement your description with UI sketches or screenshots. 
+Provide a list of the page templates you plan to create (or you already created). Briefly describe the information that will be displayed on those pages and the forms that will be rendered (i.e., explain the input and output for each page). Make sure to mention which use-cases in your “Requirements Specification” document will utilize these interfaces for user interaction. You can supplement your description with UI sketches or screenshots.
 
-(***in iteration-1***) Brainstorm with your team members and identify the pages that you think should be created.  If you included most of the major pages, it will be acceptable. 
+#### Iteration 1
+| Template | Description |
+| -------- | ----------- |
+| `navbar.html` | Is the navigation bar on the op of each page and contains most of the links a user might need |
+| `_position.html` | Our current display of a positions information obtained straight through the database. Only used on our index page thus far, but will be revamped else where |
+| `base.html` | The base for all our templates that includes our imports from boostrap as well as the import for our CSS classes |
+| `createPosition.html` | Displays the form for creating positions found in `form.py`. Upon submission goes through forms for validation and then user input is stored in database |
+| `index.html` | Displays our homepage including the navigation bar and displays all of the positions posted by professors. Will be revamped to to have columns and not display all position information |
+| `login.html` | Displays the page where users will log in or navigate to registration. Use login form found in `auth_forms.py` |
+| `register.html` | Displays an option for users to identify if they are either student or professor. User simply clicks professor or student and is redirected to the appropiate registration page |
+| `register_professor.html` | Displays the page where professors can input all their information into the Professor Registration form found in `auth_forms.py` |
+| `register_student.html` | Displays the page where students can input all their information into the Student Registration form found in `auth_forms.py` |
 
-(***in iteration-2***) Revise your page list and descriptions and include any additional pages that you will include in your view.  In iteration-2, you will be deducted points if your view description is still superficial and doesn't list and explain all pages of your application. 
+Below are the pages we currently have done for iteration one with the revamped bootstrap/flask tool. 
+
+![](./images/Project_Create_Position.png)
+![](./images/Project_Home.png)
+![](./images/Project_Login.png)
+![](./images/Project_Register_Index.png)
+![](./images/Project_Register_Professor.png)
+![](./images/Project_Register_Student.png)
+
+#### Iteration 2
+Looking forward to iteration two, we plan on creating the following templates.
+
+| Template | Description |
+| -------- | ----------- |
+| `create_application.html` | Will display the create application form found in forms.py. Will have all the input fields for the user and will be validated by the forms and models. |
+| `view_position.html` | Will display all information on a specfic positoin. All information will obtained through database. No user input. |
+| `display_students.html` | Will display a list of students who are have applied to a position. May be revamped into a pop-up instead of a entire page.|
+| `display_student.html` | Will display the information of a student for a professor looking for qualifying students. Information will be obtained through database.  |
 
 
 # 3. Progress Report
