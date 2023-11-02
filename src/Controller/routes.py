@@ -9,9 +9,12 @@ from src.Controller.forms import PositionForm
 
 routes = Blueprint("routes", __name__)
 
-@routes.route("/")
+@routes.route("/", methods=['GET'])
+@routes.route("/index", methods=['GET'])
+@login_required
 def index():
-    return render_template("index.html")
+    positions=Position.query.all()
+    return render_template("index.html", title="WSU Research Portal", positions=positions)
 
 @routes.route('/postposition/', methods = ['GET', 'POST'])
 @login_required
@@ -26,9 +29,22 @@ def create_position():
             work_load= pform.workload.data,
             languages = pform.languages.data,
             research_fields = pform.research_fields.data,
+            candidates = 0,
+            applications = [],
+            professor_id = current_user.id
         )
         db.session.add(newPostition)
         db.session.commit()
         flash('New Post: "' + newPostition.title + '" has been created.')
         return redirect(url_for('routes.index'))
+    else:
+        for field, errors in pform.errors.items():
+            for error in errors:
+                print(f"Field: {field}, Error: {error}")
     return render_template('createPosition.html', form = pform)
+
+
+# @routes.route('/display_profile', methods = ['GET'])
+# @login_required
+# def display_profile():
+#     return render_template('display_profile.html', title='Display Profile', student = current_user)

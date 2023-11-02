@@ -2,8 +2,11 @@ from flask import Flask
 from flask_login import LoginManager
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
+
 
 db = SQLAlchemy()
+bootstrap = Bootstrap()
 
 login = LoginManager()
 login.login_view = 'auth.login'
@@ -15,7 +18,7 @@ def create_app(config=Config):
     app.template_folder = config.TEMPLATE_FOLDER
 
     db.init_app(app)
-
+    bootstrap.init_app(app)
     login.init_app(app)
 
     # Register Blueprints

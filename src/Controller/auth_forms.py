@@ -20,12 +20,13 @@ def get_interest_label(interest):
 
 class StudentRegistrationForm(FlaskForm):
     email = StringField('Email', validators = [DataRequired(), Email(), Length(1, 120)])
+    password = PasswordField('Password', validators = [DataRequired()])
+    password2 = PasswordField('Repeat Password', validators = [DataRequired(), EqualTo('password')])
     firstname = StringField('First Name', validators = [DataRequired(), Length(1, 20)])
     lastname = StringField('Last Name', validators = [DataRequired(), Length(1, 20)])
     wsu_id = StringField('WSU ID', validators = [DataRequired(), Length(1,15)])
+    major = StringField('Major', validators = [DataRequired(), Length(1,50)])
     gpa = FloatField("GPA", validators=[DataRequired(), NumberRange(0.0, 4.0)])
-    password = PasswordField('Password', validators = [DataRequired()])
-    password2 = PasswordField('Repeat Password', validators = [DataRequired(), EqualTo('password')])
     # will want to edit graduation in the future to select Term (Sping, Summer, Fall, Winter) and year
     graduationDate = StringField('Graduation Date', validators = [DataRequired(), Length(1, 15)])
     # these will both be many to many (because many students can have many interest and many interests can belong to many students)
@@ -79,5 +80,4 @@ class LoginForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired(), Length(1, 50)])
     password = PasswordField("Password", validators=[DataRequired()])
     remember_me = BooleanField("Remember Me")
-    is_faculty = BooleanField("Login as Faculty?")
     submit = SubmitField("Login")

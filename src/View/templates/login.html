@@ -1,65 +1,16 @@
 {% extends "base.html" %}
 
-{% block content %}
-<div class = "position-absolute top-45 start-50 translate-middle-x">
-    <h1>User Login</h1>
-</div>
-
-<div class="position-absolute top-50 start-50 translate-middle">
-    {% if form %}
-
-    <form class = "" action = "" method = "POST">
-        <div class = "form-control bg-dark text-light">
-            {{ form.hidden_tag() }}
-        
-                <div>
-                    <p> {{ form.username.label(class = "text-center inputbox")}} </p>
-                </div>
-        
-                <p> {{ form.username(class ="form-control inputbox", style = "width: 300px;")}}</p>
-        
-                {% for error in form.username.errors %}
-                <span class = "form-control" style = "color: red"> [{{ error }}]</span>
-                {% endfor %}
-        
-                <p> {{form.password.label }}</p>
-                <p> {{form.password(class = 'textinput form-control') }}</p>
-        
-                {% for error in form.password.errors %}
-                <span style = "color: red"> [{{ error }}]</span>
-                {% endfor %}
-        
-                <p> {{form.remember_me()}} {{form.remember_me.label}}</p>
-        
-            <!-- Where in the hell does it know to say "login" -->
-            <div class="text-center">
-                <p>{{ form.submit(class='btn btn-primary', style= "width: 300px;") }}</p>
-            </div>
-            <div class = "dropdown text-center">
-                <p>New User? <a href="{{ url_for('auth.register') }}" >Click to Register!</a></p>
-                <!-- <ul class="dropdown-menu form-control">
-                    <li><a class="dropdown-item" href="#">Student Registration</a></li>
-                    <li><a class="dropdown-item" href="#">Professor Registration</a></li>
-                  </ul> -->
-            </div>
-        </div>
-    </form>
-
-    <!-- <a href="#">Click to Register!</a> -->
-
-    <!-- <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Dropdown button
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </div> -->
-    
-    {% endif %}
-</div>
-
+{% block app_content %}
+	<h1> Sign In</h1>
+	{% if form %}
+		<div class="row">
+			<div class="col-md-4">
+				{{ wtf.quick_form(form, action = url_for('auth.login'))}}
+			</div>
+		</div>
+		
+	{% endif %}
+	<br>
+	<p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
 
 {% endblock %}
