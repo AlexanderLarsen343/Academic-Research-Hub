@@ -48,6 +48,10 @@ def positions():
     positions = Position.query.all()
     return render_template("positions.html", positions=positions)
 
+@routes.route("/positions/<position_id>")
+def positions_by_id(position_id):
+    position = Position.query.filter_by(id=position_id).first()
+    return render_template("position.html", position=position)
 
 # @routes.route('/display_profile', methods = ['GET'])
 # @login_required

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-
 {% block app_content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='classes.css') }}">
+
 <!-- Overlay text for homepage 
     <div class="image-container" style="position: relative; overflow: hidden; width: 50vw; height: 50vh;">
         <img src="{{ url_for('static', filename='wsu-hero-1.jpg') }}" class="img-fluid" alt="bootstrap" style="width: 100%; height: 100%; object-fit: cover;">
@@ -10,11 +11,37 @@
         </div>
     </div>
 -->
-    <div>
+
+
+<!-- TODO: divide positions into groups of 3 so that we can display
+3 columns w/ one position each and any number of rows -->
+<div class="container-fluid">
+    <div class="row">
         {% for position in positions %}
-        <div>
-            {% include '_position.html' %}
+        <div class="col-md-4">
+            {% include "_position.html" %}
         </div>
         {% endfor %}
     </div>
+    <!-- <div class="row">
+        <div class="col-md-4">laskdjf</div>
+        <div class="col-md-4">laskdjf</div>
+        <div class="col-md-4">laskdjf</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">laskdjf</div>
+        <div class="col-md-4">laskdjf</div>
+        <div class="col-md-4">laskdjf</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">laskdjf</div>
+        <div class="col-md-4">laskdjf</div>
+        <div class="col-md-4">laskdjf</div>
+    </div> -->
+</div>
+
+
+
+
+
 {% endblock %}

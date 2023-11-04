@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-{% for position in positions %}
-    {{ position.title }} <br>
-{% endfor %}
+<div class="container-fluid">
+    <div class="row">
+        {% for position in positions %}
+        <div class="col-md-4">
+            {% include "_position.html" %}
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}
