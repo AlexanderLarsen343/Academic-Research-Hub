@@ -10,7 +10,7 @@ from src.Controller.forms import PositionForm
 routes = Blueprint("routes", __name__)
 
 @routes.route("/", methods=['GET'])
-@routes.route("/index", methods=['GET'])
+# @routes.route("/index", methods=['GET'])
 @login_required
 def index():
     positions=Position.query.all()
@@ -42,6 +42,11 @@ def create_position():
             for error in errors:
                 print(f"Field: {field}, Error: {error}")
     return render_template('createPosition.html', form = pform)
+
+@routes.route("/positions", methods=["GET"])
+def positions():
+    positions = Position.query.all()
+    return render_template("positions.html", positions=positions)
 
 
 # @routes.route('/display_profile', methods = ['GET'])

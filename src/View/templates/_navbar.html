@@ -17,7 +17,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('routes.index') }}"> Home </a></li>
                     {% if current_user.user_type == "Student" %}
-                    <li><a href="{{ url_for('routes.index') }}"> View Positions </a></li>
+                    <li><a href="{{ url_for('routes.positions') }}"> View Positions </a></li>
                     {% endif %}
                     {% if current_user.user_type == "Professor" %}
                     <li><a href="{{ url_for('routes.create_position') }}"> Create Positions </a></li>
@@ -27,7 +27,7 @@
                     {% if current_user.is_anonymous %}
                     <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                     {% else %}
-                    <li><a href="{{ url_for('routes.index') }}">Profile</a></li>
+                    <li><a href="{{ url_for('routes.index') }}">{{ current_user.firstname }} {{ current_user.lastname }}</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                     {% endif %}
                 </ul>

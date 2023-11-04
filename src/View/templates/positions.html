@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+{% for position in positions %}
+    {{ position.title }} <br>
+{% endfor %}
+{% endblock %}
