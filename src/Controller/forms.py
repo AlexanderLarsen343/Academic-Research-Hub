@@ -29,6 +29,7 @@ class PositionForm(FlaskForm):
 	submit = SubmitField('Post')
      
 class ApplicationForm(FlaskForm):
-	statement = TextAreaField('Summary of your Qualifications', validators=[DataRequired(),Length(max=1500)])
-	reference = StringField('Reference', validators=[DataRequired(), Length(max=30)])
+	statement = TextAreaField('Summary of Qualifications', validators=[DataRequired(),Length(max=1500)])
+	reference = StringField('Reference Name', validators=[DataRequired(), Length(max=30)])
 	reference_email = StringField('Reference Email', validators=[DataRequired(), Length(max=30)])
+	submit = SubmitField("Submit")

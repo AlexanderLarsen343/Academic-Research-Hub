@@ -28,7 +28,11 @@ def create_app(config=Config):
     app.register_blueprint(auth)
 
     # Main routes
-    from src.Controller.routes import routes
-    app.register_blueprint(routes)
+    from src.Controller.routes import routes as main
+    app.register_blueprint(main)
+
+    # Position routes
+    from src.Controller.position_routes import routes as position
+    app.register_blueprint(position)
 
     return app

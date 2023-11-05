@@ -49,12 +49,12 @@ class StudentRegistrationForm(FlaskForm):
 class ProfessorRegistrationForm(FlaskForm):
     #this should be a wsu email, it will be used as the username. not sure if there is a way to check that it sis a wsu email
     email = StringField('Email', validators = [DataRequired(), Email(), Length(1, 120)])
-    firstname = StringField('Firstname', validators = [DataRequired(), Length(1, 20)])
-    lastname = StringField('Lastname', validators = [DataRequired(), Length(1, 20)])
+    firstname = StringField('First Name', validators = [DataRequired(), Length(1, 20)])
+    lastname = StringField('Last Name', validators = [DataRequired(), Length(1, 20)])
     wsu_id = StringField('WSU ID', validators = [DataRequired(), Length(1,15)])
     # contact_email = StringField('Email', validators = [DataRequired(), Email(), Length(1, 120)])
     password = PasswordField('Password', validators = [DataRequired()])
-    password2 = PasswordField('Password', validators = [DataRequired(), EqualTo('password')])
+    password2 = PasswordField('Repeat Password', validators = [DataRequired(), EqualTo('password')])
     title = StringField('Title', validators = [DataRequired(), Length(1, 30)])
     phone = StringField('Phone Number', validators= [DataRequired(), Length(1, 10)])
    
@@ -77,7 +77,7 @@ class ProfessorRegistrationForm(FlaskForm):
     #             raise ValidationError('The contact email already exists! Please use a different email address.')
         
 class LoginForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired(), Length(1, 50)])
+    username = StringField("Email", validators=[DataRequired(), Length(1, 50)])
     password = PasswordField("Password", validators=[DataRequired()])
     remember_me = BooleanField("Remember Me")
     submit = SubmitField("Login")
