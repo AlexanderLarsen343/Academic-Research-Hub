@@ -1,5 +1,75 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-{{ position.title }}
+<link rel="stylesheet" href="{{ url_for('static', filename='classes.css') }}">
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 title-text">
+            {{ position.title }}
+        </div>
+    </div>
+    <div class="row">
+        <hr>
+        <div class="col-md-12 description-text">
+            Job Description <br><br>
+            {{ position.description }}
+        </div>
+    </div>
+    <div class="row">
+        <hr>
+        <div class="col-md-6 description-text">
+            Required Languages<br><br>
+            <ul>
+                {% for language in position.languages %}
+                    <li>{{ language.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-6 description-text">
+            Research Fields <br> <br>
+            <ul>
+                {% for research_field in position.research_fields %}
+                    <li>{{ research_field.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <hr>
+        <div class = "col-md-3 description-text">
+            Start Date: {{position.start_date}}
+        </div>
+        <div class = "col-md-3 description-text">
+            End Date: {{position.end_date}}
+        </div>
+        <div class = "col-md-3 description-text">
+            Hours per Week: {{position.work_load}}
+        </div>
+        <div class = "col-md-3 description-text">
+            Number of Candidates: {{position.candidates}}
+        </div>
+        <hr>
+    </div>
+    <!-- <div class = "col-md-6">
+        <a href="{{ url_for('routes.positions_by_id', position_id=position.id) }}" class="btn btn-primary text-center">Apply</a>
+    </div>
+    <div class = "col-md-6">
+        <a href="{{ url_for('routes.positions') }}" class="btn btn-primary text-center">Back to Positions</a>
+
+    </div> -->
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <hr>
+        <div class="col-md-6 description-text">
+            <a href="{{ url_for('routes.positions') }}" class="btn btn-default text-center">Back to Positions</a>
+        </div>
+        <div class="col-md-6 description-text">
+            <a href="" class="btn btn-primary text-center">Apply</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

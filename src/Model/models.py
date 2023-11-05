@@ -182,5 +182,8 @@ class Application(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, default=datetime.utcnow)
     status = db.Column(db.String(16))
+    statement = db.Column(db.String(500))
+    reference = db.Column(db.String(40))
+    reference_email = db.Column(db.String(30))
     position_id = db.Column(db.Integer, db.ForeignKey('position.id')) # Every application has one position associated to it.
     student_id = db.Column(db.Integer, db.ForeignKey('student.id')) # Every application has one student associated to it.

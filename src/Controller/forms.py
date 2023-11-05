@@ -27,3 +27,8 @@ class PositionForm(FlaskForm):
 	languages = QuerySelectMultipleField('Languages', query_factory=languages, get_label=get_language_label, widget=ListWidget(prefix_label=False), option_widget=CheckboxInput())
 	research_fields = QuerySelectMultipleField('Research Fields', query_factory=interests, get_label=get_interest_label, widget=ListWidget(prefix_label=False), option_widget=CheckboxInput())
 	submit = SubmitField('Post')
+     
+class ApplicationForm(FlaskForm):
+	statement = TextAreaField('Summary of your Qualifications', validators=[DataRequired(),Length(max=1500)])
+	reference = StringField('Reference', validators=[DataRequired(), Length(max=30)])
+	reference_email = StringField('Reference Email', validators=[DataRequired(), Length(max=30)])
