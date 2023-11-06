@@ -17,7 +17,7 @@ def positions():
     elif current_user.user_type == "Student":
         positions = Position.query.all()
 
-    return render_template("positions.html", positions=positions)
+    return render_template("positions.html", position_id=positions)
 
 @routes.route('/positions/new', methods = ['GET', 'POST'])
 @login_required
@@ -27,7 +27,7 @@ def create_position():
     
     pform = PositionForm()
     if pform.validate_on_submit():
-        newPostition = Position(
+        newPosition = Position(
             title=pform.title.data, 
             description=pform.description.data,
             start_date = pform.start_date.data,
@@ -39,10 +39,10 @@ def create_position():
             applications = [],
             professor_id = current_user.id
         )
-        db.session.add(newPostition)
+        db.session.add(newPosition)
         db.session.commit()
-        flash('Position "' + newPostition.title + '" has been created.')
-        return redirect(url_for('routes.index'))
+        flash(f'"{newPosition.title}" has been created.')
+        return redirect(url_for('positions.positions_by_id', position_id=newPosition.id))
     else:
         for field, errors in pform.errors.items():
             for error in errors:
@@ -52,6 +52,13 @@ def create_position():
 @routes.route("/positions/<position_id>")
 def positions_by_id(position_id):
     position = Position.query.filter_by(id=position_id).first()
+
+    if position is None:
+        return render_template("errors/404.html"), 404
+
+    if (current_user.user_type != "Student") and (current_user.id != position.professor_id):
+        return render_template("errors/403.html"), 403
+    
     return render_template("position.html", position=position)
 
 @routes.route("/positions/<position_id>/apply", methods=["GET", "POST"])
