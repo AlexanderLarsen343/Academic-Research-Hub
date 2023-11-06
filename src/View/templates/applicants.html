@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div>
+    {% for student in students %}
+    <div>
+        {{ student.firstname }}
+        {{ student.lastname }}
+        {{ student.gpa }}
+        {{ student.major }}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

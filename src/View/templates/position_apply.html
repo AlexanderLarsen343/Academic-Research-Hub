@@ -2,7 +2,7 @@
 
 {% block app_content %}
 <div class="container mt-4"> 
-    <a href="{{ url_for('positions.positions_by_id', position_id=position.id) }}" class="btn btn-default text-center">Back to Position Details</a>
+    <a href="javascript:window.history.back();" class="btn btn-default text-center">Back</a>
     <h1>Apply For: <strong><u>{{ position.title }}</u></strong></h1>
     {% if form %}
     <div class="row">

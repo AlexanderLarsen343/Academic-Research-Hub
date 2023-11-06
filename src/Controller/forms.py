@@ -26,7 +26,7 @@ class PositionForm(FlaskForm):
 	workload = IntegerField('Hours Per Week', validators=[DataRequired(), NumberRange(1, 168)])
 	languages = QuerySelectMultipleField('Languages', query_factory=languages, get_label=get_language_label, widget=ListWidget(prefix_label=False), option_widget=CheckboxInput())
 	research_fields = QuerySelectMultipleField('Research Fields', query_factory=interests, get_label=get_interest_label, widget=ListWidget(prefix_label=False), option_widget=CheckboxInput())
-	submit = SubmitField('Post')
+	submit = SubmitField('Create Position')
      
 class ApplicationForm(FlaskForm):
 	statement = TextAreaField('Summary of Qualifications', validators=[DataRequired(),Length(max=1500)])

@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, url_for, request, get_flashe
 from flask_login import current_user, login_required
 
 from src import db
-from src.Model.models import Position, Application
+from src.Model.models import Position, Application, Student
 from src.Controller.forms import PositionForm, ApplicationForm
 
 routes = Blueprint("positions", __name__)
@@ -17,7 +17,7 @@ def positions():
     elif current_user.user_type == "Student":
         positions = Position.query.all()
 
-    return render_template("positions.html", position_id=positions)
+    return render_template("positions.html", positions=positions)
 
 @routes.route('/positions/new', methods = ['GET', 'POST'])
 @login_required
@@ -82,3 +82,14 @@ def positions_by_id_apply(position_id):
         flash(f"Successfully applied for {position.title}!")
         return redirect(url_for("routes.index"))
     return render_template("position_apply.html", form=form, position=position)
+
+@routes.route("/positions/<position_id>/applicants", methods=["GET"])
+def positions_by_id_applicants(position_id):
+    position = Position.query.filter_by(id=position_id).first()
+
+    if position is None:
+        return render_template("errors/404.html"), 404
+
+    students = [Student.query.filter_by(id=application.student_id).first() for application in position.applications]
+
+    return render_template("applicants.html", students=students)

@@ -64,6 +64,10 @@
         <div class="col-md-6 description-text">
             <a href="{{ url_for('positions.positions_by_id_apply', position_id=position.id) }}" class="btn btn-primary text-center">Apply</a>
         </div>
+        {% elif current_user.user_type == "Professor" %}
+        <div class="cold-md-6 description-text">
+            <a href="{{ url_for('positions.positions_by_id_applicants', position_id=position.id) }}" class="btn btn-primary text-center">View Applicants</a>
+        </div>
         {% endif %}
     </div>
 </div>

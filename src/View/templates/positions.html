@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-<!-- TODO: divide positions into groups of 3 so that we can display
-3 columns w/ one position each and any number of rows -->
-<div class="container-fluid">
-    <div class="row">
-        {% for position in positions %}
-        <div class="col-md-4">
-            {% include "_position.html" %}
-        </div>
-        {% endfor %}
+<div>
+    {% for position in positions %}
+    <div>
+        {% include '_position.html' %}
+        <a href="{{ url_for('positions.positions_by_id', position_id=position.id) }}" class="btn btn-default text-center">View Details</a>
+
+        {% if current_user.user_type == "Student" %}
+        <a href="{{ url_for('positions.positions_by_id_apply', position_id=position.id) }}" class="btn btn-primary text-center">Apply</a>
+        {% elif current_user.user_type == "Professor" %}
+        <a href="{{ url_for('positions.positions_by_id_applicants', position_id=position.id) }}" class="btn btn-primary text-center">View Applicants</a>
+        {% endif %}
     </div>
+    {% endfor %}
 </div>
 {% endblock %}
