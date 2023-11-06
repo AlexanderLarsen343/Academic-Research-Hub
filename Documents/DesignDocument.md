@@ -4,10 +4,10 @@
 --------
 Prepared by:
 
-* `Alexander Larsen`,`Voiland College`
-* `Erick Pairault`,`Voiland College`
-* `Gabriel Muccillo Hartz`,`Voiland College`
-* `Calell Figuerres`,`Voiland College`
+* Alexander Larsen, Voiland College
+* Erick Pairault, Voiland College
+* Gabriel Muccillo Hartz, Voiland College
+* Calell Figuerres, Voiland College
 ---
 
 **Course** : CptS 322 - Software Engineering Principles I
@@ -65,9 +65,9 @@ The MVC architecture handles decomposition for us, as each system is separate fr
 
 ## 2.2 Subsystem Design 
 
-(**Note1**: This is just a suggested template. If you adopted a pattern other than MVC, you should revise this template and the list the major subsystems in your architectural design.)
+<!-- (**Note1**: This is just a suggested template. If you adopted a pattern other than MVC, you should revise this template and the list the major subsystems in your architectural design.)
 
-(**Note2**: You should describe the design for the end product (completed application) - not only your iteration1 version. You will revise this document in iteration-2 and make changes  and/or add more details in iteration-2.)
+(**Note2**: You should describe the design for the end product (completed application) - not only your iteration1 version. You will revise this document in iteration-2 and make changes  and/or add more details in iteration-2.) -->
 
 ### 2.2.1 Model
 
@@ -110,20 +110,33 @@ Furthermore on our forms, all the fields included in these files are identical t
 
 #### Iteration 2 Routes
 
-|    | Methods           | URL Path              | Description        |
+<!-- |    | Methods           | URL Path              | Description        |
 |:--:|:-----------------:|:---------------------:|:------------------:|
 | 1. | `GET`, `POST`     | `/createapplication `                   | Available only to students, it shows a form to create a application for a position the student navigated to |
 | 2. | `GET`           | `/displaypositions`           | Page where students can navigate to view all positions posted |
 | 3. | `GET`, `POST`     | `/position`   | Page where students navigate to view the details of a specific position 
 | 4. | `GET`     | `/viewallstudents` | For professors when they navigate to see who applied for their positions|
 | 5. | `GET`     | `/viewstudent`       | For professors who picks an individual student to view from viewallstudents|
-| 6. | `GET`     | `/mypositions`              | For professors to see all the positions they have created |
+| 6. | `GET`     | `/mypositions`              | For professors to see all the positions they have created | -->
+
+|    | Methods | URL Path | Description |
+| -- | ------- | -------- | ----------- |
+| 1. | `GET` | `/` | The homepage |
+| 2. | `GET` | `/positions` | Displays the positions available to a user; for students, this is all applications (they can apply for), and for professors this is all the applications they've created |
+| 3. | `GET`, `POST` | `/positions/new` | Only available to professors, it creates a new position
+| 4. | `GET` | `/positions/<position_id>` | Displays the details of a specific position |
+| 5. | `GET`, `POST` | `/positions/<position_id>/apply` | Only available to students, it allows a student to apply for the given position |
+| 6. | `GET` | `/positions/<position_id>/applicants` | Only available to professors, it allows a professor to view all the applicants to a given position |
+| 7. | `GET`, `POST` | `/login` | Allows a user to sign in |
+| 8. | `GET` | `/register` | Allows a new user to select whether they want to register as a student or a professor |
+| 9. | `GET`, `POST` | `/register/student` | Allows a user to register as a student |
+| 10. | `GET`, `POST` | `/register/professor` | Allows a user to register as a professor 
 
 ### 2.2.3 View and User Interface Design 
 
 The role of the view is to be the connection with what is displayed for the user and how it gets sent to the forms in Controller. Everything involving the UI of the app including templates, styling, and images can be found here.
 
-Provide a list of the page templates you plan to create (or you already created). Briefly describe the information that will be displayed on those pages and the forms that will be rendered (i.e., explain the input and output for each page). Make sure to mention which use-cases in your “Requirements Specification” document will utilize these interfaces for user interaction. You can supplement your description with UI sketches or screenshots.
+<!-- Provide a list of the page templates you plan to create (or you already created). Briefly describe the information that will be displayed on those pages and the forms that will be rendered (i.e., explain the input and output for each page). Make sure to mention which use-cases in your “Requirements Specification” document will utilize these interfaces for user interaction. You can supplement your description with UI sketches or screenshots. -->
 
 #### Iteration 1
 | Template | Description |
@@ -160,24 +173,27 @@ Looking forward to iteration two, we plan on creating the following templates.
 
 # 3. Progress Report
 
+## October 23, 2023
 With iteration completed, in terms of use cases, we have finished with student registration, professor registration, login/logout for both types of users, and our app can create a position through the professor user. With these done we are currently on track. However, we have done much more work in the backend of our app that is not implemented yet including creating the model for application and setting up the neccesary database relationships (i.e. professor to position, languages to student and to position, interests to student and to position, and vice versa). We've also successfully created a polymorphic user that student and professor both inherit from. 
 
 Our UI, previously using various libary tools from the latest bootstrap will now use, will now use a specific flask-bootstrap libary. This will make UI design quicker and better.
 
 Looking forward to iteration two, we plan to shift our focus to positions and the applications created for them. This will include professors being able to view their posted positions, allowing students to view a positions details, allowing students to create an application for a position, allowing professors to view which students applied to each postion, and allowing professors to view each individual student application. 
 
+## November 7, 2023
+
 # 4. Testing Plan
 
-(***in iteration 1***)
-Don't include this section.
+<!-- (***in iteration 1***)
+Don't include this section. -->
 
-(***in iteration 2***)
+<!-- (***in iteration 2***)
 In this section , provide a brief description of how you plan to test the system. Thought should be given to  mostly how automatic testing can be carried out, so as to maximize the limited number of human hours you will have for testing your system. Consider the following kinds of testing:
   * *Unit Testing*: Explain for what modules you plan to write unit tests, and what framework you plan to use.  (Each team should write automated tests (at least) for testing the routes)
   * *Functional Testing*: How will you test your system to verify that the use cases are implemented correctly? 
-  * *UI Testing*: How do you plan to test the user interface?  (Manual tests are OK)
+  * *UI Testing*: How do you plan to test the user interface?  (Manual tests are OK) -->
 
-  For testing, we plan to test differently for each section of work. When changing the database and seeing if we can create certain objects, we will be doing query statements in python and creating the object manually. In the last iteration, most of our testing was done through the app itself where multiple functionality pieces were tested. For example, when seeing if the forms, routes, and UI worked correctly for a use case like student registration, we would merge all the work out team did into our UI branch and through trial and errors we would polish up the code to get a working version on the app. 
+  <!-- For testing, we plan to test differently for each section of work. When changing the database and seeing if we can create certain objects, we will be doing query statements in python and creating the object manually. In the last iteration, most of our testing was done through the app itself where multiple functionality pieces were tested. For example, when seeing if the forms, routes, and UI worked correctly for a use case like student registration, we would merge all the work out team did into our UI branch and through trial and errors we would polish up the code to get a working version on the app.  -->
 
 # 5. References
 
