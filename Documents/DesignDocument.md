@@ -90,6 +90,10 @@ Our model also has some many-to-many and one-many relationships within their tab
 | 6. | Position          |Represents a research position created by a professor that students can apply for. | `id` <br> `title` <br> `description` <br> `start_date` <br> `end_date` <br> `work_load` <br> `languages` -> Establishes many-to-many relationship between positions and the languages. <br> `research_fields` -> Establishes one-to-many relationship between a position and the research_fields associated to it. <br> `candidates` <br> `applications` -> Establishes one-to-many relationship between a position and the applications associated to it. <br> `professor_id` -> Every position has one professor associated to it.|
 | 7. | Application       | Represents the application made by a student for a position posted by a professor. | `id` <br> `date` <br> `status` <br> `position_id` -> Every application has one position associated to it. <br> `professor_id` -> Every application as one professor associated to it. |
 
+#### UML Diagram
+
+![](./images/Model.png)
+
 ### 2.2.2 Controller
 
 The main role of the Controller is to form the connection between the users input in the applciation to the database where it can be stored and remember. It's other main role is to navigate the user through the application. Within our Controller, we have auth_forms, auth_routes (both contain the input fields and navigation for authenticaion), forms, and routes.
