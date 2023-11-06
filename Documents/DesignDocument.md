@@ -37,14 +37,17 @@ Prepared by:
 
 ### Document Revision History
 
-| Name       | Date       | Changes       | Version    |
-| ---------- | ---------- | ------------- | ---------- |
-| Revision 1 | 2021-10-05 | Initial draft | 1.0        |
-
+| Name       | Date       | Changes             | Version    |
+| ---------- | ---------- | ------------------- | ---------- |
+| Revision 1 | 2023-10-23 | Initial draft       | 1.0        |
+| Revision 2 | 2023-11-07 | Iteration 2 changes | 2.0        |
 
 # 1. Introduction
+This design document details the layout, structure, and purpose of each portion of our Academic Research Hub application. The goal of this project is to (among other things) connect students and faculty members with available research opportunities, as it is generally difficult for upper-division faculty members to connect with lower-classmen (i.e., freshmen and sophomores).
 
-Explain the purpose for providing this design document. If this is a revision of an earlier document, please make sure to summarize what changes have been made during the revision (keep this discussion brief). 
+This document will discuss the system architecture, progress over time, and testing methodology for our application.
+
+<!-- Explain the purpose for providing this design document. If this is a revision of an earlier document, please make sure to summarize what changes have been made during the revision (keep this discussion brief). 
 
 Then provide a brief description of your project and state your project goal.
 
@@ -52,7 +55,7 @@ At the end of the introduction, provide an overview of the document outline.
 
 [Section II](#2-architectural-and-component-level-design) includes …
 
-[Section III](#22-subsystem-design) includes …
+[Section III](#22-subsystem-design) includes … -->
 
 # 2.	Architectural and Component-level Design
 ## 2.1 System Structure
@@ -161,26 +164,57 @@ Below are the pages we currently have done for iteration one with the revamped b
 ![](./images/Project_Register_Student.png)
 
 #### Iteration 2
-Looking forward to iteration two, we plan on creating the following templates.
+<!-- Looking forward to iteration two, we plan on creating the following templates.
 
 | Template | Description |
 | -------- | ----------- |
 | `create_application.html` | Will display the create application form found in forms.py. Will have all the input fields for the user and will be validated by the forms and models. |
 | `view_position.html` | Will display all information on a specfic positoin. All information will obtained through database. No user input. |
 | `display_students.html` | Will display a list of students who are have applied to a position. May be revamped into a pop-up instead of a entire page.|
-| `display_student.html` | Will display the information of a student for a professor looking for qualifying students. Information will be obtained through database.  |
+| `display_student.html` | Will display the information of a student for a professor looking for qualifying students. Information will be obtained through database.  | -->
 
+Iteration 2 will contain the following templates:
+
+| Template | Description |
+| -------- | ----------- |
+| `errors/403.html` | Error page for when a user attempts to access a page they're not authorized to access |
+| `errors/404.html` | Error page for when a user attempts to access something not know by the server |
+| `register/index.html` | Page to allow a user to select what user type they want to register as |
+| `register/register_student.html` | Form to register a user as a student |
+| `register/register_professor.html` | Form to register a user as a professor |
+| `_navbar.html` | The navbar shown everywhere |
+| `_position.html` | An individual position used by `positions.html` as a sub-template |
+| `base.html` | The base of the application; includes the header, HTML template, navbar, etc. |
+| `createPosition.html` | Allows a professor to create a position that students can apply for |
+| `index.html` | The homepage |
+| `login.html` | The login page for users to login to the application |
+| `position.html` | Shows the details of a specific position |
+| `position_apply.html` | Allows a student to apply for a position |
+| `positions.html` | Shows a list of positions; for students, this is all open positions; for professors, this is all positions they've created |
 
 # 3. Progress Report
 
 ## October 23, 2023
-With iteration completed, in terms of use cases, we have finished with student registration, professor registration, login/logout for both types of users, and our app can create a position through the professor user. With these done we are currently on track. However, we have done much more work in the backend of our app that is not implemented yet including creating the model for application and setting up the neccesary database relationships (i.e. professor to position, languages to student and to position, interests to student and to position, and vice versa). We've also successfully created a polymorphic user that student and professor both inherit from. 
+With iteration 1 completed, in terms of use cases, we have finished with student registration, professor registration, login/logout for both types of users, and our app can create a position through the professor user. With these done we are currently on track. However, we have done much more work in the backend of our app that is not implemented yet including creating the model for application and setting up the neccesary database relationships (i.e. professor to position, languages to student and to position, interests to student and to position, and vice versa). We've also successfully created a polymorphic user that student and professor both inherit from. 
 
 Our UI, previously using various libary tools from the latest bootstrap will now use, will now use a specific flask-bootstrap libary. This will make UI design quicker and better.
 
 Looking forward to iteration two, we plan to shift our focus to positions and the applications created for them. This will include professors being able to view their posted positions, allowing students to view a positions details, allowing students to create an application for a position, allowing professors to view which students applied to each postion, and allowing professors to view each individual student application. 
 
 ## November 7, 2023
+With iteration 2 completed, we'll have finished professors being able to:
+- View the positions they've created
+- View the details of a specific position
+- View the applicants to a position
+
+For students, they can now:
+- View all available positions to apply for
+- View the details of a specific position
+- Apply to a position
+
+Additionally, there is also:
+- User permission checking; i.e., that a student can't create a new position or a professor view a position that isn't theirs (for now)
+- 404 handling; i.e., if a user navigates to `/position/<gibberish>`, the application shows a proper error page
 
 # 4. Testing Plan
 
