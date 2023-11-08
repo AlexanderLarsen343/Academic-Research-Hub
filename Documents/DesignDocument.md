@@ -233,6 +233,15 @@ In this section , provide a brief description of how you plan to test the system
 
   <!-- For testing, we plan to test differently for each section of work. When changing the database and seeing if we can create certain objects, we will be doing query statements in python and creating the object manually. In the last iteration, most of our testing was done through the app itself where multiple functionality pieces were tested. For example, when seeing if the forms, routes, and UI worked correctly for a use case like student registration, we would merge all the work out team did into our UI branch and through trial and errors we would polish up the code to get a working version on the app.  -->
 
+For testing of our application, we've broken it down into three categories of testing:
+
+Unit Testing: To have automated testing and save time, our team is going to follow the last two projects and have PyUnit or "unittest" be our main testing framework for units like models. An example idea of how we would test a model would be to write the neccasary python statements to create an object of the model, and then write assertion statements to check if the content is correct as to when it was created. A more detailed example for our case would be if we testing the Student model, its relationships, and its attributes. For a position created by a professor, a student should be able to create an application. Within this common case, we could write the assertion to see if from the professor model, we could go into their positions attribute, go into the applications attribute, and see if the "student_id" attribute matches what we wanted. 
+
+Functional Testing: The testing framework we've chosen to handle testing of the entire system is pytest as it's more simple that unittest and can handle the scope better. This testing will have some fixture functions that would do basics such as creation of a professor or creation of a student account. Using these fixtures, we could write a tests such as checking our registration routes and if our post methods work. Looking at response.data should give us the answer whether the page gave an error or if it passed. Functional testing will also check to make sure any errors.
+
+UI Testing: This testing will be easiest as we will manually go through the web pages and make sure format, style, and flashes are all executed correctly. Each template in the entire app will be navigated to and checked. 
+
+
 # 5. References
 
 None
