@@ -19,7 +19,7 @@
                         <td>{{ student.major }}</td>
                     </tr>
                     <td>
-                        <a href="{{ url_for('routes.index') }}" class="btn btn-primary text-center">View Qualifications</a>
+                        <a href="{{ url_for('positions.position_applicant_by_id', position_id=position.id, student_id=student.id) }}" class="btn btn-primary text-center">View Qualifications</a>
                     </td>
             </tbody>
         {% endfor %}

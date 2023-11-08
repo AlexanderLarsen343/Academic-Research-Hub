@@ -77,6 +77,7 @@ def positions_by_id_apply(position_id):
             position_id=position.id,
             student_id=current_user.id
         )
+        position.candidates += 1
         db.session.add(application)
         db.session.commit()
         flash(f"Successfully applied for {position.title}!")
@@ -89,7 +90,29 @@ def positions_by_id_applicants(position_id):
 
     if position is None:
         return render_template("errors/404.html"), 404
+    
+    if current_user.user_type != "Professor" or current_user.id != position.professor_id:
+        return render_template("errors/403.html"), 403
 
     students = [Student.query.filter_by(id=application.student_id).first() for application in position.applications]
 
-    return render_template("applicants.html", students=students)
+    return render_template("applicants.html", students=students, position=position)
+
+@routes.route("/positions/<position_id>/appilcants/<student_id>")
+def position_applicant_by_id(position_id, student_id):
+    position = Position.query.filter_by(id=position_id).first()
+    student = Student.query.filter_by(id=student_id).first()
+
+    if position is None:
+        return render_template("errors/404.html"), 404
+    
+    if current_user.user_type != "Professor" or current_user.id != position.professor_id:
+        return render_template("errors/403.html"), 403
+
+    applications = [ x for x in position.applications ]
+    application = None
+    for app in applications:
+        if app.student_id == student.id:
+            application = app
+
+    return render_template("application_page.html", position=position, student=student, application=application)

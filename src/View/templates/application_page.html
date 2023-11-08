@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block app_content %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{{ student.firstname }} {{ student.lastname }}</td> 
+                <td>Application Status: {{application.status}}</td>
+            </tr>
+            <tr>
+                <th>GPA</th>
+                <th>Technical Electives</th>
+                <th>Research Interests</th>
+                <th>Programming Languages</th>
+                <th>Experience</th>
+            </tr>
+        </thead>
+            <tbody>
+                    <tr>
+                        <td>{{ student.gpa }}</td>
+                        <td>
+                            <ul>
+                                {% for interest in position.interests %}
+                                    <li>{{ interest.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                {% for language in student.languages %}
+                                    <li>{{ language.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>{{ application.statement }}</td>
+                    </tr>
+            </tbody>
+    </table>
+
+{% endblock %}
