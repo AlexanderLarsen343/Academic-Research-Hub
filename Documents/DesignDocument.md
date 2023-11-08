@@ -4,10 +4,10 @@
 --------
 Prepared by:
 
-* `Alexander Larsen`,`Voiland College`
-* `Erick Pairault`,`Voiland College`
-* `Gabriel Muccillo Hartz`,`Voiland College`
-* `Calell Figuerres`,`Voiland College`
+* Alexander Larsen, Voiland College
+* Erick Pairault, Voiland College
+* Gabriel Muccillo Hartz, Voiland College
+* Calell Figuerres, Voiland College
 ---
 
 **Course** : CptS 322 - Software Engineering Principles I
@@ -37,14 +37,17 @@ Prepared by:
 
 ### Document Revision History
 
-| Name       | Date       | Changes       | Version    |
-| ---------- | ---------- | ------------- | ---------- |
-| Revision 1 | 2021-10-05 | Initial draft | 1.0        |
-
+| Name       | Date       | Changes             | Version    |
+| ---------- | ---------- | ------------------- | ---------- |
+| Revision 1 | 2023-10-23 | Initial draft       | 1.0        |
+| Revision 2 | 2023-11-07 | Iteration 2 changes | 2.0        |
 
 # 1. Introduction
+This design document details the layout, structure, and purpose of each portion of our Academic Research Hub application. The goal of this project is to (among other things) connect students and faculty members with available research opportunities, as it is generally difficult for upper-division faculty members to connect with lower-classmen (i.e., freshmen and sophomores).
 
-Explain the purpose for providing this design document. If this is a revision of an earlier document, please make sure to summarize what changes have been made during the revision (keep this discussion brief). 
+This document will discuss the system architecture, progress over time, and testing methodology for our application.
+
+<!-- Explain the purpose for providing this design document. If this is a revision of an earlier document, please make sure to summarize what changes have been made during the revision (keep this discussion brief). 
 
 Then provide a brief description of your project and state your project goal.
 
@@ -52,7 +55,7 @@ At the end of the introduction, provide an overview of the document outline.
 
 [Section II](#2-architectural-and-component-level-design) includes …
 
-[Section III](#22-subsystem-design) includes …
+[Section III](#22-subsystem-design) includes … -->
 
 # 2.	Architectural and Component-level Design
 ## 2.1 System Structure
@@ -65,9 +68,9 @@ The MVC architecture handles decomposition for us, as each system is separate fr
 
 ## 2.2 Subsystem Design 
 
-(**Note1**: This is just a suggested template. If you adopted a pattern other than MVC, you should revise this template and the list the major subsystems in your architectural design.)
+<!-- (**Note1**: This is just a suggested template. If you adopted a pattern other than MVC, you should revise this template and the list the major subsystems in your architectural design.)
 
-(**Note2**: You should describe the design for the end product (completed application) - not only your iteration1 version. You will revise this document in iteration-2 and make changes  and/or add more details in iteration-2.)
+(**Note2**: You should describe the design for the end product (completed application) - not only your iteration1 version. You will revise this document in iteration-2 and make changes  and/or add more details in iteration-2.) -->
 
 ### 2.2.1 Model
 
@@ -86,6 +89,10 @@ Our model also has some many-to-many and one-many relationships within their tab
 | 5. | Professor         | Child class of User, this model represents the website professor type of user. | `id` -> Id associated to the `User` parent class id. <br> `title` <br> `positions` -> Establishes one-to-many relationship between a professor and the positions that are associated to them.|
 | 6. | Position          |Represents a research position created by a professor that students can apply for. | `id` <br> `title` <br> `description` <br> `start_date` <br> `end_date` <br> `work_load` <br> `languages` -> Establishes many-to-many relationship between positions and the languages. <br> `research_fields` -> Establishes one-to-many relationship between a position and the research_fields associated to it. <br> `candidates` <br> `applications` -> Establishes one-to-many relationship between a position and the applications associated to it. <br> `professor_id` -> Every position has one professor associated to it.|
 | 7. | Application       | Represents the application made by a student for a position posted by a professor. | `id` <br> `date` <br> `status` <br> `position_id` -> Every application has one position associated to it. <br> `professor_id` -> Every application as one professor associated to it. |
+
+#### UML Diagram
+
+![](./images/Model.png)
 
 ### 2.2.2 Controller
 
@@ -110,20 +117,33 @@ Furthermore on our forms, all the fields included in these files are identical t
 
 #### Iteration 2 Routes
 
-|    | Methods           | URL Path              | Description        |
+<!-- |    | Methods           | URL Path              | Description        |
 |:--:|:-----------------:|:---------------------:|:------------------:|
 | 1. | `GET`, `POST`     | `/createapplication `                   | Available only to students, it shows a form to create a application for a position the student navigated to |
 | 2. | `GET`           | `/displaypositions`           | Page where students can navigate to view all positions posted |
 | 3. | `GET`, `POST`     | `/position`   | Page where students navigate to view the details of a specific position 
 | 4. | `GET`     | `/viewallstudents` | For professors when they navigate to see who applied for their positions|
 | 5. | `GET`     | `/viewstudent`       | For professors who picks an individual student to view from viewallstudents|
-| 6. | `GET`     | `/mypositions`              | For professors to see all the positions they have created |
+| 6. | `GET`     | `/mypositions`              | For professors to see all the positions they have created | -->
+
+|    | Methods | URL Path | Description |
+| -- | ------- | -------- | ----------- |
+| 1. | `GET` | `/` | The homepage |
+| 2. | `GET` | `/positions` | Displays the positions available to a user; for students, this is all applications (they can apply for), and for professors this is all the applications they've created |
+| 3. | `GET`, `POST` | `/positions/new` | Only available to professors, it creates a new position
+| 4. | `GET` | `/positions/<position_id>` | Displays the details of a specific position |
+| 5. | `GET`, `POST` | `/positions/<position_id>/apply` | Only available to students, it allows a student to apply for the given position |
+| 6. | `GET` | `/positions/<position_id>/applicants` | Only available to professors, it allows a professor to view all the applicants to a given position |
+| 7. | `GET`, `POST` | `/login` | Allows a user to sign in |
+| 8. | `GET` | `/register` | Allows a new user to select whether they want to register as a student or a professor |
+| 9. | `GET`, `POST` | `/register/student` | Allows a user to register as a student |
+| 10. | `GET`, `POST` | `/register/professor` | Allows a user to register as a professor 
 
 ### 2.2.3 View and User Interface Design 
 
 The role of the view is to be the connection with what is displayed for the user and how it gets sent to the forms in Controller. Everything involving the UI of the app including templates, styling, and images can be found here.
 
-Provide a list of the page templates you plan to create (or you already created). Briefly describe the information that will be displayed on those pages and the forms that will be rendered (i.e., explain the input and output for each page). Make sure to mention which use-cases in your “Requirements Specification” document will utilize these interfaces for user interaction. You can supplement your description with UI sketches or screenshots.
+<!-- Provide a list of the page templates you plan to create (or you already created). Briefly describe the information that will be displayed on those pages and the forms that will be rendered (i.e., explain the input and output for each page). Make sure to mention which use-cases in your “Requirements Specification” document will utilize these interfaces for user interaction. You can supplement your description with UI sketches or screenshots. -->
 
 #### Iteration 1
 | Template | Description |
@@ -148,36 +168,79 @@ Below are the pages we currently have done for iteration one with the revamped b
 ![](./images/Project_Register_Student.png)
 
 #### Iteration 2
-Looking forward to iteration two, we plan on creating the following templates.
+<!-- Looking forward to iteration two, we plan on creating the following templates.
 
 | Template | Description |
 | -------- | ----------- |
 | `create_application.html` | Will display the create application form found in forms.py. Will have all the input fields for the user and will be validated by the forms and models. |
 | `view_position.html` | Will display all information on a specfic positoin. All information will obtained through database. No user input. |
 | `display_students.html` | Will display a list of students who are have applied to a position. May be revamped into a pop-up instead of a entire page.|
-| `display_student.html` | Will display the information of a student for a professor looking for qualifying students. Information will be obtained through database.  |
+| `display_student.html` | Will display the information of a student for a professor looking for qualifying students. Information will be obtained through database.  | -->
 
+Iteration 2 will contain the following templates:
+
+| Template | Description |
+| -------- | ----------- |
+| `errors/403.html` | Error page for when a user attempts to access a page they're not authorized to access |
+| `errors/404.html` | Error page for when a user attempts to access something not know by the server |
+| `register/index.html` | Page to allow a user to select what user type they want to register as |
+| `register/register_student.html` | Form to register a user as a student |
+| `register/register_professor.html` | Form to register a user as a professor |
+| `_navbar.html` | The navbar shown everywhere |
+| `_position.html` | An individual position used by `positions.html` as a sub-template |
+| `base.html` | The base of the application; includes the header, HTML template, navbar, etc. |
+| `createPosition.html` | Allows a professor to create a position that students can apply for |
+| `index.html` | The homepage |
+| `login.html` | The login page for users to login to the application |
+| `position.html` | Shows the details of a specific position |
+| `position_apply.html` | Allows a student to apply for a position |
+| `positions.html` | Shows a list of positions; for students, this is all open positions; for professors, this is all positions they've created |
 
 # 3. Progress Report
 
-With iteration completed, in terms of use cases, we have finished with student registration, professor registration, login/logout for both types of users, and our app can create a position through the professor user. With these done we are currently on track. However, we have done much more work in the backend of our app that is not implemented yet including creating the model for application and setting up the neccesary database relationships (i.e. professor to position, languages to student and to position, interests to student and to position, and vice versa). We've also successfully created a polymorphic user that student and professor both inherit from. 
+## October 23, 2023
+With iteration 1 completed, in terms of use cases, we have finished with student registration, professor registration, login/logout for both types of users, and our app can create a position through the professor user. With these done we are currently on track. However, we have done much more work in the backend of our app that is not implemented yet including creating the model for application and setting up the neccesary database relationships (i.e. professor to position, languages to student and to position, interests to student and to position, and vice versa). We've also successfully created a polymorphic user that student and professor both inherit from. 
 
 Our UI, previously using various libary tools from the latest bootstrap will now use, will now use a specific flask-bootstrap libary. This will make UI design quicker and better.
 
 Looking forward to iteration two, we plan to shift our focus to positions and the applications created for them. This will include professors being able to view their posted positions, allowing students to view a positions details, allowing students to create an application for a position, allowing professors to view which students applied to each postion, and allowing professors to view each individual student application. 
 
+## November 7, 2023
+With iteration 2 completed, we'll have finished professors being able to:
+- View the positions they've created
+- View the details of a specific position
+- View the applicants to a position
+
+For students, they can now:
+- View all available positions to apply for
+- View the details of a specific position
+- Apply to a position
+
+Additionally, there is also:
+- User permission checking; i.e., that a student can't create a new position or a professor view a position that isn't theirs (for now)
+- 404 handling; i.e., if a user navigates to `/position/<gibberish>`, the application shows a proper error page
+
 # 4. Testing Plan
 
-(***in iteration 1***)
-Don't include this section.
+<!-- (***in iteration 1***)
+Don't include this section. -->
 
-(***in iteration 2***)
+<!-- (***in iteration 2***)
 In this section , provide a brief description of how you plan to test the system. Thought should be given to  mostly how automatic testing can be carried out, so as to maximize the limited number of human hours you will have for testing your system. Consider the following kinds of testing:
   * *Unit Testing*: Explain for what modules you plan to write unit tests, and what framework you plan to use.  (Each team should write automated tests (at least) for testing the routes)
   * *Functional Testing*: How will you test your system to verify that the use cases are implemented correctly? 
-  * *UI Testing*: How do you plan to test the user interface?  (Manual tests are OK)
+  * *UI Testing*: How do you plan to test the user interface?  (Manual tests are OK) -->
 
-  For testing, we plan to test differently for each section of work. When changing the database and seeing if we can create certain objects, we will be doing query statements in python and creating the object manually. In the last iteration, most of our testing was done through the app itself where multiple functionality pieces were tested. For example, when seeing if the forms, routes, and UI worked correctly for a use case like student registration, we would merge all the work out team did into our UI branch and through trial and errors we would polish up the code to get a working version on the app. 
+  <!-- For testing, we plan to test differently for each section of work. When changing the database and seeing if we can create certain objects, we will be doing query statements in python and creating the object manually. In the last iteration, most of our testing was done through the app itself where multiple functionality pieces were tested. For example, when seeing if the forms, routes, and UI worked correctly for a use case like student registration, we would merge all the work out team did into our UI branch and through trial and errors we would polish up the code to get a working version on the app.  -->
+
+For testing of our application, we've broken it down into three categories of testing:
+
+Unit Testing: To have automated testing and save time, our team is going to follow the last two projects and have PyUnit or "unittest" be our main testing framework for units like models. An example idea of how we would test a model would be to write the neccasary python statements to create an object of the model, and then write assertion statements to check if the content is correct as to when it was created. A more detailed example for our case would be if we testing the Student model, its relationships, and its attributes. For a position created by a professor, a student should be able to create an application. Within this common case, we could write the assertion to see if from the professor model, we could go into their positions attribute, go into the applications attribute, and see if the "student_id" attribute matches what we wanted. 
+
+Functional Testing: The testing framework we've chosen to handle testing of the entire system is pytest as it's more simple that unittest and can handle the scope better. This testing will have some fixture functions that would do basics such as creation of a professor or creation of a student account. Using these fixtures, we could write a tests such as checking our registration routes and if our post methods work. Looking at response.data should give us the answer whether the page gave an error or if it passed. Functional testing will also check to make sure any errors.
+
+UI Testing: This testing will be easiest as we will manually go through the web pages and make sure format, style, and flashes are all executed correctly. Each template in the entire app will be navigated to and checked. 
+
 
 # 5. References
 
