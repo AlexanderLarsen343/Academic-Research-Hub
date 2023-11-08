@@ -2,15 +2,15 @@
 {% block app_content %}
 
     <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>GPA</th>
+                <th>Major</th>
+            </tr>
+        </thead>
         {% for student in students %}
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>GPA</th>
-                    <th>Major</th>
-                </tr>
-            </thead>
             <tbody>
                     <tr>
                         <td>{{ student.firstname }}</td>
@@ -18,8 +18,11 @@
                         <td>{{ student.gpa }}</td>
                         <td>{{ student.major }}</td>
                     </tr>
+                    <td>
+                        <a href="{{ url_for('routes.index') }}" class="btn btn-primary text-center">View Qualifications</a>
+                    </td>
             </tbody>
         {% endfor %}
     </table>
-    
+
 {% endblock %}
