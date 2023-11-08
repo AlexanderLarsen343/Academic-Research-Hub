@@ -15,19 +15,24 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('routes.index') }}"> Home </a></li>
+                    <li><a href="{{ url_for('routes.index') }}">Home</a></li>
+                    {% if current_user.user_type == "Professor" %}
+                    <li><a href="{{ url_for('positions.positions') }}">View My Positions</a></li>
+                    {% endif %}
                     {% if current_user.user_type == "Student" %}
-                    <li><a href="{{ url_for('routes.index') }}"> View Positions </a></li>
+                    <li><a href="{{ url_for('positions.positions') }}">View Positions</a></li>
                     {% endif %}
                     {% if current_user.user_type == "Professor" %}
-                    <li><a href="{{ url_for('routes.create_position') }}"> Create Positions </a></li>
+                    <li><a href="{{ url_for('positions.create_position') }}">Create Position</a></li>
+                    {% elif current_user.user_type == "Student" %}
+                    <li><a href="{{ url_for('routes.index') }}">View My Applications</a></li>
                     {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
                     <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                     {% else %}
-                    <li><a href="{{ url_for('routes.index') }}">Profile</a></li>
+                    <li><a href="{{ url_for('routes.index') }}">{{ current_user.firstname }} {{ current_user.lastname }}</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                     {% endif %}
                 </ul>

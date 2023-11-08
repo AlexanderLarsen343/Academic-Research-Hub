@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-
 {% block app_content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='classes.css') }}">
+
 <!-- Overlay text for homepage 
     <div class="image-container" style="position: relative; overflow: hidden; width: 50vw; height: 50vh;">
         <img src="{{ url_for('static', filename='wsu-hero-1.jpg') }}" class="img-fluid" alt="bootstrap" style="width: 100%; height: 100%; object-fit: cover;">
@@ -10,11 +11,16 @@
         </div>
     </div>
 -->
+
+
+<h1>Home!</h1>
+
+<div>
+    {% for position in positions %}
     <div>
-        {% for position in positions %}
-        <div>
-            {% include '_position.html' %}
-        </div>
-        {% endfor %}
+        {% include '_position.html' %}
     </div>
+    {% endfor %}
+</div>
+
 {% endblock %}

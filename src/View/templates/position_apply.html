@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div class="container mt-4"> 
+    <a href="javascript:window.history.back();" class="btn btn-default text-center">Back</a>
+    <h1>Apply For: <strong><u>{{ position.title }}</u></strong></h1>
+    {% if form %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+
+                <div class="form-group">
+                    {{ form.statement.label }}
+                    {{ form.statement(class="form-control", rows=5) }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.reference.label }}
+                    {{ form.reference(class="form-control") }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.reference_email.label }}
+                    {{ form.reference_email(class="form-control") }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-success") }}
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
