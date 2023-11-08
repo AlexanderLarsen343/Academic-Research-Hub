@@ -1,14 +1,25 @@
 {% extends "base.html" %}
-
 {% block app_content %}
-<div>
-    {% for student in students %}
-    <div>
-        {{ student.firstname }}
-        {{ student.lastname }}
-        {{ student.gpa }}
-        {{ student.major }}
-    </div>
-    {% endfor %}
-</div>
+
+    <table class="table">
+        {% for student in students %}
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>GPA</th>
+                    <th>Major</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>{{ student.firstname }}</td>
+                        <td>{{ student.lastname }}</td>
+                        <td>{{ student.gpa }}</td>
+                        <td>{{ student.major }}</td>
+                    </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    
 {% endblock %}
