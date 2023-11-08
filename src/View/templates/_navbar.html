@@ -16,13 +16,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('routes.index') }}">Home</a></li>
-                    {% if not current_user.is_anonymous %}
+                    {% if current_user.user_type == "Professor" %}
+                    <li><a href="{{ url_for('positions.positions') }}">View My Positions</a></li>
+                    {% endif %}
+                    {% if current_user.user_type == "Student" %}
                     <li><a href="{{ url_for('positions.positions') }}">View Positions</a></li>
                     {% endif %}
                     {% if current_user.user_type == "Professor" %}
                     <li><a href="{{ url_for('positions.create_position') }}">Create Position</a></li>
                     {% elif current_user.user_type == "Student" %}
-                    <li><a href="{{ url_for('routes.index') }}">View Applications</a></li>
+                    <li><a href="{{ url_for('routes.index') }}">View My Applications</a></li>
                     {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
