@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div>
+    {% for position in positions %}
+    <div>
+        {% include 'Position Pages/_position.html' %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

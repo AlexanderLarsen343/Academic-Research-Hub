@@ -12,7 +12,12 @@ routes = Blueprint("routes", __name__)
 @routes.route("/", methods=['GET'])
 def index():
     positions=Position.query.all()
-    return render_template("index.html", title="WSU Research Portal", positions=positions)
+    if current_user.is_anonymous:
+        return render_template("index.html", title="WSU Research Portal", positions=positions)
+    elif current_user.user_type == "Professor":
+        return render_template("/Professor Pages/professor_index.html", title="WSU Research Portal", positions=positions)
+    elif current_user.user_type == "Student":
+        return render_template("index.html", title="WSU Research Portal", positions=positions)        
 
 # @routes.route('/display_profile', methods = ['GET'])
 # @login_required
