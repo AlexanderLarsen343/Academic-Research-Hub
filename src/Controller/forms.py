@@ -33,3 +33,8 @@ class ApplicationForm(FlaskForm):
 	reference = StringField('Reference Name', validators=[DataRequired(), Length(max=30)])
 	reference_email = StringField('Reference Email', validators=[DataRequired(), Length(max=30)])
 	submit = SubmitField("Submit")
+      
+class StudentHomeSortForm(FlaskForm):
+    sort_by = SelectField("Filter By", choices=[(0, "Show All"), (1, "Research Position"), (2, "Languages")])
+    submit = SubmitField("Refresh")
+    

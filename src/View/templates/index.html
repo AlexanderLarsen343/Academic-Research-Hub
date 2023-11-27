@@ -12,7 +12,19 @@
     </div>
 -->
 <h1>Home!</h1>
+{% if form %}
 
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.sort_by.label }}<br>
+        {{ form.sort_by() }}
+    </div>
+
+    {{ form.submit(class="btn btn-primary")}}
+</form>
+
+{% endif %}
 <div>
     {% for position in positions %}
     <div>
