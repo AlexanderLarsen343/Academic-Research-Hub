@@ -17,7 +17,7 @@ def positions():
     elif current_user.user_type == "Student":
         positions = Position.query.all()
 
-    return render_template("positions.html", positions=positions)
+    return render_template("Position Pages/positions.html", positions=positions)
 
 @routes.route('/positions/new', methods = ['GET', 'POST'])
 @login_required
@@ -47,7 +47,7 @@ def create_position():
         for field, errors in pform.errors.items():
             for error in errors:
                 print(f"Field: {field}, Error: {error}")
-    return render_template('createPosition.html', form = pform)
+    return render_template('Position Pages/create_position.html', form = pform)
 
 @routes.route("/positions/<position_id>")
 def positions_by_id(position_id):
@@ -59,7 +59,7 @@ def positions_by_id(position_id):
     if (current_user.user_type != "Student") and (current_user.id != position.professor_id):
         return render_template("errors/403.html"), 403
     
-    return render_template("position.html", position=position)
+    return render_template("Position Pages/position_page.html", position=position)
 
 @routes.route("/positions/<position_id>/apply", methods=["GET", "POST"])
 def positions_by_id_apply(position_id):
@@ -82,7 +82,7 @@ def positions_by_id_apply(position_id):
         db.session.commit()
         flash(f"Successfully applied for {position.title}!")
         return redirect(url_for("routes.index"))
-    return render_template("position_apply.html", form=form, position=position)
+    return render_template("Position Pages/position_apply.html", form=form, position=position)
 
 @routes.route("/positions/<position_id>/applicants", methods=["GET"])
 def positions_by_id_applicants(position_id):
@@ -115,4 +115,4 @@ def position_applicant_by_id(position_id, student_id):
         if app.student_id == student.id:
             application = app
 
-    return render_template("application_page.html", position=position, student=student, application=application)
+    return render_template("Application Pages/application_page.html", position=position, student=student, application=application)

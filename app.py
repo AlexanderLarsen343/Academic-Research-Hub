@@ -1,7 +1,14 @@
+from flask import Flask, request
 from src import create_app, db
 from src.Model.models import Language, Interest
 
 app = create_app()
+
+
+# Context processor to inject 'request' object into all templates
+@app.context_processor
+def inject_request():
+    return dict(request=request)
 
 @app.before_request
 def initBD(*args, **kwargs):

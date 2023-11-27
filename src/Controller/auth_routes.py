@@ -42,7 +42,7 @@ def register():
             return redirect(url_for('routes.student_homepage')) # TODO: Change to actual student homepage
         elif current_user.user_type == "Professor":
             return redirect(url_for('routes.professor_homepage')) # TODO: Change to actual prof. homepage
-    return render_template("register/index.html")
+    return render_template("Register Pages/index.html")
 
 @auth.route("/register/student", methods=["GET", "POST"])
 def register_student():
@@ -73,7 +73,7 @@ def register_student():
         db.session.commit()
         flash("Registration successful!")
         return redirect(url_for("auth.login"))
-    return render_template("register/register_student.html", form=rform)
+    return render_template("Register Pages/register_student.html", form=rform)
 
 @auth.route("/register/professor", methods=["GET", "POST"])
 def register_professor():
@@ -101,4 +101,4 @@ def register_professor():
         db.session.commit()
         flash("Registration successful!")
         return redirect(url_for("auth.login"))
-    return render_template("register/register_professor.html", form=rform)
+    return render_template("Register Pages/register_professor.html", form=rform)
