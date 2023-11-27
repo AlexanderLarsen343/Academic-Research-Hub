@@ -66,8 +66,16 @@ def register_student():
             major=rform.major.data,
             gpa=rform.gpa.data,
             graduationDate=rform.graduationDate.data,
-            experience=rform.experience.data
+            experience=rform.experience.data,
+            phone=rform.phone.data
         )
+
+        for interest in rform.interests.data:
+            student.interests.add(interest)
+
+        for language in rform.programming_langs.data:
+            student.languages.add(language)
+
         student.set_password(rform.password.data)
         db.session.add(student)
         db.session.commit()
