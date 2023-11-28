@@ -30,7 +30,7 @@
                             <a href="{{ url_for('positions.positions') }}">View Positions</a>
                         </li>
                         <li {% if request.path == url_for('routes.index') %}class="active"{% endif %}>
-                            <a href="{{ url_for('routes.index') }}">View My Applications</a>
+                            <a href="{{ url_for('routes.my_applications') }}">View My Applications</a>
                         </li>
                     {% endif %}
                 </ul>
