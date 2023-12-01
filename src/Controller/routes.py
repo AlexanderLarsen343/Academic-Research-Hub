@@ -64,7 +64,18 @@ def my_applications():
             # applied_positions.append()
         return render_template("Application Pages/my_applications.html", title="My Applications", applications = apps, positions = applied_positions)        
     
-
+@routes.route("/<application_id>/application_deletion", methods=['GET', 'POST'])
+def application_deletion(application_id):
+    application = Application.query.filter_by(id=application_id).first()
+    if request.method == "POST":
+        flash(f"Application has been withdrawn")
+        application.status = "Withdrawn"
+        db.session.add(application)
+        db.session.commit()
+        return redirect(url_for("positions.positions"))
+    
+    #Get Request
+    return render_template("Application Pages/application_deletion.html", title="WSU Research Portal")
 
 
 # @routes.route('/display_profile', methods = ['GET'])

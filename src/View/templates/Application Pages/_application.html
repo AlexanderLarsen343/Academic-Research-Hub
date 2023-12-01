@@ -2,5 +2,8 @@
     {% with position = applications[application] %}
         {{ position.title }}
         {{ application.status}}
+        {% if application.status == "In Review" %}
+            <a href="{{ url_for('routes.application_deletion', application_id=application.id) }}" class="btn btn-danger text-center">Withdraw</a>
+        {% endif %}
     {% endwith %}
 </div>

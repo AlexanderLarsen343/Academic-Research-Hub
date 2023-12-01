@@ -98,7 +98,7 @@ def positions_by_id_applicants(position_id):
 
     students = [Student.query.filter_by(id=application.student_id).first() for application in position.applications]
 
-    return render_template("applicants.html", students=students, position=position)
+    return render_template("Application Pages/applicants.html", students=students, position=position)
 
 @routes.route("/positions/<position_id>/appilcants/<student_id>")
 def position_applicant_by_id(position_id, student_id):
@@ -131,7 +131,7 @@ def positions_by_id_delete(position_id):
     
     if request.method == "POST":
         flash(f"Research position \"{position.title}\" has been closed.")
-        # position.accepting_applications = False
+        position.accepting_applications = False
 
         for application in position.applications:
             if application.status in ("Pending", "Approved for Interview"):
