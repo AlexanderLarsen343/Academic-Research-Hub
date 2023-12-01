@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block app_content %}
+
+<p>This action is <u>irreversible</u>!</p>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form action="" method="post">
+                <div class="form-group">
+                    <input type="button" onclick="window.location='{{url_for('routes.my_applications')}}'" class="btn btn-default" value="Cancel">
+                    <input type="submit" class="btn btn-danger" value="Withdraw Application">
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

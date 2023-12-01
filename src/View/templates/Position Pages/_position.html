@@ -9,6 +9,7 @@
             <th>Languages</th>
             <th>Research Fields</th>
             <th>Candidates</th>
+            <!-- <th>Status</th> -->
         </tr>
     </thead>
     <tbody>
@@ -33,13 +34,25 @@
                     </ul>
                 </td>
                 <td>{{ position.candidates }}</td>
+                <!-- {% if position.accepting_applications %}
+                <td>Open</td>
+                {% else %}
+                <td>Closed</td>
+                {% endif %} -->
             </tr>
     </tbody>
 </table>
 
 <a href="{{ url_for('positions.positions_by_id', position_id=position.id) }}" class="btn btn-default text-center">View Details</a>
-{% if current_user.user_type == "Student" %}
-    <a href="{{ url_for('positions.positions_by_id_apply', position_id=position.id) }}" class="btn btn-primary text-center">Apply</a>
-{% elif current_user.user_type == "Professor" %}
-    <a href="{{ url_for('positions.positions_by_id_applicants', position_id=position.id) }}" class="btn btn-primary text-center">View Applicants</a>
+{% if position.accepting_applications %}
+    {% if current_user.user_type == "Student" %}
+        <a href="{{ url_for('positions.positions_by_id_apply', position_id=position.id) }}" class="btn btn-primary text-center">Apply</a>
+    {% elif current_user.user_type == "Professor" %}
+        <a href="{{ url_for('positions.positions_by_id_applicants', position_id=position.id) }}" class="btn btn-primary text-center">View Applicants</a>
+        <a href="{{ url_for('positions.positions_by_id_delete', position_id=position.id) }}" class="btn btn-danger text-center">Close Position</a>
+    {% endif %}
+{% else %}
+    {% if current_user.user_type == "Professor" %}
+        <!-- <a href="{{'asdf'}}" class="btn btn-success text-center">Open Position</a> -->
+    {% endif %}
 {% endif %}

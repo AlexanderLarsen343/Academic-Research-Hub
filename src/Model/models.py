@@ -155,6 +155,7 @@ class Position(db.Model):
     description = db.Column(db.String(256))
     # start_date = db.Column(db.DateTime(timezone=True))
     # end_date = db.Column(db.DateTime(timezone=True))
+    accepting_applications = db.Column(db.Boolean)
     start_date = db.Column(db.String(256))
     end_date = db.Column(db.String(256))
     work_load = db.Column(db.Integer) # Time commitment.

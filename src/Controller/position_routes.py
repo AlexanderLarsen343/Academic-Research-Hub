@@ -9,13 +9,14 @@ from src.Controller.forms import PositionForm, ApplicationForm
 routes = Blueprint("positions", __name__)
 
 @routes.route("/positions", methods=["GET"])
+@login_required
 def positions():
     positions = None
 
     if current_user.user_type == "Professor":
         positions = Position.query.filter_by(professor_id=current_user.id).all()
     elif current_user.user_type == "Student":
-        positions = Position.query.all()
+        positions = Position.query.filter_by(accepting_applications=True).all()
 
     return render_template("Position Pages/positions.html", positions=positions)
 
@@ -30,6 +31,7 @@ def create_position():
         newPosition = Position(
             title=pform.title.data, 
             description=pform.description.data,
+            accepting_applications=True,
             start_date = pform.start_date.data,
             end_date = pform.end_date.data,
             work_load= pform.workload.data,
@@ -96,7 +98,7 @@ def positions_by_id_applicants(position_id):
 
     students = [Student.query.filter_by(id=application.student_id).first() for application in position.applications]
 
-    return render_template("applicants.html", students=students, position=position)
+    return render_template("Application Pages/applicants.html", students=students, position=position)
 
 @routes.route("/positions/<position_id>/appilcants/<student_id>")
 def position_applicant_by_id(position_id, student_id):
@@ -116,3 +118,28 @@ def position_applicant_by_id(position_id, student_id):
             application = app
 
     return render_template("Application Pages/application_page.html", position=position, student=student, application=application)
+
+@routes.route("/positions/<position_id>/close", methods=["GET", "POST"])
+def positions_by_id_delete(position_id):
+    position = Position.query.filter_by(id=position_id).first()
+    print(position.accepting_applications)
+    if position is None:
+        return render_template("errors/404.html"), 404
+    
+    if current_user.user_type != "Professor" or current_user.id != position.professor_id:
+        return render_template("errors/403.html"), 403
+    
+    if request.method == "POST":
+        flash(f"Research position \"{position.title}\" has been closed.")
+        position.accepting_applications = False
+
+        for application in position.applications:
+            if application.status in ("Pending", "Approved for Interview"):
+                application.status = "Position is Unavailable"
+                db.session.add(application)
+
+        db.session.add(position)
+        db.session.commit()
+        return redirect(url_for("positions.positions"))
+    
+    return render_template("Position Pages/close_position.html", position=position)
