@@ -11,7 +11,7 @@ routes = Blueprint("routes", __name__)
 
 @routes.route("/", methods=['GET', 'POST'])
 def index():
-    positions = Position.query.all()
+    positions = Position.query.filter_by(accepting_applications=True).all()
     form = StudentHomeSortForm()
 
     positions_to_show = []
