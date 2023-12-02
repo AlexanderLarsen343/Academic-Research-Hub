@@ -20,6 +20,8 @@
                     </tr>
                     <td>
                         <a href="{{ url_for('positions.position_applicant_by_id', position_id=position.id, student_id=student.id) }}" class="btn btn-primary text-center">View Qualifications</a>
+                        <a href="{{ url_for('positions.decline_applicant', position_id=position.id, student_id=student.id) }}" class="btn btn-danger text-center">Decline Candidate</a>
+                   
                     </td>
             </tbody>
         {% endfor %}
