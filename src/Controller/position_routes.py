@@ -4,21 +4,52 @@ from flask_login import current_user, login_required
 
 from src import db
 from src.Model.models import Position, Application, Student
+from src.Controller.forms import StudentHomeSortForm
 from src.Controller.forms import PositionForm, ApplicationForm
 
 routes = Blueprint("positions", __name__)
 
-@routes.route("/positions", methods=["GET"])
+@routes.route("/positions", methods=["GET", "POST"])
 @login_required
 def positions():
     positions = None
+    form = StudentHomeSortForm()
 
     if current_user.user_type == "Professor":
         positions = Position.query.filter_by(professor_id=current_user.id).all()
+        return render_template("Position Pages/positions.html", positions=positions)
     elif current_user.user_type == "Student":
-        positions = Position.query.filter_by(accepting_applications=True).all()
 
-    return render_template("Position Pages/positions.html", positions=positions)
+        positions = Position.query.filter_by(accepting_applications=True).all()
+        positions_to_show = []
+        if request.method == "POST":
+            sort_by = form.sort_by.data
+            # Research positions
+            if sort_by == "0":
+                positions_to_show = positions
+            elif sort_by == "1":
+                student_research_interests = current_user.get_interests().all()
+                print(student_research_interests)
+                for position in positions:
+                    for interest in student_research_interests:
+                        if (position not in positions_to_show) and (interest in position.research_fields):
+                            positions_to_show.append(position)
+                return render_template("Position Pages/positions.html", positions=positions_to_show, form=form)
+
+            # languages
+            elif sort_by == "2":
+                student_languages = current_user.get_languages().all()
+                for position in positions:
+                    for language in student_languages:
+                        if (position not in positions_to_show) and (language in position.languages):
+                            positions_to_show.append(position)
+                return render_template("Position Pages/positions.html", positions=positions_to_show, form=form)
+
+
+            else:
+                positions_to_show = positions
+                return render_template("Position Pages/positions.html", positions=positions, form=form)
+        return render_template("index.html", title="WSU Research Portal", positions=positions, form=form)
 
 @routes.route('/positions/new', methods = ['GET', 'POST'])
 @login_required
