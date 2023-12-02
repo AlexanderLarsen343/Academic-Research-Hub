@@ -10,7 +10,7 @@
                 <th>Major</th>
             </tr>
         </thead>
-        {% for student in students %}
+        {% for application,student in students.items() %}
             <tbody>
                     <tr>
                         <td>{{ student.firstname }}</td>
@@ -19,8 +19,22 @@
                         <td>{{ student.major }}</td>
                     </tr>
                     <td>
-                        <a href="{{ url_for('positions.position_applicant_by_id', position_id=position.id, student_id=student.id) }}" class="btn btn-primary text-center">View Qualifications</a>
-                        <a href="{{ url_for('positions.decline_applicant', position_id=position.id, student_id=student.id) }}" class="btn btn-danger text-center">Decline Candidate</a>
+                        {% if application.status == "Approved for Interview" %}
+                            <a href="{{ url_for('positions.position_applicant_by_id', position_id=position.id, student_id=student.id) }}" class="btn btn-primary text-center">View Qualifications</a>
+                            <a href="{{ url_for('positions.decline_applicant', position_id=position.id, student_id=student.id) }}" class="btn btn-danger text-center">Decline Candidate</a>
+                            <a href="{{ url_for('positions.accept_applicant', position_id=position.id, student_id=student.id) }}" class="btn btn-success text-center">Accept Candidate</a>
+                            <br><td> Candidate Approved for Interview  </td>
+
+                        {% elif application.status == "Accepted" %}
+                            <td> Candidate !Accepted! for the Role  </td>                          
+                        {% else %}
+                            <a href="{{ url_for('positions.position_applicant_by_id', position_id=position.id, student_id=student.id) }}" class="btn btn-primary text-center">View Qualifications</a>
+                            <a href="{{ url_for('positions.decline_applicant', position_id=position.id, student_id=student.id) }}" class="btn btn-danger text-center">Decline Candidate</a>
+                            <a href="{{ url_for('positions.accept_applicant', position_id=position.id, student_id=student.id) }}" class="btn btn-success text-center">Accept Candidate</a>
+                            <a href="{{ url_for('positions.approve_for_interview', position_id=position.id, student_id=student.id) }}" class="btn btn-warning text-center">Approve for Interview</a>
+
+                        {% endif %}
+
                    
                     </td>
             </tbody>

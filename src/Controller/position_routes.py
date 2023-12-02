@@ -96,9 +96,9 @@ def positions_by_id_applicants(position_id):
     if current_user.user_type != "Professor" or current_user.id != position.professor_id:
         return render_template("errors/403.html"), 403
 
-    students = [Student.query.filter_by(id=application.student_id).first() for application in position.applications]
+    applicants = {application:Student.query.filter_by(id=application.student_id).first() for application in position.applications}
 
-    return render_template("Application Pages/applicants.html", students=students, position=position)
+    return render_template("Application Pages/applicants.html", students=applicants, position=position)
 
 @routes.route("/positions/<position_id>/applicants/<student_id>") # "View Qualifications" button route.
 def position_applicant_by_id(position_id, student_id):
@@ -164,6 +164,54 @@ def decline_applicant(position_id, student_id):
     
     target_application.status = "Declined"
     target_application.position_id = None # Here we disassociate the target_application from its position.
+    db.session.add(target_application)
+    db.session.commit()
+    
+    return redirect(url_for('positions.positions_by_id_applicants', position_id=position_id))
+
+@routes.route("/positions/<position_id>/applicants/accept/<student_id>", methods=["GET","POST"])
+def accept_applicant(position_id, student_id):
+    position = Position.query.filter_by(id=position_id).first()
+    student = Student.query.filter_by(id=student_id).first()
+    
+    if position is None:
+        return render_template("errors/404.html"), 404
+    
+    if current_user.user_type != "Professor" or current_user.id != position.professor_id:
+        return render_template("errors/403.html"), 403
+    
+    applications = [ x for x in position.applications ]
+    target_application = None
+    for app in applications:
+        if app.student_id == student.id:
+            target_application = app
+    
+    
+    target_application.status = "Accepted"
+    db.session.add(target_application)
+    db.session.commit()
+    
+    return redirect(url_for('positions.positions_by_id_applicants', position_id=position_id))
+
+@routes.route("/positions/<position_id>/applicants/approve_for_interview/<student_id>", methods=["GET","POST"])
+def approve_for_interview(position_id, student_id):
+    position = Position.query.filter_by(id=position_id).first()
+    student = Student.query.filter_by(id=student_id).first()
+    
+    if position is None:
+        return render_template("errors/404.html"), 404
+    
+    if current_user.user_type != "Professor" or current_user.id != position.professor_id:
+        return render_template("errors/403.html"), 403
+    
+    applications = [ x for x in position.applications ]
+    target_application = None
+    for app in applications:
+        if app.student_id == student.id:
+            target_application = app
+    
+    
+    target_application.status = "Approved for Interview"
     db.session.add(target_application)
     db.session.commit()
     
