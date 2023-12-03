@@ -1,6 +1,9 @@
 import warnings
 warnings.filterwarnings("ignore")
 
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 import unittest
 from src import create_app, db
 from src.Model.models import Student, Interest, Language, Professor, Position, Application
