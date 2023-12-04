@@ -38,6 +38,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(128))
     firstname = db.Column(db.String(100))
     lastname = db.Column(db.String(100))
+    wsu_id = db.Column(db.String(15), unique = True)
     email = db.Column(db.String(120),unique = True, index = True)
     phone = db.Column(db.String(11),unique = True)
     user_type = db.Column(db.String(50))
@@ -62,7 +63,6 @@ class User(db.Model, UserMixin):
 class Student(User, db.Model):
     __tablename__='student'
     id = db.Column(db.ForeignKey("user.id"), primary_key = True)
-    wsu_id = db.Column(db.String(15), unique = True)
     major = db.Column(db.String(50))
     gpa = db.Column(db.Integer())
     graduationDate = db.Column(db.String(15))
