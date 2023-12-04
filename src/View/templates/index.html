@@ -11,7 +11,17 @@
         </div>
     </div>
 -->
+
+{% if not current_user.is_anonymous %}
+<h1>Welcome, {{ current_user.firstname }}!</h1>
+    {% if current_user.user_type == "Student" %}
+    <h3>Here are your top recommended positions:</h3>
+    {% endif %}
+
+{% else %}
 <h1>Home!</h1>
+{% endif %}
+
 {% if form %}
 
 <form action="" method="post">

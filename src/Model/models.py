@@ -92,6 +92,13 @@ class Student(User, db.Model):
     
     def get_languages(self):
         return self.languages
+    
+    def get_application_by_position(self, position):
+        for application in self.applications:
+            if application.position_id == position.id:
+                return application
+            
+        return None
 
     #Designates the identity of user_type
     __mapper_args__ = {

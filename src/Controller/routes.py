@@ -12,40 +12,33 @@ routes = Blueprint("routes", __name__)
 @routes.route("/", methods=['GET', 'POST'])
 def index():
     positions = Position.query.filter_by(accepting_applications=True).all()
-    form = StudentHomeSortForm()
-
-    positions_to_show = []
-
-    if request.method == "POST":
-        sort_by = form.sort_by.data
-        # Research positions
-        if sort_by == "0":
-            positions_to_show = positions
-        elif sort_by == "1":
-            student_research_interests = current_user.get_interests().all()
-            print(student_research_interests)
-            for position in positions:
-                for interest in student_research_interests:
-                    if (position not in positions_to_show) and (interest in position.research_fields):
-                        positions_to_show.append(position)
-
-        # languages
-        elif sort_by == "2":
-            student_languages = current_user.get_languages().all()
-            for position in positions:
-                for language in student_languages:
-                    if (position not in positions_to_show) and (language in position.languages):
-                        positions_to_show.append(position)
-
-    else:
-        positions_to_show = positions
 
     if current_user.is_anonymous:
-        return render_template("index.html", title="WSU Research Portal", positions=positions_to_show)
+        return render_template("index.html", title="WSU Research Portal", positions=positions)
     elif current_user.user_type == "Professor":
-        return render_template("/Professor Pages/professor_index.html", title="WSU Research Portal", positions=positions_to_show)
+        return render_template("/Professor Pages/professor_index.html", title="WSU Research Portal", positions=positions)
     elif current_user.user_type == "Student":
-        return render_template("index.html", title="WSU Research Portal", positions=positions_to_show, form=form)        
+        positions_to_show = []
+        student_languages = current_user.get_languages().all()
+        student_interests = current_user.get_interests().all()
+        for position in positions: #Not the most efficient manner of ensuring both language and interest
+                    for language in student_languages:
+                        if ((position not in positions_to_show) and (language in position.languages)):
+                            for interest in student_interests:
+                                if ((position not in positions_to_show) and (interest in position.research_fields)):
+                                    positions_to_show.append(position)
+
+        #Take first three positons from list
+        if (len(positions_to_show) >= 3):
+            positions = [positions_to_show[0], positions_to_show[1], positions_to_show[2]]
+        elif (len(positions_to_show) == 2):
+            positions = [positions_to_show[0], positions_to_show[1]]
+        elif (len(positions_to_show) == 1):
+            positions = [positions_to_show[0]]
+        else: #If they don't have any matches, just show all positions
+             positions = positions
+             return render_template("index.html", title="WSU Research Portal", positions=positions)
+        return render_template("index.html", title="WSU Research Portal", positions=positions_to_show)        
     
 @routes.route("/my_applications", methods=['GET'])
 def my_applications():

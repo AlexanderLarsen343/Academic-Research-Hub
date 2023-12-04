@@ -2,7 +2,7 @@
 {% block app_content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='classes.css') }}">
 
-<h1>Hello Professor</h1>
+<h1>Hello, {{ current_user.firstname }}!</h1>
 
 <div>
     {% for position in positions %}
