@@ -132,9 +132,9 @@ def edit_profile():
                 flash("Your changes have been saved")
                 return redirect(url_for('routes.display_profile'))                
         elif request.method == 'GET':
-            eform.email.data = current_user.email
             eform.firstname.data = current_user.firstname
             eform.lastname.data = current_user.lastname
+            eform.email.data = current_user.email
             eform.wsu_id.data = current_user.wsu_id
             eform.title.data = current_user.title
             eform.phone.data = current_user.phone

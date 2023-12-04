@@ -7,7 +7,11 @@
 			<th>{{ student.firstname }} {{ student.lastname }}</td> 
 		</tr>
 		<tr>
+			<th>Email</th>
+			<th>Phone No.</th>
+			<th>WSU ID</th>
 			<th>GPA</th>
+			<th>Graduation Date</th>
 			<th>Research Interests</th>
 			<th>Programming Languages</th>
 			<th>Experience</th>
@@ -15,7 +19,11 @@
 	</thead>
 		<tbody>
 				<tr>
-					<td>{{ student.gpa }}</td>
+					<td> {{ student.email }} </td>
+					<td> {{ student.phone }} </td>
+					<td> {{ student.wsu_id }} </td>
+					<td> {{ student.gpa }} </td>
+					<td> {{ student.graduationDate }} </td>
 					<td>
 						<ul>
 							{% for interest in student.interests %}
@@ -36,6 +44,6 @@
 </table>
 
 	{% if student == current_user %}
-		<p><a href="{{ url_for('routes.edit_profile') }}" class = "button">Edit Profile</a></p>
+		<a href="{{ url_for('routes.edit_profile') }}" class = "btn btn-default text-center">Edit Profile</a>
 	{% endif %}
 {% endblock %}

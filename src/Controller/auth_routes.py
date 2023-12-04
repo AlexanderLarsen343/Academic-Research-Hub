@@ -102,6 +102,8 @@ def register_professor():
             email=rform.email.data,
             firstname=rform.firstname.data,
             lastname=rform.lastname.data,
+            phone=rform.phone.data,
+            wsu_id=rform.wsu_id.data,
             title=rform.title.data
         )
         professor.set_password(rform.password.data)
