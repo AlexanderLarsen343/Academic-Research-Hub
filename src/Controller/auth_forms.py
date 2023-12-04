@@ -52,8 +52,9 @@ class StudentRegistrationForm(FlaskForm):
             raise ValidationError('The email already exists! Please use a different email address.')
         
     def validate_phone(self, phone):
-        professor = Professor.query.filter_by(phone=phone.data)
-        if professor is not None:
+        student = Student.query.filter_by(phone=phone.data).first()
+        print(student)
+        if student is not None:
             raise ValidationError("This phone number already exists! Please use a different phone number.")
         
 
@@ -80,7 +81,7 @@ class ProfessorRegistrationForm(FlaskForm):
             raise ValidationError('The email already exists! Please use a different email address.')
         
     def validate_phone(self, phone):
-        professor = Professor.query.filter_by(phone=phone.data)
+        professor = Professor.query.filter_by(phone=phone.data).first()
         if professor is not None:
             raise ValidationError("This phone number already exists! Please use a different phone number.")
             
