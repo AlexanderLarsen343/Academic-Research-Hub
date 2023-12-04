@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% block app_content %}
 
+<div>
+    {% if not (recommended_applicants == []) %}
+        <p>Here are applicants to look out for:</p>
+        <ul>
+            {% for student in recommended_applicants %}
+                <li><p>{{student.firstname}} {{student.lastname}} - {{student.email}}</p></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+<div>
     <table class="table">
         <thead>
             <tr>
@@ -40,5 +51,6 @@
             </tbody>
         {% endfor %}
     </table>
+</div>
 
 {% endblock %}
