@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block app_content %}
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>{{ student.firstname }} {{ student.lastname }}</td> 
+		</tr>
+		<tr>
+			<th>GPA</th>
+			<th>Research Interests</th>
+			<th>Programming Languages</th>
+			<th>Experience</th>
+		</tr>
+	</thead>
+		<tbody>
+				<tr>
+					<td>{{ student.gpa }}</td>
+					<td>
+						<ul>
+							{% for interest in student.interests %}
+								<li>{{ interest.name }}</li>
+							{% endfor %}
+						</ul>
+					</td>
+					<td>
+						<ul>
+							{% for language in student.languages %}
+								<li>{{ language.name }}</li>
+							{% endfor %}
+						</ul>
+					</td>
+					<td>{{ student.experience }}</td>
+				</tr>
+		</tbody>
+</table>
+
+	{% if student == current_user %}
+		<p><a href="{{ url_for('routes.edit_profile') }}" class = "button">Edit Profile</a></p>
+	{% endif %}
+{% endblock %}
