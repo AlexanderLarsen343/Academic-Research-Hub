@@ -46,7 +46,12 @@
 <a href="{{ url_for('positions.positions_by_id', position_id=position.id) }}" class="btn btn-default text-center">View Details</a>
 {% if position.accepting_applications %}
     {% if current_user.user_type == "Student" %}
+        {% if (current_user.get_application_by_position(position) == None) %}
         <a href="{{ url_for('positions.positions_by_id_apply', position_id=position.id) }}" class="btn btn-primary text-center">Apply</a>
+        {% else %}
+        <a href="#" class="btn btn-primary text-center" disabled>Apply</a>
+        <button class="btn btn-danger text-center" disabled>You've already applied!</button>
+        {% endif %}
     {% elif current_user.user_type == "Professor" %}
         <a href="{{ url_for('positions.positions_by_id_applicants', position_id=position.id) }}" class="btn btn-primary text-center">View Applicants</a>
         <a href="{{ url_for('positions.positions_by_id_delete', position_id=position.id) }}" class="btn btn-danger text-center">Close Position</a>
