@@ -54,16 +54,14 @@ def init_db():
     
     db.session.add(student1)
 
-    # student2 = Student(
-    #     firstname="Josh",
-    #     lastname="Rehahn",
-    #     email="josh@wsu.edu",
-    #     phone="0987654321",
-    #     applications = [1]
-    # )
-    # student2.set_password("password")
+    student2 = Student(
+        firstname="Josh",
+        lastname="Rehahn",
+        email="josh@wsu.edu",
+        phone="0987654321"
+    )
+    student2.set_password("password")
 
-    # db.session.add(student2)
     
     professor1 = Professor(
         email="sakire@wsu.edu",
@@ -71,7 +69,7 @@ def init_db():
         lastname = "Arslan Ay",
         phone = "3609699669",
         title = "Pretty Cool Professor",
-        #professor_id = "1"
+        # id = 1
     )
     professor1.set_password("123")
 
@@ -86,21 +84,25 @@ def init_db():
         languages = [],
         research_fields = [],
         candidates=0,
-        professor_id=1
+        professor_id=2
     )
     db.session.add(position1)
 
-    # application1 = Application(
-    #     status = "In Review",
-    #     statement = "PLEASE",
-    #     reference = "Shira",
-    #     reference_email = "shira@wsu.edu",
-    #     position_id = position1.id,
-    #     student_id = student2.id
-    # )
+    application1 = Application(
+        status = "In Review",
+        statement = "PLEASE",
+        reference = "Shira",
+        reference_email = "shira@wsu.edu",
+        position_id = position1.id,
+        student_id = student2.id
+    )
 
-    # db.session.add(application1)
-    
+    position1.applications.append(application1)
+    student2.applications.append(application1)
+    db.session.add(student2)
+    db.session.add(application1)
+
+
     db.session.commit()
 
     yield
@@ -205,7 +207,7 @@ def test_position_creation(client, init_db):
     #Login
     response = client.post('/login', data=data, follow_redirects=True)
     assert response.status_code == 200
-    assert b"Hello Professor" in response.data
+    assert b"Hello, Sakire" in response.data
 
     #Test get of position creation
     response = client.get('/positions/new')
@@ -270,11 +272,22 @@ def test_application_approved(client, init_db):
 
     response = client.post("/login", data=data, follow_redirects=True)
     assert response.status_code == 200
-    assert b"Hello Professor" in response.data
+    assert b"Hello, Sakire" in response.data
 
     response = client.get("/positions/1/applicants", follow_redirects=True)
     assert response.status_code == 200
     assert b"First Name" #Weird check but ensures on the correct page
 
-    response = client.get("/positions/1/applicants/2", follow_redirects=True)
+    response = client.get("/positions/1/applicants/3", follow_redirects=True)
+    assert response.status_code == 200
+    
+    #Approve a student for an interview
+    response = client.get("/positions/1/applicants/approve_for_interview/3", follow_redirects=True)
+    assert b"Candidate Approved for Interview" in response.data
+
+    #Accpet Candidate
+    response = client.get("/positions/1/applicants/accept/3")
+    assert b"Candiate Accepted for the Role"
+
+
     
