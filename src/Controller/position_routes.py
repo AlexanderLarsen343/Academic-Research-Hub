@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, url_for, request, get_flashe
 from flask_login import current_user, login_required
 
 from src import db
-from src.Model.models import Position, Application, Student
+from src.Model.models import Position, Application, Student, Professor
 from src.Controller.forms import StudentHomeSortForm
 from src.Controller.forms import PositionForm, ApplicationForm
 
@@ -85,14 +85,15 @@ def create_position():
 @routes.route("/positions/<position_id>")
 def positions_by_id(position_id):
     position = Position.query.filter_by(id=position_id).first()
+    professor = Professor.query.filter_by(id=position.professor_id).first()
 
     if position is None:
         return render_template("errors/404.html"), 404
 
-    if (current_user.is_anonymous) or (current_user.id != position.professor_id):
+    if (current_user.is_anonymous) or ((current_user.user_type == "Professor") and (current_user.id != position.professor_id)):
         return render_template("errors/403.html"), 403
-    
-    return render_template("Position Pages/position_page.html", position=position)
+
+    return render_template("Position Pages/position_page.html", position=position, professor=professor)
 
 @routes.route("/positions/<position_id>/apply", methods=["GET", "POST"])
 def positions_by_id_apply(position_id):
