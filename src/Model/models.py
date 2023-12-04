@@ -86,7 +86,7 @@ class Student(User, db.Model):
                                 lazy='dynamic',
                                 overlaps='studentLanguages')
     
-    
+          
     def get_interests(self):
         return self.interests
     
