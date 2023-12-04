@@ -43,7 +43,9 @@
     </tbody>
 </table>
 
+{% if not current_user.is_anonymous %}
 <a href="{{ url_for('positions.positions_by_id', position_id=position.id) }}" class="btn btn-default text-center">View Details</a>
+{% endif %}
 {% if position.accepting_applications %}
     {% if current_user.user_type == "Student" %}
         {% if (current_user.get_application_by_position(position) == None) %}
