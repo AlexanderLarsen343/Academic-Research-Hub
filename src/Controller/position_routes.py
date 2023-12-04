@@ -159,7 +159,13 @@ def position_applicant_by_id(position_id, student_id):
         if app.student_id == student.id:
             application = app
 
-    return render_template("Application Pages/application_page.html", position=position, student=student, application=application)
+    student_applications = {}
+    for application in student.applications:
+        if application.status in ("Approved for Interview", "Accepted"):
+            student_applications[application] = Position.query.filter_by(id=application.position_id).first()
+            # student_applications.append(application)
+
+    return render_template("Application Pages/application_page.html", position=position, student=student, application=application, student_applications=student_applications)
 
 @routes.route("/positions/<position_id>/close", methods=["GET", "POST"])
 def positions_by_id_delete(position_id):

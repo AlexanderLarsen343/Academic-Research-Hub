@@ -27,11 +27,11 @@ def index():
         student_languages = current_user.get_languages().all()
         student_interests = current_user.get_interests().all()
         for position in positions: #Not the most efficient manner of ensuring both language and interest
-                    for language in student_languages:
-                        if ((position not in positions_to_show) and (language in position.languages)):
-                            for interest in student_interests:
-                                if ((position not in positions_to_show) and (interest in position.research_fields)):
-                                    positions_to_show.append(position)
+            for language in student_languages:
+                if ((position not in positions_to_show) and (language in position.languages)):
+                    for interest in student_interests:
+                        if ((position not in positions_to_show) and (interest in position.research_fields)):
+                            positions_to_show.append(position)
 
         #Take first three positons from list
         if (len(positions_to_show) >= 3):
