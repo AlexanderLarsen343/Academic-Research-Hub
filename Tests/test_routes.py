@@ -54,16 +54,16 @@ def init_db():
     
     db.session.add(student1)
 
-    student2 = Student(
-        firstname="Josh"
-        lastname="Rehahn",
-        email="josh@wsu.edu",
-        phone="0987654321"
-        applications = [1]
-    )
-    student2.set_password("password")
+    # student2 = Student(
+    #     firstname="Josh",
+    #     lastname="Rehahn",
+    #     email="josh@wsu.edu",
+    #     phone="0987654321",
+    #     applications = [1]
+    # )
+    # student2.set_password("password")
 
-    db.session.add(student2)
+    # db.session.add(student2)
     
     professor1 = Professor(
         email="sakire@wsu.edu",
@@ -90,16 +90,16 @@ def init_db():
     )
     db.session.add(position1)
 
-    application1 = Application(
-        status = "In Review",
-        statement = "PLEASE",
-        reference = "Shira",
-        reference_email = "shira@wsu.edu",
-        position_id = 1
-        student_id = 2
-    )
+    # application1 = Application(
+    #     status = "In Review",
+    #     statement = "PLEASE",
+    #     reference = "Shira",
+    #     reference_email = "shira@wsu.edu",
+    #     position_id = position1.id,
+    #     student_id = student2.id
+    # )
 
-    db.session.add(application1)
+    # db.session.add(application1)
     
     db.session.commit()
 
