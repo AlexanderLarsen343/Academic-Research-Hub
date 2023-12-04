@@ -89,7 +89,7 @@ def positions_by_id(position_id):
     if position is None:
         return render_template("errors/404.html"), 404
 
-    if (current_user.is_anonymous) or (current_user.user_type != "Student") or (current_user.id != position.professor_id):
+    if (current_user.is_anonymous) or (current_user.id != position.professor_id):
         return render_template("errors/403.html"), 403
     
     return render_template("Position Pages/position_page.html", position=position)
