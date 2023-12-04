@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, FloatField
 from wtforms.validators import  ValidationError, DataRequired, EqualTo, Length, Email, NumberRange
-from src.Model.models import User, Language, Interest
+from src.Model.models import User, Language, Interest, Student, Professor
 from wtforms_sqlalchemy.fields import QuerySelectMultipleField
 from wtforms.widgets import CheckboxInput, ListWidget
 from flask_login import current_user
@@ -36,6 +36,12 @@ class StudentRegistrationForm(FlaskForm):
     phone = StringField('Phone Number', validators= [DataRequired(), Length(1, 10)])
 
     submit = SubmitField('Register')
+
+    def validate_wsu_id(self, wsu_id):
+        print(f"TYPE OF WSU_ID: {type(wsu_id)}")
+        student = Student.query.filter_by(wsu_id=wsu_id.data).first()
+        if student is not None:
+            raise ValidationError("This WSU ID is already registered.")
     
     def validate_email(self, email):
         #make sure email ends with "@wsu.edu"
@@ -44,6 +50,11 @@ class StudentRegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('The email already exists! Please use a different email address.')
+        
+    def validate_phone(self, phone):
+        professor = Professor.query.filter_by(phone=phone.data)
+        if professor is not None:
+            raise ValidationError("This phone number already exists! Please use a different phone number.")
         
 
 class ProfessorRegistrationForm(FlaskForm):
@@ -67,6 +78,11 @@ class ProfessorRegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('The email already exists! Please use a different email address.')
+        
+    def validate_phone(self, phone):
+        professor = Professor.query.filter_by(phone=phone.data)
+        if professor is not None:
+            raise ValidationError("This phone number already exists! Please use a different phone number.")
             
     # def validate_contact_email(self, contact_email):
     #     if contact_email.data == self.email.data:
