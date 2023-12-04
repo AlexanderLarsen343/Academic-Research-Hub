@@ -13,6 +13,11 @@ routes = Blueprint("routes", __name__)
 def index():
     positions = Position.query.filter_by(accepting_applications=True).all()
 
+    # print("\n")
+    # print(current_user.user_type, current_user.firstname)
+    # print("\n")
+
+
     if current_user.is_anonymous:
         return render_template("index.html", title="WSU Research Portal", positions=positions)
     elif current_user.user_type == "Professor":

@@ -128,8 +128,19 @@ def positions_by_id_applicants(position_id):
         return render_template("errors/403.html"), 403
 
     applicants = {application:Student.query.filter_by(id=application.student_id).first() for application in position.applications}
-
-    return render_template("Application Pages/applicants.html", students=applicants, position=position)
+    recommended_applicants = []
+    #Make a list of students with the desired coding skills
+    #Find what skills the position wants
+    #Go through all students and add them into the list if they have all coding lang in common
+    
+    required_languages = tuple(language for language in position.languages)
+    
+    for student in Student.query.all():
+        student_languages = tuple(language for language in student.languages)
+        if (student not in recommended_applicants) and all([required_language in student_languages for required_language in required_languages]):
+            recommended_applicants.append(student)
+    
+    return render_template("Application Pages/applicants.html", recommended_applicants=recommended_applicants, students=applicants, position=position)
 
 @routes.route("/positions/<position_id>/applicants/<student_id>") # "View Qualifications" button route.
 def position_applicant_by_id(position_id, student_id):
