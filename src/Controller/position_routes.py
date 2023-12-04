@@ -4,21 +4,52 @@ from flask_login import current_user, login_required
 
 from src import db
 from src.Model.models import Position, Application, Student
+from src.Controller.forms import StudentHomeSortForm
 from src.Controller.forms import PositionForm, ApplicationForm
 
 routes = Blueprint("positions", __name__)
 
-@routes.route("/positions", methods=["GET"])
+@routes.route("/positions", methods=["GET", "POST"])
 @login_required
 def positions():
     positions = None
+    form = StudentHomeSortForm()
 
     if current_user.user_type == "Professor":
         positions = Position.query.filter_by(professor_id=current_user.id).all()
+        return render_template("Position Pages/positions.html", positions=positions)
     elif current_user.user_type == "Student":
-        positions = Position.query.filter_by(accepting_applications=True).all()
 
-    return render_template("Position Pages/positions.html", positions=positions)
+        positions = Position.query.filter_by(accepting_applications=True).all()
+        positions_to_show = []
+        if request.method == "POST":
+            sort_by = form.sort_by.data
+            # Research positions
+            if sort_by == "0":
+                positions_to_show = positions
+            elif sort_by == "1":
+                student_research_interests = current_user.get_interests().all()
+                print(student_research_interests)
+                for position in positions:
+                    for interest in student_research_interests:
+                        if (position not in positions_to_show) and (interest in position.research_fields):
+                            positions_to_show.append(position)
+                return render_template("Position Pages/positions.html", positions=positions_to_show, form=form)
+
+            # languages
+            elif sort_by == "2":
+                student_languages = current_user.get_languages().all()
+                for position in positions:
+                    for language in student_languages:
+                        if (position not in positions_to_show) and (language in position.languages):
+                            positions_to_show.append(position)
+                return render_template("Position Pages/positions.html", positions=positions_to_show, form=form)
+
+
+            else:
+                positions_to_show = positions
+                return render_template("Position Pages/positions.html", positions=positions, form=form)
+        return render_template("index.html", title="WSU Research Portal", positions=positions, form=form)
 
 @routes.route('/positions/new', methods = ['GET', 'POST'])
 @login_required
@@ -86,7 +117,7 @@ def positions_by_id_apply(position_id):
         return redirect(url_for("routes.index"))
     return render_template("Position Pages/position_apply.html", form=form, position=position)
 
-@routes.route("/positions/<position_id>/applicants", methods=["GET"])
+@routes.route("/positions/<position_id>/applicants", methods=["GET"]) # View Applicants for current position
 def positions_by_id_applicants(position_id):
     position = Position.query.filter_by(id=position_id).first()
 
@@ -96,11 +127,11 @@ def positions_by_id_applicants(position_id):
     if current_user.user_type != "Professor" or current_user.id != position.professor_id:
         return render_template("errors/403.html"), 403
 
-    students = [Student.query.filter_by(id=application.student_id).first() for application in position.applications]
+    applicants = {application:Student.query.filter_by(id=application.student_id).first() for application in position.applications}
 
-    return render_template("Application Pages/applicants.html", students=students, position=position)
+    return render_template("Application Pages/applicants.html", students=applicants, position=position)
 
-@routes.route("/positions/<position_id>/appilcants/<student_id>")
+@routes.route("/positions/<position_id>/applicants/<student_id>") # "View Qualifications" button route.
 def position_applicant_by_id(position_id, student_id):
     position = Position.query.filter_by(id=position_id).first()
     student = Student.query.filter_by(id=student_id).first()
@@ -143,3 +174,76 @@ def positions_by_id_delete(position_id):
         return redirect(url_for("positions.positions"))
     
     return render_template("Position Pages/close_position.html", position=position)
+
+@routes.route("/positions/<position_id>/applicants/decline/<student_id>", methods=["GET","POST"])
+def decline_applicant(position_id, student_id):
+    position = Position.query.filter_by(id=position_id).first()
+    student = Student.query.filter_by(id=student_id).first()
+    
+    if position is None:
+        return render_template("errors/404.html"), 404
+    
+    if current_user.user_type != "Professor" or current_user.id != position.professor_id:
+        return render_template("errors/403.html"), 403
+    
+    applications = [ x for x in position.applications ]
+    target_application = None
+    for app in applications:
+        if app.student_id == student.id:
+            target_application = app
+    
+    
+    target_application.status = "Declined"
+    target_application.position_id = None # Here we disassociate the target_application from its position.
+    db.session.add(target_application)
+    db.session.commit()
+    
+    return redirect(url_for('positions.positions_by_id_applicants', position_id=position_id))
+
+@routes.route("/positions/<position_id>/applicants/accept/<student_id>", methods=["GET","POST"])
+def accept_applicant(position_id, student_id):
+    position = Position.query.filter_by(id=position_id).first()
+    student = Student.query.filter_by(id=student_id).first()
+    
+    if position is None:
+        return render_template("errors/404.html"), 404
+    
+    if current_user.user_type != "Professor" or current_user.id != position.professor_id:
+        return render_template("errors/403.html"), 403
+    
+    applications = [ x for x in position.applications ]
+    target_application = None
+    for app in applications:
+        if app.student_id == student.id:
+            target_application = app
+    
+    
+    target_application.status = "Accepted"
+    db.session.add(target_application)
+    db.session.commit()
+    
+    return redirect(url_for('positions.positions_by_id_applicants', position_id=position_id))
+
+@routes.route("/positions/<position_id>/applicants/approve_for_interview/<student_id>", methods=["GET","POST"])
+def approve_for_interview(position_id, student_id):
+    position = Position.query.filter_by(id=position_id).first()
+    student = Student.query.filter_by(id=student_id).first()
+    
+    if position is None:
+        return render_template("errors/404.html"), 404
+    
+    if current_user.user_type != "Professor" or current_user.id != position.professor_id:
+        return render_template("errors/403.html"), 403
+    
+    applications = [ x for x in position.applications ]
+    target_application = None
+    for app in applications:
+        if app.student_id == student.id:
+            target_application = app
+    
+    
+    target_application.status = "Approved for Interview"
+    db.session.add(target_application)
+    db.session.commit()
+    
+    return redirect(url_for('positions.positions_by_id_applicants', position_id=position_id))
