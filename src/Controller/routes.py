@@ -5,7 +5,7 @@ from flask_login import current_user, login_required
 
 from src import db
 from src.Model.models import Position, Application, Student
-from src.Controller.forms import PositionForm, ApplicationForm, StudentHomeSortForm
+from src.Controller.forms import PositionForm, ApplicationForm, StudentHomeSortForm, EditStudentForm, EditProfessorForm
 
 routes = Blueprint("routes", __name__)
 
@@ -76,7 +76,72 @@ def application_deletion(application_id):
     return render_template("Application Pages/application_deletion.html", title="WSU Research Portal")
 
 
-# @routes.route('/display_profile', methods = ['GET'])
-# @login_required
-# def display_profile():
-#     return render_template('display_profile.html', title='Display Profile', student = current_user)
+@routes.route('/display_profile', methods = ['GET'])
+@login_required
+def display_profile():
+    if current_user.user_type == "Student":
+        return render_template('Student Pages/display_student_profile.html', title='Display Profile', student = current_user)
+    elif current_user.user_type == "Professor":
+        return render_template('Professor Pages/display_professor_profile.html', title='Display Profile', professor = current_user)
+
+
+@routes.route('/edit_profile', methods = ['GET', 'POST'])
+@login_required
+def edit_profile():
+    if current_user.user_type == "Student":
+        eform = EditStudentForm()
+        if request.method == 'POST':
+            if eform.validate_on_submit():
+                current_user.email = eform.email.data
+                current_user.set_password(eform.password.data)
+                current_user.firstname = eform.firstname.data
+                current_user.lastname = eform.lastname.data
+                current_user.wsu_id = eform.wsu_id.data
+                current_user.major = eform.major.data
+                current_user.gpa = eform.gpa.data
+                current_user.graduationDate = eform.graduationDate.data
+                current_user.interests = eform.interests.data
+                current_user.languages = eform.programming_langs.data
+                current_user.experience = eform.experience.data
+                current_user.phone = eform.phone.data
+                db.session.add(current_user)
+                db.session.commit()
+                flash("Your changes have been saved")
+                return redirect(url_for('routes.display_profile'))
+        elif request.method == 'GET':
+            eform.email.data = current_user.email
+            eform.firstname.data = current_user.firstname
+            eform.lastname.data = current_user.lastname
+            eform.wsu_id.data = current_user.wsu_id
+            eform.major.data = current_user.major
+            eform.gpa.data = current_user.gpa
+            eform.graduationDate.data = current_user.graduationDate
+            eform.interests.data = current_user.interests
+            eform.programming_langs.data = current_user.languages
+            eform.experience.data = current_user.experience
+            eform.phone.data = current_user.phone
+        return render_template('Student Pages/edit_student_profile.html', title = 'Edit Profile', form = eform)
+    elif current_user.user_type == "Professor":
+        eform = EditProfessorForm()
+        if request.method == 'POST':
+            if eform.validate_on_submit():
+                current_user.email = eform.email.data
+                current_user.set_password(eform.password.data)
+                current_user.firstname = eform.firstname.data
+                current_user.lastname = eform.lastname.data
+                current_user.wsu_id = eform.wsu_id.data
+                current_user.title = eform.title.data
+                current_user.phone = eform.phone.data
+                db.session.add(current_user)
+                db.session.commit()
+                flash("Your changes have been saved")
+                return redirect(url_for('routes.display_profile'))                
+        elif request.method == 'GET':
+            eform.firstname.data = current_user.firstname
+            eform.lastname.data = current_user.lastname
+            eform.email.data = current_user.email
+            eform.wsu_id.data = current_user.wsu_id
+            eform.title.data = current_user.title
+            eform.phone.data = current_user.phone
+        return render_template('Professor Pages/edit_professor_profile.html', title = 'Edit Profile', form = eform)           
+        

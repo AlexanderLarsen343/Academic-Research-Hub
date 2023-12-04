@@ -49,7 +49,7 @@ def register():
 def register_student():
     if current_user.is_authenticated:
         if current_user.user_type == "Student":
-            return redirect(url_for('routes.student_homepage')) # TODO: Change to actual student homepage
+            return redirect(url_for('routes.index')) # TODO: Change to actual student homepage
         elif current_user.user_type == "Professor":
             return redirect(url_for('routes.professor_homepage')) # TODO: Change to actual prof. homepage
     rform = StudentRegistrationForm()
@@ -103,6 +103,8 @@ def register_professor():
             email=rform.email.data,
             firstname=rform.firstname.data,
             lastname=rform.lastname.data,
+            phone=rform.phone.data,
+            wsu_id=rform.wsu_id.data,
             title=rform.title.data
         )
         professor.set_password(rform.password.data)

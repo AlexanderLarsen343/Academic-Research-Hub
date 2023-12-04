@@ -38,7 +38,8 @@
                     {% if current_user.is_anonymous %}
                     <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                     {% else %}
-                    <li><a href="{{ url_for('routes.index') }}">{{ current_user.firstname }} {{ current_user.lastname }}</a></li>
+                    <li {% if request.path == url_for('routes.display_profile') %}class="active"{% endif %}>
+                        <a href="{{ url_for('routes.display_profile') }}">{{ current_user.firstname }} {{ current_user.lastname }}</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                     {% endif %}
                 </ul>

@@ -146,6 +146,7 @@ class Language(db.Model):
 class Professor(User, db.Model):
     __tablename__ = 'professor'
     id = db.Column(db.ForeignKey("user.id"), primary_key=True)
+    wsu_id = db.Column(db.String(15), unique = True)
     title = db.Column(db.String(50))
     positions = db.relationship('Position', backref='professor') # Establishes one-to-many relationship between Professor and Position.
 
