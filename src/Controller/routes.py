@@ -40,6 +40,11 @@ def index():
     else:
         positions_to_show = positions
 
+    # print("\n")
+    # print(current_user.user_type, current_user.firstname)
+    # print("\n")
+
+
     if current_user.is_anonymous:
         return render_template("index.html", title="WSU Research Portal", positions=positions_to_show)
     elif current_user.user_type == "Professor":
