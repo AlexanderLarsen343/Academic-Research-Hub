@@ -13,26 +13,41 @@
                 <div class="form-group">
                     {{ form.title.label }}<br>
                     {{ form.title(class="form-control") }}
+                    {% if form.title.errors %}
+                        <p class="text-danger">{{ form.title.errors[0] }}</p>
+                    {% endif %}
                 </div>
 
                 <div class="form-group">
                     {{ form.description.label }}<br>
                     {{ form.description(class="form-control", rows=5) }}
+                    {% if form.description.errors %}
+                        <p class="text-danger">{{ form.description.errors[0] }}</p>
+                    {% endif %}
                 </div>
 
                 <div class="form-group">
                     {{ form.start_date.label }}<br>
                     {{ form.start_date(class="form-control") }}
+                    {% if form.start_date.errors %}
+                        <p class="text-danger">{{ form.start_date.errors[0] }}</p>
+                    {% endif %}
                 </div>
 
                 <div class="form-group">
                     {{ form.end_date.label }}<br>
                     {{ form.end_date(class="form-control") }}
+                    {% if form.end_date.errors %}
+                        <p class="text-danger">{{ form.end_date.errors[0] }}</p>
+                    {% endif %}
                 </div>
 
                 <div class="form-group">
                     {{ form.workload.label }}<br>
                     {{ form.workload(class="form-control") }}
+                    {% if form.workload.errors %}
+                        <p class="text-danger">{{ form.workload.errors[0] }}</p>
+                    {% endif %}
                 </div>
 
                 <div class="row"> <!-- Create a new row for side-by-side fields -->
