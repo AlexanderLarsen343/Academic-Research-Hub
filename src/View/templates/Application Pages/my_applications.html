@@ -1,11 +1,31 @@
 {% extends "base.html" %}
 {% block app_content %}
-<div>
-    {% for application in applications %}
-    <div>
-        {% include 'Application Pages/_application.html' %}
-    </div>
-    {% endfor %}
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Position Title</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+                <tr>
+                    {% with position = applications[application] %}
+                        <td><strong>{{ position.title }}</strong></td>
+                        <td>{{ application.status }}</td>
+                        <td>
+                            {% if application.status == "In Review" %}
+                                <a href="{{ url_for('routes.application_deletion', application_id=application.id) }}" class="btn btn-danger text-center">Withdraw</a>
+                            {% else %}
+                                <div class="btn btn-secondary text-center disabled" aria-disabled="true">N/A</div>
+                            {% endif %}
+                        </td>
+                    {% endwith %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
-
 {% endblock %}
