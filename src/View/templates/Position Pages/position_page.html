@@ -3,52 +3,47 @@
 {% block app_content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='classes.css') }}">
 
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 title-text">
-            {{ position.title }}
+            <strong>{{ position.title }}</strong>
         </div>
     </div>
     <div class="row">
         <hr>
         <div class="col-md-12 description-text">
-            Job Description <br><br>
+            <strong>Job Description</strong> <br><br>
             {{ position.description }}
         </div>
     </div>
     <div class="row">
         <hr>
         <div class="col-md-6 description-text">
-            Required Languages<br><br>
-            <ul>
-                {% for language in position.languages %}
-                    <li>{{ language.name }}</li>
-                {% endfor %}
-            </ul>
+            <strong>Required Languages</strong><br><br>
+            {% for language in position.languages %}
+                {{ language.name }}<br>
+            {% endfor %}
         </div>
         <div class="col-md-6 description-text">
-            Research Fields <br> <br>
-            <ul>
-                {% for research_field in position.research_fields %}
-                    <li>{{ research_field.name }}</li>
-                {% endfor %}
-            </ul>
+            <strong>Research Fields</strong> <br> <br>
+            {% for research_field in position.research_fields %}
+                {{ research_field.name }}<br>
+            {% endfor %}
         </div>
     </div>
     <div class="row">
         <hr>
-        <div class = "col-md-3 description-text">
-            Start Date: {{position.start_date}}
+        <div class="col-md-3 description-text">
+            <strong>Start Date:</strong> {{ position.start_date }}
         </div>
-        <div class = "col-md-3 description-text">
-            End Date: {{position.end_date}}
+        <div class="col-md-3 description-text">
+            <strong>End Date:</strong> {{ position.end_date }}
         </div>
-        <div class = "col-md-3 description-text">
-            Hours per Week: {{position.work_load}}
+        <div class="col-md-3 description-text">
+            <strong>Hours per Week:</strong> {{ position.work_load }}
         </div>
-        <div class = "col-md-3 description-text">
-            Number of Candidates: {{position.candidates}}
+        <div class="col-md-3 description-text">
+            <strong>Number of Candidates:</strong> {{ position.candidates }}
         </div>
         <hr>
     </div>
