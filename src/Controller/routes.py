@@ -11,18 +11,14 @@ routes = Blueprint("routes", __name__)
 
 @routes.route("/", methods=['GET', 'POST'])
 def index():
-    positions = Position.query.filter_by(accepting_applications=True).all()
-
-    # print("\n")
-    # print(current_user.user_type, current_user.firstname)
-    # print("\n")
-
-
     if current_user.is_anonymous:
+        positions = Position.query.filter_by(accepting_applications=True).all()
         return render_template("index.html", title="WSU Research Portal", positions=positions)
     elif current_user.user_type == "Professor":
+        positions = Position.query.filter_by(accepting_applications=True, professor_id=current_user.id).all()
         return render_template("/Professor Pages/professor_index.html", title="WSU Research Portal", positions=positions)
     elif current_user.user_type == "Student":
+        positions = Position.query.filter_by(accepting_applications=True).all()
         positions_to_show = []
         student_languages = current_user.get_languages().all()
         student_interests = current_user.get_interests().all()
